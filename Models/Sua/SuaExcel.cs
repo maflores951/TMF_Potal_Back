@@ -1,8 +1,10 @@
 ﻿using LoginBase.Models.Empleado;
 using LoginBase.Models.Excel;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -21,6 +23,8 @@ namespace LoginBase.Models.Sua
 
         public int ConfiguracionSuaNivelId { get; set; }
 
+        [NotMapped]
+        [JsonIgnore]
         public  ConfiguracionSuaNivel ConfiguracionSuaNivel { get; set; }
 
         public  List<EmpleadoColumna> EmpleadoColumna { get; set; }

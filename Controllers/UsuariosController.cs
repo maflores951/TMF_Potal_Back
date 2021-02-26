@@ -53,7 +53,7 @@ namespace LoginBase.Controllers
                     Email = usuario.Email,
                     ImagePath = usuario.ImagePath,
                     RolId = usuario.RolId,
-                    Rol = usuario.Rol
+                    Rol = rol//usuario.Rol
                 });
                 }
             }

@@ -38,7 +38,7 @@ namespace LoginBase
                 options.AddPolicy(name: MiCors,
                                   builder =>
                                   {
-                                      builder.WithOrigins("*")
+                                      builder.WithOrigins("*","http://localhost:4200")
                                       .AllowAnyHeader()
                                       .AllowAnyMethod();
                                   });
@@ -75,6 +75,9 @@ namespace LoginBase
 
 
             services.AddScoped<IUserService, UserService>();
+
+            services.AddControllers().AddNewtonsoftJson(options =>
+            options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

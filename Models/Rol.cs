@@ -23,7 +23,12 @@ namespace LoginBase.Models
         public bool? RolEstatus { get; set; }
 
         [JsonIgnore]
-        //[NotMapped]
-        public virtual ICollection<Usuario> Usuarios { get; set; }
+        [NotMapped]
+        public virtual List<Usuario> Usuarios { get; set; }
+
+        public Rol()
+        {
+            this.Usuarios = new List<Usuario>();
+        }
     }
 }

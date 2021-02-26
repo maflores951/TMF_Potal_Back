@@ -25,7 +25,7 @@ namespace LoginBase.Controllers
         public IActionResult Add(ConfiguracionSua model)
         {
             Respuesta respuesta = new Respuesta();
-
+            var id = model.ConfiguracionSuaId;
             try
             {
                 using (DataContext db = _context)
@@ -34,16 +34,21 @@ namespace LoginBase.Controllers
                     {
                         try
                         {
-                            var configuracionSua = new ConfiguracionSua();
-                            configuracionSua.ConfSuaNombre = model.ConfSuaNombre;
-                            configuracionSua.ConfSuaEstatus = model.ConfSuaEstatus;
-                            db.ConfiguracionSuas.Add(configuracionSua);
-                            db.SaveChanges();
+                            if (id <= 0)
+                            {
+                                var configuracionSua = new ConfiguracionSua();
+                                configuracionSua.ConfSuaNombre = model.ConfSuaNombre;
+                                configuracionSua.ConfSuaEstatus = model.ConfSuaEstatus;
+                                db.ConfiguracionSuas.Add(configuracionSua);
+                                db.SaveChanges();
+                                id = configuracionSua.ConfiguracionSuaId;
+                            }
+                           
 
                             foreach (var modelConfiguracionSuaNivel in model.ConfiguracionSuaNivel)
                             {
                                 var configuracionSuaNivel = new ConfiguracionSuaNivel();
-                                configuracionSuaNivel.ConfiguracionSuaId = configuracionSua.ConfiguracionSuaId;
+                                configuracionSuaNivel.ConfiguracionSuaId = id;//configuracionSua.ConfiguracionSuaId;
                                 configuracionSuaNivel.ConfSuaNNombre = modelConfiguracionSuaNivel.ConfSuaNNombre;
                                 db.ConfiguracionSuaNiveles.Add(configuracionSuaNivel);
                                 db.SaveChanges();
