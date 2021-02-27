@@ -1,5 +1,6 @@
 ﻿using LoginBase.Models.Empleado;
 using LoginBase.Models.Sua;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -15,12 +16,15 @@ namespace LoginBase.Models.Excel
 
         public string ExcelColumnaNombre { get; set; }
 
+        public string ExcelTipoId { get; set; }
+        //[JsonIgnore]
+        //public ExcelTipo ExcelTipo { get; set; }
 
-        public  List<SuaExcel> SuaExcel { get; set; }
+        //public  List<SuaExcel> SuaExcel { get; set; }
 
-        public ExcelColumna()
-        {
-            this.SuaExcel = new List<SuaExcel>();
-        }
+        //public ExcelColumna()
+        //{
+        //    this.SuaExcel = new List<SuaExcel>();
+        //}
     }
 }
