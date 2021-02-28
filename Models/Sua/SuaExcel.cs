@@ -20,7 +20,13 @@ namespace LoginBase.Models.Sua
         public int ExcelColumnaId { get; set; }
 
         public  ExcelColumna ExcelColumna { get; set; }
-
+        [NotMapped]
+        //[JsonIgnore]
+        public int ExcelTipoId { get; set; }
+        [NotMapped]
+        //[JsonIgnore]
+        public ExcelTipo ExcelTipo { get; set; }
+        
         public int ConfiguracionSuaNivelId { get; set; }
 
         [NotMapped]

@@ -16,15 +16,15 @@ namespace LoginBase.Models.Excel
 
         public string ExcelColumnaNombre { get; set; }
 
-        public string ExcelTipoId { get; set; }
-        //[JsonIgnore]
-        //public ExcelTipo ExcelTipo { get; set; }
+        public int ExcelTipoId { get; set; }
+        [JsonIgnore]
+        public ExcelTipo ExcelTipo { get; set; }
+        [JsonIgnore]
+        public List<SuaExcel> SuaExcel { get; set; }
 
-        //public  List<SuaExcel> SuaExcel { get; set; }
-
-        //public ExcelColumna()
-        //{
-        //    this.SuaExcel = new List<SuaExcel>();
-        //}
+        public ExcelColumna()
+        {
+            this.SuaExcel = new List<SuaExcel>();
+        }
     }
 }

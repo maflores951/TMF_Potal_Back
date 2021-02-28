@@ -342,3 +342,4 @@ C:\Users\Fintech\source\repos\tmf_groupback\obj\Debug\netcoreapp3.1\staticwebass
 C:\Users\Fintech\source\repos\tmf_groupback\obj\Debug\netcoreapp3.1\LoginBase.dll
 C:\Users\Fintech\source\repos\tmf_groupback\obj\Debug\netcoreapp3.1\LoginBase.pdb
 C:\Users\Fintech\source\repos\tmf_groupback\obj\Debug\netcoreapp3.1\LoginBase.genruntimeconfig.cache
+C:\Users\Fintech\source\repos\tmf_groupback\obj\Debug\netcoreapp3.1\LoginBase.csprojAssemblyReference.cache

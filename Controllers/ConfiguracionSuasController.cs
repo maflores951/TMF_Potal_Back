@@ -42,16 +42,26 @@ namespace LoginBase.Controllers
 
                     var suaNivel = new List<ConfiguracionSuaNivel>();
 
-                    
+
                     foreach (var modelConfiguracionSuaNivel in modelConfiguracionSuaNiveles)
                     {
                         var suaExcel = await _context.SuaExcels.Where(d => d.ConfiguracionSuaNivelId == modelConfiguracionSuaNivel.ConfiguracionSuaNivelId).ToListAsync();
+
+                        foreach (var itemSua in suaExcel)
+                        {
+                            var excelTipo = await _context.ExcelTipos.Where(d => d.ExcelTipoId == itemSua.TipoPeriodoId).FirstOrDefaultAsync();
+
+                            var excelColumna = await _context.ExcelColumnas.Where(d => d.ExcelColumnaId == itemSua.ExcelColumnaId).FirstOrDefaultAsync();
+                            itemSua.ExcelTipo = excelTipo;
+                            itemSua.ExcelColumna = excelColumna;
+                        }
+                       
 
                         suaNivel.Add(new ConfiguracionSuaNivel{
                             ConfiguracionSuaId = modelConfiguracionSuaNivel.ConfiguracionSuaId,
                             ConfiguracionSuaNivelId = modelConfiguracionSuaNivel.ConfiguracionSuaNivelId,
                             ConfSuaNNombre = modelConfiguracionSuaNivel.ConfSuaNNombre,
-                            SuaExcel = suaExcel
+                            SuaExcel = suaExcel,
                         });
                     }
 
