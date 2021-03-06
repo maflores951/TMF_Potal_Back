@@ -333,8 +333,6 @@ C:\Users\Fintech\source\repos\tmf_groupback\bin\Debug\netcoreapp3.1\runtimes\win
 C:\Users\Fintech\source\repos\tmf_groupback\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\Fintech\source\repos\tmf_groupback\obj\Debug\netcoreapp3.1\LoginBase.AssemblyInfoInputs.cache
 C:\Users\Fintech\source\repos\tmf_groupback\obj\Debug\netcoreapp3.1\LoginBase.AssemblyInfo.cs
-C:\Users\Fintech\source\repos\tmf_groupback\obj\Debug\netcoreapp3.1\LoginBase.csproj.CoreCompileInputs.cache
-C:\Users\Fintech\source\repos\tmf_groupback\obj\Debug\netcoreapp3.1\LoginBase.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\Fintech\source\repos\tmf_groupback\obj\Debug\netcoreapp3.1\LoginBase.RazorTargetAssemblyInfo.cache
 C:\Users\Fintech\source\repos\tmf_groupback\obj\Debug\netcoreapp3.1\LoginBase.csproj.CopyComplete
 C:\Users\Fintech\source\repos\tmf_groupback\obj\Debug\netcoreapp3.1\staticwebassets\LoginBase.StaticWebAssets.Manifest.cache
@@ -343,3 +341,7 @@ C:\Users\Fintech\source\repos\tmf_groupback\obj\Debug\netcoreapp3.1\LoginBase.dl
 C:\Users\Fintech\source\repos\tmf_groupback\obj\Debug\netcoreapp3.1\LoginBase.pdb
 C:\Users\Fintech\source\repos\tmf_groupback\obj\Debug\netcoreapp3.1\LoginBase.genruntimeconfig.cache
 C:\Users\Fintech\source\repos\tmf_groupback\obj\Debug\netcoreapp3.1\LoginBase.csprojAssemblyReference.cache
+C:\Users\Fintech\source\repos\tmf_groupback\bin\Debug\netcoreapp3.1\EPPlus.dll
+C:\Users\Fintech\source\repos\tmf_groupback\bin\Debug\netcoreapp3.1\System.Xml.XPath.XmlDocument.dll
+C:\Users\Fintech\source\repos\tmf_groupback\obj\Debug\netcoreapp3.1\LoginBase.csproj.CoreCompileInputs.cache
+C:\Users\Fintech\source\repos\tmf_groupback\obj\Debug\netcoreapp3.1\LoginBase.MvcApplicationPartsAssemblyInfo.cache

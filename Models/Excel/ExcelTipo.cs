@@ -15,6 +15,8 @@ namespace LoginBase.Models.Excel
 
         public string ExcelTipoDescripcion { get; set; }
 
+        public int ExcelTipoPeriodo { get; set; }
+
         public  List<ExcelColumna> ExcelColumna { get; set; }
 
         public ExcelTipo()

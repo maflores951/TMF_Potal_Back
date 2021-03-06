@@ -17,8 +17,11 @@ namespace LoginBase.Models.Excel
         public string ExcelColumnaNombre { get; set; }
 
         public int ExcelTipoId { get; set; }
+
+        public int ExcelPosicion { get; set; }
         [JsonIgnore]
         public ExcelTipo ExcelTipo { get; set; }
+
         [JsonIgnore]
         public List<SuaExcel> SuaExcel { get; set; }
 

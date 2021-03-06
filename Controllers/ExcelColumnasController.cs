@@ -80,6 +80,15 @@ namespace LoginBase.Controllers
         [HttpPost]
         public async Task<ActionResult<ExcelColumna>> PostExcelColumna(ExcelColumna excelColumna)
         {
+            var excelColumnaModel = await _context.ExcelColumnas.
+               Where(u => u.ExcelColumnaNombre.ToLower() == excelColumna.ExcelColumnaNombre.ToLower() && u.ExcelTipoId == excelColumna.ExcelTipoId).
+               FirstOrDefaultAsync();
+
+            if (excelColumnaModel != null)
+            {
+                return BadRequest("La columna ya esta registrada");
+            }
+
             _context.ExcelColumnas.Add(excelColumna);
             await _context.SaveChangesAsync();
 

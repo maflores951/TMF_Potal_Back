@@ -30,7 +30,7 @@ namespace LoginBase.Models
 
         public DbSet<EmpleadoColumna> EmpleadoColumnas { get; set; }
 
-        public DbSet<EmpleadoColumnaV> EmpleadoColumnaV { get; set; }
+        //public DbSet<EmpleadoColumnaV> EmpleadoColumnaV { get; set; }
 
         public DbSet<ExcelColumna> ExcelColumnas { get; set; }
 
