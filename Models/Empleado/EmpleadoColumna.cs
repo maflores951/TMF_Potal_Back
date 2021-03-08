@@ -31,6 +31,9 @@ namespace LoginBase.Models.Empleado
         [NotMapped]
         public int ConfiguracionSuaId { get; set; }
 
+        [NotMapped]
+        public int ExcelTipoId { get; set; }
+
         //public  List<EmpleadoColumnaV> EmpleadoColumnaV { get; set; }
 
         //public EmpleadoColumna()

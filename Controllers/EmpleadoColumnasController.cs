@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using LoginBase.Models;
 using LoginBase.Models.Empleado;
+using LoginBase.Models.Response;
 
 namespace LoginBase.Controllers
 {
@@ -78,33 +79,71 @@ namespace LoginBase.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<EmpleadoColumna>> PostEmpleadoColumna(EmpleadoColumna empleadoColumna)
+        public async Task<ActionResult<EmpleadoColumna>> PostEmpleadoColumna(List<EmpleadoColumna> empleadoColumnas)
         {
-            //var excelColumnaModel = await _context.ExcelColumnas.
-            //   Where(u => u.ExcelColumnaNombre.ToLower() == empleadoColumna.ExcelColumnaNombre.ToLower()).
-            //   FirstOrDefaultAsync();
+            Respuesta respuesta = new Respuesta();
+           
+            try
+            {
+                using (DataContext db = _context)
+                {
+                    using (var transaction = db.Database.BeginTransaction())
+                    {
+                        try
+                        {
+                            
 
-            //if (excelColumnaModel == null)
-            //{
-            //    return BadRequest("No existe la columna en ninguna configuración.");
-            //}
+                            foreach (var empleadoColumna in empleadoColumnas)
+                            {
 
-            //var suaExcelModel = await _context.SuaExcels.
-            //   Where(u => u.ExcelColumnaId == excelColumnaModel.ExcelColumnaId && u.ConfiguracionSuaNivel.ConfiguracionSuaId == empleadoColumna.ConfiguracionSuaId).
-            //   FirstOrDefaultAsync();
+                                //var excelColumnaModel = await _context.ExcelColumnas.
+                                //   Where(u => u.ExcelColumnaNombre.ToLower() == empleadoColumna.ExcelColumnaNombre.ToLower() && u.ExcelTipoId == empleadoColumna.ExcelTipoId).
+                                //   FirstOrDefaultAsync();
 
-            //if (suaExcelModel == null)
-            //{
-            //    return BadRequest("No existe la columna en ninguna configuración.");
-            //}
+                                //if (excelColumnaModel == null)
+                                //{
+                                //    return BadRequest("No existe la columna en ninguna configuración.");
+                                //}
 
+                                //var suaExcelModel = await _context.SuaExcels.
+                                //   Where(u => u.ExcelColumnaId == excelColumnaModel.ExcelColumnaId && u.ConfiguracionSuaNivel.ConfiguracionSuaId == empleadoColumna.ConfiguracionSuaId).
+                                //   FirstOrDefaultAsync();
 
-            empleadoColumna.SuaExcelId = 80;//suaExcelModel.SuaExcelId;
+                                //if (suaExcelModel == null)
+                                //{
+                                //    return BadRequest("No existe la columna en ninguna configuración.");
+                                //}
 
-            _context.EmpleadoColumnas.Add(empleadoColumna);
-            await _context.SaveChangesAsync();
+                                empleadoColumna.SuaExcelId = 80;//suaExcelModel.SuaExcelId;
 
-            return CreatedAtAction("GetEmpleadoColumna", new { id = empleadoColumna.EmpleadoColumnaId }, empleadoColumna);
+                                _context.EmpleadoColumnas.Add(empleadoColumna);
+                               
+
+                                //CreatedAtAction("GetEmpleadoColumna", new { id = empleadoColumna.EmpleadoColumnaId }, empleadoColumna);
+                            }
+                        await _context.SaveChangesAsync();
+                        transaction.Commit();
+                        respuesta.Exito = 1;
+                        }
+                        catch (Exception)
+                    {
+                        respuesta.Mensaje = "Error";
+                        respuesta.Exito = 0;
+                        transaction.Rollback();
+                    }
+
+                }
+
+                }
+            }
+            catch (Exception ex)
+            {
+
+                respuesta.Mensaje = ex.Message;
+                respuesta.Exito = 0;
+            }
+
+            return Ok(respuesta);
         }
 
         // DELETE: api/EmpleadoColumnas/5
