@@ -1,4 +1,5 @@
-﻿using LoginBase.Models.Sua;
+﻿using LoginBase.Models.Excel;
+using LoginBase.Models.Sua;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -19,17 +20,25 @@ namespace LoginBase.Models.Empleado
 
         public int EmpleadoColumnaAnio { get; set; }
 
-        public int SuaExcelId { get; set; }
+        //public int SuaExcelId { get; set; }
+
+        public int ConfiguracionSuaId { get; set; }
 
         public string EmpleadoColumnaValor { get; set; }
 
-        public  SuaExcel SuaExcel { get; set; }
+        //public  SuaExcel SuaExcel { get; set; }
+
+        public ConfiguracionSua ConfiguracionSua { get; set; }
+
+        public int ExcelColumnaId { get; set; }
+
+        public ExcelColumna ExcelColumna { get; set; }
 
         [NotMapped]
         public string ExcelColumnaNombre { get; set; }
 
-        [NotMapped]
-        public int ConfiguracionSuaId { get; set; }
+        //[NotMapped]
+        //public int ConfiguracionSuaId { get; set; }
 
         [NotMapped]
         public int ExcelTipoId { get; set; }

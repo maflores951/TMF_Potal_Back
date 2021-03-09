@@ -82,7 +82,7 @@ namespace LoginBase.Controllers
         public async Task<ActionResult<EmpleadoColumna>> PostEmpleadoColumna(List<EmpleadoColumna> empleadoColumnas)
         {
             Respuesta respuesta = new Respuesta();
-           
+
             try
             {
                 using (DataContext db = _context)
@@ -91,48 +91,84 @@ namespace LoginBase.Controllers
                     {
                         try
                         {
-                            
 
                             foreach (var empleadoColumna in empleadoColumnas)
                             {
-
-                                //var excelColumnaModel = await _context.ExcelColumnas.
-                                //   Where(u => u.ExcelColumnaNombre.ToLower() == empleadoColumna.ExcelColumnaNombre.ToLower() && u.ExcelTipoId == empleadoColumna.ExcelTipoId).
-                                //   FirstOrDefaultAsync();
-
-                                //if (excelColumnaModel == null)
+                                var bandera = true;
+                                //if(empleadoColumna != null)
                                 //{
-                                //    return BadRequest("No existe la columna en ninguna configuración.");
+                                var excelColumnaModel = await _context.ExcelColumnas.
+                                                                   Where(u => u.ExcelColumnaNombre == empleadoColumna.ExcelColumnaNombre && u.ExcelTipoId == empleadoColumna.ExcelTipoId).
+                                                                   FirstOrDefaultAsync();
+
+                                if (excelColumnaModel == null)
+                                {
+                                    //return BadRequest("No existe la columna: " + empleadoColumna.ExcelColumnaNombre + "en ninguna configuración.");
+                                    bandera = false;
+                                }
+
+                                //if (bandera == true)
+                                //{
+                                //    var suaExcelModels = await _context.SuaExcels.
+                                //                                       Where(u => u.ExcelColumnaId == excelColumnaModel.ExcelColumnaId).ToListAsync();
+
+                                //    if (suaExcelModels == null)
+                                //    {
+                                //        //return BadRequest("No existe la columna en ninguna configuración.");
+                                //        bandera = false;
+                                //    }
+
+
+                                //    foreach (var suaExcelModel in suaExcelModels)
+                                //    {
+                                //        var configuracionSuaNivelModel = await _context.ConfiguracionSuaNiveles.
+                                //                                           Where(u => u.ConfiguracionSuaNivelId == suaExcelModel.ConfiguracionSuaNivelId && u.ConfiguracionSuaId == empleadoColumna.ConfiguracionSuaId).FirstOrDefaultAsync();
+
+                                //        if (configuracionSuaNivelModel.ConfiguracionSuaId > 0)
+                                //        {
+                                //            //return BadRequest("No existe la columna en ninguna configuración.");
+                                //            bandera = true;
+
+                                //        }
+                                //        else
+                                //        {
+                                //            bandera = false;
+                                //        }
+                                //    }
                                 //}
 
-                                //var suaExcelModel = await _context.SuaExcels.
-                                //   Where(u => u.ExcelColumnaId == excelColumnaModel.ExcelColumnaId && u.ConfiguracionSuaNivel.ConfiguracionSuaId == empleadoColumna.ConfiguracionSuaId).
-                                //   FirstOrDefaultAsync();
 
-                                //if (suaExcelModel == null)
+
+
+
+                                ////empleadoColumna.ConfiguracionSuaId = empleadoColumna.ConfiguracionSuaId;
+                                //if (bandera == true)
                                 //{
-                                //    return BadRequest("No existe la columna en ninguna configuración.");
+
+                                empleadoColumna.ExcelColumnaId = excelColumnaModel.ExcelColumnaId;
+                                        _context.EmpleadoColumnas.Add(empleadoColumna);
+                                        //await _context.SaveChangesAsync();
+                                        //transaction.Commit();
+                                    //}
                                 //}
+                                
 
-                                empleadoColumna.SuaExcelId = 80;//suaExcelModel.SuaExcelId;
 
-                                _context.EmpleadoColumnas.Add(empleadoColumna);
-                               
 
                                 //CreatedAtAction("GetEmpleadoColumna", new { id = empleadoColumna.EmpleadoColumnaId }, empleadoColumna);
                             }
-                        await _context.SaveChangesAsync();
-                        transaction.Commit();
-                        respuesta.Exito = 1;
+                            await _context.SaveChangesAsync();
+                            transaction.Commit();
+                            respuesta.Exito = 1;
                         }
                         catch (Exception)
-                    {
-                        respuesta.Mensaje = "Error";
-                        respuesta.Exito = 0;
-                        transaction.Rollback();
-                    }
+                        {
+                            respuesta.Mensaje = "Error";
+                            respuesta.Exito = 0;
+                            transaction.Rollback();
+                        }
 
-                }
+                    }
 
                 }
             }

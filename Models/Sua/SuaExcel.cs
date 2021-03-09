@@ -30,14 +30,13 @@ namespace LoginBase.Models.Sua
         public int ConfiguracionSuaNivelId { get; set; }
 
         [NotMapped]
-        [JsonIgnore]
         public  ConfiguracionSuaNivel ConfiguracionSuaNivel { get; set; }
 
-        public  List<EmpleadoColumna> EmpleadoColumna { get; set; }
+        //public  List<EmpleadoColumna> EmpleadoColumna { get; set; }
 
         public SuaExcel()
         {
-            this.EmpleadoColumna = new List<EmpleadoColumna>();
+            //this.EmpleadoColumna = new List<EmpleadoColumna>();
         }
     }
 }
