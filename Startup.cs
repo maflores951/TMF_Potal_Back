@@ -76,6 +76,8 @@ namespace LoginBase
 
             services.AddScoped<IUserService, UserService>();
 
+            services.AddScoped<IComparativoEspecial, ComparativoEspecial>();
+
             services.AddControllers().AddNewtonsoftJson(options =>
             options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
         }

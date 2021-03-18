@@ -7,6 +7,7 @@ using LoginBase.Models;
 using LoginBase.Models.Empleado;
 using LoginBase.Models.Response;
 using LoginBase.Models.Sua;
+using LoginBase.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -20,10 +21,12 @@ namespace LoginBase.Controllers
     public class SuaController : ControllerBase
     {
         private readonly DataContext _context;
+        private IComparativoEspecial _comparativoEspecial;
 
-        public SuaController(DataContext context)
+        public SuaController(DataContext context, IComparativoEspecial comparativoEspecial)
         {
             _context = context;
+            _comparativoEspecial = comparativoEspecial;
         }
 
         [HttpPost]
@@ -161,6 +164,11 @@ namespace LoginBase.Controllers
                         string valorSua = null;
                         string valorEma = null;
 
+                        decimal valorTemMInt = 0;
+                        decimal valorSuaInt = 0;
+                        decimal valorEmaInt = 0;
+                        var result = false;
+
                         int excelPosicionTem = 0;
                         int excelPosicionSua = 0;
                         int excelPosicionEma = 0;
@@ -173,123 +181,240 @@ namespace LoginBase.Controllers
                         var suaExcels = await _context.SuaExcels.
                    Where(u => u.ConfiguracionSuaNivelId == configuracionSuaNivel.ConfiguracionSuaNivelId).
                    ToListAsync();
-
+                        
                         foreach (var suaExcel in suaExcels)
                         {
 
                             //Numero de empleado
 
-                             valorEmpleado = empleadoColumnas.Where(x => suaExcel.ExcelColumnaId == x.ExcelColumnaId && x.EmpleadoColumnaNo == empleadoColumna.Key).FirstOrDefault();
-                        //if (empleadoColumna.ExcelColumnaId == suaExcel.ExcelColumnaId)
-                        //    {
+                            //valorEmpleado = empleadoColumnas.Where(x => suaExcel.ExcelColumnaId == x.ExcelColumnaId && x.EmpleadoColumnaNo == empleadoColumna.Key).FirstOrDefault();
 
-                            if (valorEmpleado != null)
+                            var valoresEmpleado = empleadoColumnas.Where(x => suaExcel.ExcelColumnaId == x.ExcelColumnaId && x.EmpleadoColumnaNo == empleadoColumna.Key).ToList();
+                            //if (empleadoColumna.ExcelColumnaId == suaExcel.ExcelColumnaId)
+                            //    {
+
+                            if (valoresEmpleado != null)
                             {
-
-                            
-                                suaExcel.ExcelColumna = _context.ExcelColumnas.Where(x => suaExcel.ExcelColumnaId == x.ExcelColumnaId).FirstOrDefault();
-
-                                int caseSwitch = suaExcel.ExcelColumna.ExcelTipoId;
-                                 valor = valorEmpleado.EmpleadoColumnaValor;
-                               
-                                empleadoValor = valorEmpleado.EmpleadoColumnaNo;
-                                switch (caseSwitch)
+                                foreach (var valorEmp in valoresEmpleado)
                                 {
-                                    case 2:
-                                        Console.WriteLine("Case 2");
-                                        valorTemM = valor;
-                                        excelPosicionTem = suaExcel.ExcelColumna.ExcelPosicion + 1;
-                                        break;
-                                    case 3:
-                                        Console.WriteLine("Case 3");
-                                        valorTemM = valor;
-                                        excelPosicionTem = suaExcel.ExcelColumna.ExcelPosicion + 1;
-                                        break;
-                                    case 4:
-                                        Console.WriteLine("Case 4");
-                                        valorSua = valor;
-                                        excelPosicionSua= suaExcel.ExcelColumna.ExcelPosicion + 1;
-                                        break;
-                                    case 5:
-                                        Console.WriteLine("Case 5");
-                                        valorEma = valor;
-                                        excelPosicionEma = suaExcel.ExcelColumna.ExcelPosicion + 1;
-                                        break;
-                                    case 6:
-                                        Console.WriteLine("Case 6");
-                                        valorEma = valor;
-                                        excelPosicionEma = suaExcel.ExcelColumna.ExcelPosicion + 1;
-                                        break;
+                                    valorEmpleado = valorEmp;
+                                    suaExcel.ExcelColumna = _context.ExcelColumnas.Where(x => suaExcel.ExcelColumnaId == x.ExcelColumnaId).FirstOrDefault();
 
-                                    default:
-                                        Console.WriteLine("Default case");
-                                        break;
+                                    //var columnas = _context.ExcelColumnas.Where(x => suaExcel.ExcelColumnaId == x.ExcelColumnaId).ToListAsync();
+
+                                    int caseSwitch = suaExcel.ExcelColumna.ExcelTipoId;
+                                    valor = valorEmpleado.EmpleadoColumnaValor.Trim();
+
+                                    empleadoValor = valorEmpleado.EmpleadoColumnaNo.Trim();
+                                    decimal valorInt = 0;
+
+                                    //if ()
+                                    //{
+
+                                    //}
+                                    //else
+                                    //{
+
+                                    //}
+                                    switch (caseSwitch)
+                                    {
+                                        case 2:
+                                            result = decimal.TryParse(valor, out valorInt); //i now = 108  
+                                            if (result)
+                                            {
+
+                                                valorTemMInt += valorInt;
+                                            }
+                                            else
+                                            {
+                                                valorTemM += valor + " ";
+                                            }
+
+                                            excelPosicionTem = suaExcel.ExcelColumna.ExcelPosicion + 1;
+                                            break;
+                                        case 3:
+                                            result = decimal.TryParse(valor, out valorInt); //i now = 108  
+                                            if (result)
+                                            {
+                                                valorTemMInt += valorInt;
+                                            }
+                                            else
+                                            {
+                                                valorTemM += valor + " ";
+                                            }
+
+                                            excelPosicionTem = suaExcel.ExcelColumna.ExcelPosicion + 1;
+                                            break;
+                                        case 4:
+                                            result = decimal.TryParse(valor, out valorInt); //i now = 108  
+                                            if (result)
+                                            {
+                                                valorSuaInt += valorInt;
+                                            }
+                                            else
+                                            {
+                                                valorSua += valor + " ";
+                                            }
+
+
+
+                                            excelPosicionSua = suaExcel.ExcelColumna.ExcelPosicion + 1;
+                                            break;
+                                        case 5:
+                                            result = decimal.TryParse(valor, out valorInt); //i now = 108  
+                                            if (result)
+                                            {
+                                                valorEmaInt += valorInt;
+                                            }
+                                            else
+                                            {
+                                                valorEma += valor + " ";
+                                            }
+
+
+                                            excelPosicionEma = suaExcel.ExcelColumna.ExcelPosicion + 1;
+                                            break;
+                                        case 6:
+                                            result = decimal.TryParse(valor, out valorInt); //i now = 108  
+                                            if (result)
+                                            {
+                                                valorEmaInt += valorInt;
+                                            }
+                                            else
+                                            {
+                                                valorEma += valor + " ";
+                                            }
+                                            excelPosicionEma = suaExcel.ExcelColumna.ExcelPosicion + 1;
+                                            break;
+
+                                        default:
+                                            Console.WriteLine("Default case");
+                                            break;
+                                    }
                                 }
                             }
                         }
 
                         //}
+                        if (excelPosicionTem > 0)
+                        {
+                            if (result)
+                            {
+                                valorTemM = valorTemMInt.ToString().Trim();
+                            }
+                            else
+                            {
+                                if (valorTemM.IndexOf("$") > 0)
+                                {
+                                    valorTemM = valorTemM.Replace("$", " ").Trim();
+                                }
+                                
+                            }
+                        }
 
-                        var prueba = String.Equals(valorTemM, valorSua);
-                        var pruebas = String.Equals(valorTemM, valorEma);
-                        var pruebae = String.Equals(valorSua, valorEma);
-                        var estatusConparacion = false;
+                        if (excelPosicionSua > 0)
+                        {
+                            if (result)
+                            {
+                                valorSua = valorSuaInt.ToString();
+                            }
+                            else
+                            {
+                                if (valorSua.IndexOf("$") > 0)
+                                {
+                                    valorSua = valorSua.Replace("$", " ").Trim();
+                                }
+                            }
+                        }
+
+                        if (excelPosicionEma > 0)
+                        {
+                            if (result)
+                            {
+                                valorEma = valorEmaInt.ToString();
+                            }
+                            else
+                            {
+                                if (valorEma.IndexOf("$") > 0)
+                                {
+                                    valorEma = valorEma.Replace("$", " ").Trim();
+                                }
+                            }
+                        }
+
+
+
+                        //var prueba = String.Equals(valorTemM.Trim(), valorSua.Trim());
+                        //var pruebas = String.Equals(valorTemM.Trim(), valorEma.Trim());
+                        //var pruebae = String.Equals(valorSua.Trim(), valorEma.Trim());
+                        var estatusComparacion = false;
                         if (valorTemM != null && valorSua != null)
                         {
-                            if (String.Equals(valorTemM, valorSua))
+                            if (String.Equals(valorTemM.Trim(), valorSua.Trim()))
                             {
                                 if (valorEma != null)
                                 {
-                                    if (String.Equals(valorTemM, valorEma))
+                                    if (String.Equals(valorTemM.Trim(), valorEma.Trim()))
                                     {
-                                        estatusConparacion = true;
+                                        estatusComparacion = true;
                                     }
                                     else
                                     {
-                                        estatusConparacion = false;
+                                        estatusComparacion = false;
                                     }
                                 }
                                 else
                                 {
-                                    estatusConparacion = true;
+                                    estatusComparacion = true;
                                 }
                             }
                             else
                             {
-                                estatusConparacion = false;
+                                estatusComparacion = false;
                             }
                         }
                         else
                         {
                             if (valorTemM != null && valorEma != null)
                             {
-                                if (String.Equals(valorTemM, valorEma))
+                                if (String.Equals(valorTemM.Trim(), valorEma.Trim()))
                                 {
-                                    estatusConparacion = true;
+                                    estatusComparacion = true;
                                 }
                                 else
                                 {
-                                    estatusConparacion = false;
+                                    estatusComparacion = false;
                                 }
                             }
                             else
                             {
                                 if (valorSua != null && valorEma != null)
                                 {
-                                    if (String.Equals(valorSua, valorEma))
+                                    if (String.Equals(valorSua.Trim(), valorEma.Trim()))
                                     {
-                                        estatusConparacion = true;
+                                        estatusComparacion = true;
                                     }
                                     else
                                     {
-                                        estatusConparacion = false;
+                                        estatusComparacion = false;
                                     }
                                 }
                                 else
                                 {
-                                    estatusConparacion = false;
+                                    estatusComparacion = false;
                                 }
                             }
+                        }
+
+                        if (configuracionSuaNivel.ConfSuaNNombre == "CUOTAS OP RCV")
+                        {
+                            estatusComparacion = _comparativoEspecial.CompararCUOTAS_OP_RCV(Convert.ToDouble(valorTemM), Convert.ToDouble(valorSua), Convert.ToDouble(valorEma));
+                            //estatusComparacion = _comparativoEspecial.CompararCUOTAS_OP_RCV(25.50, 25.50, 25.54);
+                        }
+
+                        if (configuracionSuaNivel.ConfSuaNNombre == "CR. INFONAVIT")
+                        {
+                            estatusComparacion = _comparativoEspecial.CR_INFONAVIT(Convert.ToDouble(valorTemM), Convert.ToDouble(valorSua), Convert.ToDouble(valorEma));
                         }
 
                         //worksheet.Cells[fila, 1].Value = empleadoValor;
@@ -328,7 +453,7 @@ namespace LoginBase.Controllers
                         }
 
                         worksheet.Cells[fila, 7].Value = valorEma;
-                        worksheet.Cells[fila, 8].Value = estatusConparacion.ToString();
+                        worksheet.Cells[fila, 8].Value = estatusComparacion.ToString();
 
                         //worksheet.Column(col).AutoFit();
                         //worksheet.Cells[1,col].Value = "=SUBSTITUTE(DIRECCION(1,1,4),\"1\",\"\")";

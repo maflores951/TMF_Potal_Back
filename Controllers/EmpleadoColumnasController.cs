@@ -33,20 +33,58 @@ namespace LoginBase.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<EmpleadoColumna>> GetEmpleadoColumna(int id)
         {
-            var empleadoColumna = await _context.EmpleadoColumnas.FindAsync(id);
+            //var empleadoColumna = await _context.EmpleadoColumnas.FindAsync(id);
+
+            //if (empleadoColumna == null)
+            //{
+            //    return NotFound();
+            //}
+
+            //return empleadoColumna;
+            Respuesta respuesta = new Respuesta();
+
+            var empleadoColumna = await _context.EmpleadoColumnas.
+                                                                  Where(u => u.ConfiguracionSuaId == id ).
+                                                                  FirstOrDefaultAsync();
 
             if (empleadoColumna == null)
             {
-                return NotFound();
+                respuesta.Exito = 0;
+            }
+            else
+            {
+                respuesta.Exito = 1;
             }
 
-            return empleadoColumna;
+            return Ok(respuesta);
         }
 
-        // PUT: api/EmpleadoColumnas/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
+
+        [HttpPost]
+        [Route("ValidarColumnas")]
+        public async Task<ActionResult<EmpleadoColumna>> ValidarColumnas(EmpleadoColumna empleadoColumnas)
+        {
+            Respuesta respuesta = new Respuesta();
+
+            var empleadoColumna = await _context.EmpleadoColumnas.
+                                                                  Where(u => u.ConfiguracionSuaId == empleadoColumnas.ConfiguracionSuaId && u.EmpleadoColumnaAnio == empleadoColumnas.EmpleadoColumnaAnio && u.EmpleadoColumnaMes == empleadoColumnas.EmpleadoColumnaMes && u.ExcelTipoId == empleadoColumnas.ExcelTipoId).
+                                                                  FirstOrDefaultAsync();
+
+            if (empleadoColumna == null)
+            {
+                respuesta.Exito = 0;
+            }
+            else
+            {
+                respuesta.Exito = 1;
+            }
+
+            return Ok(respuesta);
+        }
+            // PUT: api/EmpleadoColumnas/5
+            // To protect from overposting attacks, enable the specific properties you want to bind to, for
+            // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+            [HttpPut("{id}")]
         public async Task<IActionResult> PutEmpleadoColumna(int id, EmpleadoColumna empleadoColumna)
         {
             if (id != empleadoColumna.EmpleadoColumnaId)
@@ -146,7 +184,21 @@ namespace LoginBase.Controllers
                                 //{
 
                                 empleadoColumna.ExcelColumnaId = excelColumnaModel.ExcelColumnaId;
-                                        _context.EmpleadoColumnas.Add(empleadoColumna);
+
+                                var validaEmpleadoCoolumna = await _context.EmpleadoColumnas.
+                                                                 Where(u => u.ConfiguracionSuaId == empleadoColumna.ConfiguracionSuaId && u.EmpleadoColumnaAnio == empleadoColumna.EmpleadoColumnaAnio && u.EmpleadoColumnaMes == empleadoColumna.EmpleadoColumnaMes && u.ExcelTipoId == empleadoColumna.ExcelTipoId && u.ExcelColumnaId == empleadoColumna.ExcelColumnaId && u.EmpleadoColumnaNo == empleadoColumna.EmpleadoColumnaNo).
+                                                                 FirstOrDefaultAsync();
+
+                                if (validaEmpleadoCoolumna == null)
+                                {
+                                    _context.EmpleadoColumnas.Add(empleadoColumna);
+                                }
+                                else
+                                {
+                                    validaEmpleadoCoolumna.EmpleadoColumnaValor = empleadoColumna.EmpleadoColumnaValor;
+                                    _context.Entry(validaEmpleadoCoolumna).State = EntityState.Modified;
+                                }
+                               
                                         //await _context.SaveChangesAsync();
                                         //transaction.Commit();
                                     //}
@@ -192,7 +244,7 @@ namespace LoginBase.Controllers
                 return NotFound();
             }
 
-            _context.EmpleadoColumnas.Remove(empleadoColumna);
+            _context.EmpleadoColumnas.RemoveRange(empleadoColumna);
             await _context.SaveChangesAsync();
 
             return empleadoColumna;
