@@ -110,9 +110,13 @@ namespace LoginBase.Controllers
 
             
 
+            //var empleadoColumnas = await _context.EmpleadoColumnas.
+            //   Where(u => u.ConfiguracionSuaId == model.ConfiguracionSuaId && u.EmpleadoColumnaAnio == model.EmpleadoColumnaAnio && u.EmpleadoColumnaMes == model.EmpleadoColumnaMes).
+            //   ToListAsync();
+
             var empleadoColumnas = await _context.EmpleadoColumnas.
-               Where(u => u.ConfiguracionSuaId == model.ConfiguracionSuaId && u.EmpleadoColumnaAnio == model.EmpleadoColumnaAnio && u.EmpleadoColumnaMes == model.EmpleadoColumnaMes).
-               ToListAsync();
+              Where(u => u.EmpleadoColumnaAnio == model.EmpleadoColumnaAnio && u.EmpleadoColumnaMes == model.EmpleadoColumnaMes).
+              ToListAsync();
 
             var queryEmpleadoC =
        from empleadoColumna in empleadoColumnas

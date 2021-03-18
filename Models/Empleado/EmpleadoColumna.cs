@@ -22,13 +22,13 @@ namespace LoginBase.Models.Empleado
 
         //public int SuaExcelId { get; set; }
 
-        public int ConfiguracionSuaId { get; set; }
+        //public int ConfiguracionSuaId { get; set; }
 
         public string EmpleadoColumnaValor { get; set; }
 
         //public  SuaExcel SuaExcel { get; set; }
 
-        public ConfiguracionSua ConfiguracionSua { get; set; }
+        //public ConfiguracionSua ConfiguracionSua { get; set; }
 
         public int ExcelColumnaId { get; set; }
 

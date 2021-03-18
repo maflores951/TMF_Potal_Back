@@ -33,30 +33,30 @@ namespace LoginBase.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<EmpleadoColumna>> GetEmpleadoColumna(int id)
         {
-            //var empleadoColumna = await _context.EmpleadoColumnas.FindAsync(id);
-
-            //if (empleadoColumna == null)
-            //{
-            //    return NotFound();
-            //}
-
-            //return empleadoColumna;
-            Respuesta respuesta = new Respuesta();
-
-            var empleadoColumna = await _context.EmpleadoColumnas.
-                                                                  Where(u => u.ConfiguracionSuaId == id ).
-                                                                  FirstOrDefaultAsync();
+            var empleadoColumna = await _context.EmpleadoColumnas.FindAsync(id);
 
             if (empleadoColumna == null)
             {
-                respuesta.Exito = 0;
-            }
-            else
-            {
-                respuesta.Exito = 1;
+                return NotFound();
             }
 
-            return Ok(respuesta);
+            return empleadoColumna;
+            //Respuesta respuesta = new Respuesta();
+
+            //var empleadoColumna = await _context.EmpleadoColumnas.
+            //                                                      Where(u => u.ConfiguracionSuaId == id ).
+            //                                                      FirstOrDefaultAsync();
+
+            //if (empleadoColumna == null)
+            //{
+            //    respuesta.Exito = 0;
+            //}
+            //else
+            //{
+            //    respuesta.Exito = 1;
+            //}
+
+            //return Ok(respuesta);
         }
 
 
@@ -66,9 +66,13 @@ namespace LoginBase.Controllers
         {
             Respuesta respuesta = new Respuesta();
 
+            //var empleadoColumna = await _context.EmpleadoColumnas.
+            //                                                      Where(u => u.ConfiguracionSuaId == empleadoColumnas.ConfiguracionSuaId && u.EmpleadoColumnaAnio == empleadoColumnas.EmpleadoColumnaAnio && u.EmpleadoColumnaMes == empleadoColumnas.EmpleadoColumnaMes && u.ExcelTipoId == empleadoColumnas.ExcelTipoId).
+            //                                                      FirstOrDefaultAsync();
+
             var empleadoColumna = await _context.EmpleadoColumnas.
-                                                                  Where(u => u.ConfiguracionSuaId == empleadoColumnas.ConfiguracionSuaId && u.EmpleadoColumnaAnio == empleadoColumnas.EmpleadoColumnaAnio && u.EmpleadoColumnaMes == empleadoColumnas.EmpleadoColumnaMes && u.ExcelTipoId == empleadoColumnas.ExcelTipoId).
-                                                                  FirstOrDefaultAsync();
+                                                                 Where(u =>  u.EmpleadoColumnaAnio == empleadoColumnas.EmpleadoColumnaAnio && u.EmpleadoColumnaMes == empleadoColumnas.EmpleadoColumnaMes && u.ExcelTipoId == empleadoColumnas.ExcelTipoId).
+                                                                 FirstOrDefaultAsync();
 
             if (empleadoColumna == null)
             {
@@ -185,8 +189,12 @@ namespace LoginBase.Controllers
 
                                 empleadoColumna.ExcelColumnaId = excelColumnaModel.ExcelColumnaId;
 
+                                //var validaEmpleadoCoolumna = await _context.EmpleadoColumnas.
+                                //                                 Where(u => u.ConfiguracionSuaId == empleadoColumna.ConfiguracionSuaId && u.EmpleadoColumnaAnio == empleadoColumna.EmpleadoColumnaAnio && u.EmpleadoColumnaMes == empleadoColumna.EmpleadoColumnaMes && u.ExcelTipoId == empleadoColumna.ExcelTipoId && u.ExcelColumnaId == empleadoColumna.ExcelColumnaId && u.EmpleadoColumnaNo == empleadoColumna.EmpleadoColumnaNo).
+                                //                                 FirstOrDefaultAsync();
+
                                 var validaEmpleadoCoolumna = await _context.EmpleadoColumnas.
-                                                                 Where(u => u.ConfiguracionSuaId == empleadoColumna.ConfiguracionSuaId && u.EmpleadoColumnaAnio == empleadoColumna.EmpleadoColumnaAnio && u.EmpleadoColumnaMes == empleadoColumna.EmpleadoColumnaMes && u.ExcelTipoId == empleadoColumna.ExcelTipoId && u.ExcelColumnaId == empleadoColumna.ExcelColumnaId && u.EmpleadoColumnaNo == empleadoColumna.EmpleadoColumnaNo).
+                                                                 Where(u => u.EmpleadoColumnaAnio == empleadoColumna.EmpleadoColumnaAnio && u.EmpleadoColumnaMes == empleadoColumna.EmpleadoColumnaMes && u.ExcelTipoId == empleadoColumna.ExcelTipoId && u.ExcelColumnaId == empleadoColumna.ExcelColumnaId && u.EmpleadoColumnaNo == empleadoColumna.EmpleadoColumnaNo).
                                                                  FirstOrDefaultAsync();
 
                                 if (validaEmpleadoCoolumna == null)
