@@ -8,11 +8,15 @@ using Microsoft.EntityFrameworkCore;
 using LoginBase.Models;
 using LoginBase.Models.Empleado;
 using LoginBase.Models.Response;
+using System.Threading;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LoginBase.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
+
     public class EmpleadoColumnasController : ControllerBase
     {
         private readonly DataContext _context;
@@ -71,7 +75,7 @@ namespace LoginBase.Controllers
             //                                                      FirstOrDefaultAsync();
 
             var empleadoColumna = await _context.EmpleadoColumnas.
-                                                                 Where(u =>  u.EmpleadoColumnaAnio == empleadoColumnas.EmpleadoColumnaAnio && u.EmpleadoColumnaMes == empleadoColumnas.EmpleadoColumnaMes && u.ExcelTipoId == empleadoColumnas.ExcelTipoId).
+                                                                 Where(u =>  u.EmpleadoColumnaAnio == empleadoColumnas.EmpleadoColumnaAnio && u.EmpleadoColumnaMes == empleadoColumnas.EmpleadoColumnaMes && u.ExcelTipoId == empleadoColumnas.ExcelTipoId && u.UsuarioId == empleadoColumnas.UsuarioId).
                                                                  FirstOrDefaultAsync();
 
             if (empleadoColumna == null)
@@ -120,9 +124,13 @@ namespace LoginBase.Controllers
         // POST: api/EmpleadoColumnas
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        private SemaphoreSlim semaphoreSlim = new SemaphoreSlim(1);
+
         [HttpPost]
         public async Task<ActionResult<EmpleadoColumna>> PostEmpleadoColumna(List<EmpleadoColumna> empleadoColumnas)
         {
+            await semaphoreSlim.WaitAsync();
+
             Respuesta respuesta = new Respuesta();
 
             try
@@ -133,9 +141,10 @@ namespace LoginBase.Controllers
                     {
                         try
                         {
-
+                            var hilo = 0;
                             foreach (var empleadoColumna in empleadoColumnas)
                             {
+                                hilo++;
                                 var bandera = true;
                                 //if(empleadoColumna != null)
                                 //{
@@ -194,7 +203,7 @@ namespace LoginBase.Controllers
                                 //                                 FirstOrDefaultAsync();
 
                                 var validaEmpleadoCoolumna = await _context.EmpleadoColumnas.
-                                                                 Where(u => u.EmpleadoColumnaAnio == empleadoColumna.EmpleadoColumnaAnio && u.EmpleadoColumnaMes == empleadoColumna.EmpleadoColumnaMes && u.ExcelTipoId == empleadoColumna.ExcelTipoId && u.ExcelColumnaId == empleadoColumna.ExcelColumnaId && u.EmpleadoColumnaNo == empleadoColumna.EmpleadoColumnaNo).
+                                                                 Where(u => u.EmpleadoColumnaAnio == empleadoColumna.EmpleadoColumnaAnio && u.EmpleadoColumnaMes == empleadoColumna.EmpleadoColumnaMes && u.ExcelTipoId == empleadoColumna.ExcelTipoId && u.ExcelColumnaId == empleadoColumna.ExcelColumnaId && u.EmpleadoColumnaNo == empleadoColumna.EmpleadoColumnaNo && u.UsuarioId == empleadoColumna.UsuarioId).
                                                                  FirstOrDefaultAsync();
 
                                 if (validaEmpleadoCoolumna == null)
@@ -206,12 +215,18 @@ namespace LoginBase.Controllers
                                     validaEmpleadoCoolumna.EmpleadoColumnaValor = empleadoColumna.EmpleadoColumnaValor;
                                     _context.Entry(validaEmpleadoCoolumna).State = EntityState.Modified;
                                 }
+
+
+                                if (hilo == 500)
+                                {
+                                    await _context.SaveChangesAsync();
+                                    hilo = 0;
+                                }
                                
-                                        //await _context.SaveChangesAsync();
-                                        //transaction.Commit();
-                                    //}
+                                //transaction.Commit();
                                 //}
-                                
+                                //}
+
 
 
 
@@ -239,6 +254,7 @@ namespace LoginBase.Controllers
                 respuesta.Exito = 0;
             }
 
+            semaphoreSlim.Release();
             return Ok(respuesta);
         }
 

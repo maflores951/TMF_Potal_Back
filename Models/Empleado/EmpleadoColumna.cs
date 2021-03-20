@@ -32,6 +32,8 @@ namespace LoginBase.Models.Empleado
 
         public int ExcelColumnaId { get; set; }
 
+        public int UsuarioId { get; set; }
+
         public ExcelColumna ExcelColumna { get; set; }
 
         [NotMapped]

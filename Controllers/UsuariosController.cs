@@ -30,6 +30,7 @@ namespace LoginBase.Controllers
 
         // GET: api/Usuarios
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<Usuario>>> GetUsuarios()
         {
             //return await _context.Usuarios.ToListAsync();
@@ -63,6 +64,7 @@ namespace LoginBase.Controllers
 
         // GET: api/Usuarios/5
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<ActionResult<Usuario>> GetUsuario(int id)
         {
             var usuario = await _context.Usuarios.FindAsync(id);
@@ -79,6 +81,7 @@ namespace LoginBase.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> PutUsuario(int id, Usuario usuario)
         {
             //if (id != usuario.UsuarioId)
@@ -296,6 +299,7 @@ namespace LoginBase.Controllers
 
         // DELETE: api/Usuarios/5
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<ActionResult<Usuario>> DeleteUsuario(int id)
         {
             var usuario = await _context.Usuarios.FindAsync(id);

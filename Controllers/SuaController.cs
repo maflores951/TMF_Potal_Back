@@ -5,9 +5,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using LoginBase.Models;
 using LoginBase.Models.Empleado;
+using LoginBase.Models.Excel;
 using LoginBase.Models.Response;
 using LoginBase.Models.Sua;
 using LoginBase.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +20,8 @@ namespace LoginBase.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
+
     public class SuaController : ControllerBase
     {
         private readonly DataContext _context;
@@ -51,7 +55,7 @@ namespace LoginBase.Controllers
                                 db.SaveChanges();
                                 id = configuracionSua.ConfiguracionSuaId;
                             }
-                           
+
 
                             foreach (var modelConfiguracionSuaNivel in model.ConfiguracionSuaNivel)
                             {
@@ -65,7 +69,7 @@ namespace LoginBase.Controllers
                                 {
                                     var suaExcel = new SuaExcel();
                                     suaExcel.ConfiguracionSuaNivelId = configuracionSuaNivel.ConfiguracionSuaNivelId;
-                                    suaExcel.TipoPeriodoId = modelSuaExcel.TipoPeriodoId;
+                                    suaExcel.ExcelTipoId = modelSuaExcel.ExcelTipoId;
                                     suaExcel.ExcelColumnaId = modelSuaExcel.ExcelColumnaId;
                                     db.SuaExcels.Add(suaExcel);
                                     db.SaveChanges();
@@ -81,13 +85,13 @@ namespace LoginBase.Controllers
                         }
 
                     }
-                    
+
                 }
             }
             catch (Exception ex)
             {
 
-                respuesta.Mensaje = ex.Message ;
+                respuesta.Mensaje = ex.Message;
                 respuesta.Exito = 0;
             }
 
@@ -108,14 +112,14 @@ namespace LoginBase.Controllers
                ToListAsync();
 
 
-            
+
 
             //var empleadoColumnas = await _context.EmpleadoColumnas.
             //   Where(u => u.ConfiguracionSuaId == model.ConfiguracionSuaId && u.EmpleadoColumnaAnio == model.EmpleadoColumnaAnio && u.EmpleadoColumnaMes == model.EmpleadoColumnaMes).
             //   ToListAsync();
 
             var empleadoColumnas = await _context.EmpleadoColumnas.
-              Where(u => u.EmpleadoColumnaAnio == model.EmpleadoColumnaAnio && u.EmpleadoColumnaMes == model.EmpleadoColumnaMes).
+              Where(u => u.EmpleadoColumnaAnio == model.EmpleadoColumnaAnio && u.EmpleadoColumnaMes == model.EmpleadoColumnaMes && u.UsuarioId == model.UsuarioId).
               ToListAsync();
 
             var queryEmpleadoC =
@@ -147,21 +151,22 @@ namespace LoginBase.Controllers
                 var fila = 2;
                 var col = 1;
 
-                worksheet.Cells[fila, 1].Value = "Columna";
-                worksheet.Cells[fila, 2].Value = "Dato";
+                worksheet.Cells[fila, 1].Value = "Empleado";
+                worksheet.Cells[fila, 2].Value = "Columna";
+                worksheet.Cells[fila, 3].Value = "Dato";
 
-                worksheet.Cells[fila, 3].Value = "Columna";
-                worksheet.Cells[fila, 4].Value = "Dato";
+                worksheet.Cells[fila, 4].Value = "Columna";
+                worksheet.Cells[fila, 5].Value = "Dato";
 
-                worksheet.Cells[fila, 5].Value = "Columna";
-                worksheet.Cells[fila, 6].Value = "Dato";
-                worksheet.Cells[fila, 7].Value = "Estatus";
+                worksheet.Cells[fila, 6].Value = "Columna";
+                worksheet.Cells[fila, 7].Value = "Dato";
+                worksheet.Cells[fila, 8].Value = "Estatus";
 
                 foreach (var empleadoColumna in queryEmpleadoC)
                 {
-                   
-                
-                foreach (var configuracionSuaNivel in configuracionSuaNiveles)
+
+
+                    foreach (var configuracionSuaNivel in configuracionSuaNiveles)
                     {
                         fila++;
                         string valorTemM = null;
@@ -181,17 +186,22 @@ namespace LoginBase.Controllers
                         int posicionExcel = 0;
                         string valor = "Hola";
                         EmpleadoColumna valorEmpleado = new EmpleadoColumna();
+                        ExcelColumna excelColumnaCom = new ExcelColumna();
 
                         var suaExcels = await _context.SuaExcels.
                    Where(u => u.ConfiguracionSuaNivelId == configuracionSuaNivel.ConfiguracionSuaNivelId).
                    ToListAsync();
-                        
+
                         foreach (var suaExcel in suaExcels)
                         {
 
                             //Numero de empleado
 
-                            //valorEmpleado = empleadoColumnas.Where(x => suaExcel.ExcelColumnaId == x.ExcelColumnaId && x.EmpleadoColumnaNo == empleadoColumna.Key).FirstOrDefault();
+                                //valorEmpleado = empleadoColumnas.Where(x => suaExcel.ExcelColumnaId == x.ExcelColumnaId && x.EmpleadoColumnaNo == empleadoColumna.Key).FirstOrDefault();
+                            if (suaExcel.ExcelTipoId == 1)
+                            {
+                                excelColumnaCom = await _context.ExcelColumnas.Where(u => u.ExcelColumnaId == suaExcel.ExcelColumnaId).FirstOrDefaultAsync();
+                            }
 
                             var valoresEmpleado = empleadoColumnas.Where(x => suaExcel.ExcelColumnaId == x.ExcelColumnaId && x.EmpleadoColumnaNo == empleadoColumna.Key).ToList();
                             //if (empleadoColumna.ExcelColumnaId == suaExcel.ExcelColumnaId)
@@ -212,59 +222,11 @@ namespace LoginBase.Controllers
                                     empleadoValor = valorEmpleado.EmpleadoColumnaNo.Trim();
                                     decimal valorInt = 0;
 
-                                    //if ()
-                                    //{
-
-                                    //}
-                                    //else
-                                    //{
-
-                                    //}
-                                    switch (caseSwitch)
+                                    if (caseSwitch == 5 || caseSwitch == 6)
                                     {
-                                        case 2:
-                                            result = decimal.TryParse(valor, out valorInt); //i now = 108  
-                                            if (result)
-                                            {
-
-                                                valorTemMInt += valorInt;
-                                            }
-                                            else
-                                            {
-                                                valorTemM += valor + " ";
-                                            }
-
-                                            excelPosicionTem = suaExcel.ExcelColumna.ExcelPosicion + 1;
-                                            break;
-                                        case 3:
-                                            result = decimal.TryParse(valor, out valorInt); //i now = 108  
-                                            if (result)
-                                            {
-                                                valorTemMInt += valorInt;
-                                            }
-                                            else
-                                            {
-                                                valorTemM += valor + " ";
-                                            }
-
-                                            excelPosicionTem = suaExcel.ExcelColumna.ExcelPosicion + 1;
-                                            break;
-                                        case 4:
-                                            result = decimal.TryParse(valor, out valorInt); //i now = 108  
-                                            if (result)
-                                            {
-                                                valorSuaInt += valorInt;
-                                            }
-                                            else
-                                            {
-                                                valorSua += valor + " ";
-                                            }
-
-
-
-                                            excelPosicionSua = suaExcel.ExcelColumna.ExcelPosicion + 1;
-                                            break;
-                                        case 5:
+                                        if (configuracionSuaNivel.ConfSuaNNombre == "Días" || configuracionSuaNivel.ConfSuaNNombre == "Retiro" ||
+                                            configuracionSuaNivel.ConfSuaNNombre == "Cesantía en Edad Avanzada y Vejez Patronal" || configuracionSuaNivel.ConfSuaNNombre == "Cesantía en Edad Avanzada y Vejez Obrero" || configuracionSuaNivel.ConfSuaNNombre == "Subtotal RCV" || configuracionSuaNivel.ConfSuaNNombre == "Aportación Patronal" || configuracionSuaNivel.ConfSuaNNombre == "Valor de Descuento" || configuracionSuaNivel.ConfSuaNNombre == "Amortización" || configuracionSuaNivel.ConfSuaNNombre == "Subtotal Infonavit" || configuracionSuaNivel.ConfSuaNNombre == "Total")
+                                        {
                                             result = decimal.TryParse(valor, out valorInt); //i now = 108  
                                             if (result)
                                             {
@@ -274,12 +236,11 @@ namespace LoginBase.Controllers
                                             {
                                                 valorEma += valor + " ";
                                             }
+                                            //}
+                                            //else
+                                            //{
 
-
-                                            excelPosicionEma = suaExcel.ExcelColumna.ExcelPosicion + 1;
-                                            break;
-                                        case 6:
-                                            result = decimal.TryParse(valor, out valorInt); //i now = 108  
+                                            //} //result = decimal.TryParse(valor, out valorInt); //i now = 108  
                                             if (result)
                                             {
                                                 valorEmaInt += valorInt;
@@ -288,15 +249,109 @@ namespace LoginBase.Controllers
                                             {
                                                 valorEma += valor + " ";
                                             }
-                                            excelPosicionEma = suaExcel.ExcelColumna.ExcelPosicion + 1;
-                                            break;
-
-                                        default:
-                                            Console.WriteLine("Default case");
-                                            break;
+                                        }
+                                        else
+                                        {
+                                            if(valor != "")
+                                            {
+                                                result = decimal.TryParse(valor, out valorInt); //i now = 108  
+                                                if (result)
+                                                {
+                                                    valorEmaInt = valorInt;
+                                                }
+                                                else
+                                                {
+                                                    valorEma = valor + " ";
+                                                }
+                                                excelPosicionEma = suaExcel.ExcelColumna.ExcelPosicion + 1;
+                                            }
+                                            
+                                        }
                                     }
+                                    else
+                                    {
+                                        switch (caseSwitch)
+                                        {
+                                            case 2:
+                                                result = decimal.TryParse(valor, out valorInt); //i now = 108  
+                                                if (result)
+                                                {
+
+                                                    valorTemMInt += valorInt;
+                                                }
+                                                else
+                                                {
+                                                    valorTemM += valor + " ";
+                                                }
+
+                                                excelPosicionTem = suaExcel.ExcelColumna.ExcelPosicion + 1;
+                                                break;
+                                            case 3:
+                                                result = decimal.TryParse(valor, out valorInt); //i now = 108  
+                                                if (result)
+                                                {
+                                                    valorTemMInt += valorInt;
+                                                }
+                                                else
+                                                {
+                                                    valorTemM += valor + " ";
+                                                }
+
+                                                excelPosicionTem = suaExcel.ExcelColumna.ExcelPosicion + 1;
+                                                break;
+                                            case 4:
+                                                result = decimal.TryParse(valor, out valorInt); //i now = 108  
+                                                if (result)
+                                                {
+                                                    valorSuaInt += valorInt;
+                                                }
+                                                else
+                                                {
+                                                    valorSua += valor + " ";
+                                                }
+
+
+
+                                                excelPosicionSua = suaExcel.ExcelColumna.ExcelPosicion + 1;
+                                                break;
+                                            //case 5:
+                                            //    result = decimal.TryParse(valor, out valorInt); //i now = 108  
+                                            //    if (result)
+                                            //    {
+                                            //        valorEmaInt += valorInt;
+                                            //    }
+                                            //    else
+                                            //    {
+                                            //        valorEma += valor + " ";
+                                            //    }
+
+
+                                            //    excelPosicionEma = suaExcel.ExcelColumna.ExcelPosicion + 1;
+                                            //    break;
+                                            //case 6:
+                                            //    result = decimal.TryParse(valor, out valorInt); //i now = 108  
+                                            //    if (result)
+                                            //    {
+                                            //        valorEmaInt += valorInt;
+                                            //    }
+                                            //    else
+                                            //    {
+                                            //        valorEma += valor + " ";
+                                            //    }
+                                            //    excelPosicionEma = suaExcel.ExcelColumna.ExcelPosicion + 1;
+                                            //    break;
+
+                                            default:
+                                                Console.WriteLine("Default case");
+                                                break;
+                                        }
+                                    }
+
+
+
                                 }
                             }
+                           
                         }
 
                         //}
@@ -312,7 +367,7 @@ namespace LoginBase.Controllers
                                 {
                                     valorTemM = valorTemM.Replace("$", " ").Trim();
                                 }
-                                
+
                             }
                         }
 
@@ -410,13 +465,13 @@ namespace LoginBase.Controllers
                             }
                         }
 
-                        if (configuracionSuaNivel.ConfSuaNNombre == "CUOTAS OP RCV")
+                        if (excelColumnaCom.ExcelColumnaNombre == "Comparativo +-0.05")
                         {
                             estatusComparacion = _comparativoEspecial.CompararCUOTAS_OP_RCV(Convert.ToDouble(valorTemM), Convert.ToDouble(valorSua), Convert.ToDouble(valorEma));
                             //estatusComparacion = _comparativoEspecial.CompararCUOTAS_OP_RCV(25.50, 25.50, 25.54);
                         }
 
-                        if (configuracionSuaNivel.ConfSuaNNombre == "CR. INFONAVIT")
+                        if (excelColumnaCom.ExcelColumnaNombre == "Comparativo +-1")
                         {
                             estatusComparacion = _comparativoEspecial.CR_INFONAVIT(Convert.ToDouble(valorTemM), Convert.ToDouble(valorSua), Convert.ToDouble(valorEma));
                         }
@@ -433,7 +488,7 @@ namespace LoginBase.Controllers
                         {
                             worksheet.Cells[fila, 2].Value = "NA";
                         }
-                        
+
                         worksheet.Cells[fila, 3].Value = valorTemM;
 
                         if (excelPosicionSua > 0)

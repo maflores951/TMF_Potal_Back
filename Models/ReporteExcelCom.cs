@@ -12,5 +12,7 @@ namespace LoginBase.Models
         public int EmpleadoColumnaMes { get; set; }
 
         public int EmpleadoColumnaAnio { get; set; }
+
+        public int UsuarioId { get; set; }
     }
 }

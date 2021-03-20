@@ -95,7 +95,7 @@ namespace LoginBase.Services
                                 {
                                     var suaExcel = new SuaExcel();
                                     suaExcel.ConfiguracionSuaNivelId = configuracionSuaNivel.ConfiguracionSuaNivelId;
-                                    suaExcel.TipoPeriodoId = modelSuaExcel.TipoPeriodoId;
+                                    suaExcel.ExcelTipoId = modelSuaExcel.ExcelTipoId;
                                     suaExcel.ExcelColumnaId = modelSuaExcel.ExcelColumnaId;
                                     db.SuaExcels.Add(suaExcel);
                                     db.SaveChanges();

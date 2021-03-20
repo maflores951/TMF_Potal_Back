@@ -7,11 +7,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using LoginBase.Models;
 using LoginBase.Models.Excel;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LoginBase.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
+
     public class ExcelTiposController : ControllerBase
     {
         private readonly DataContext _context;

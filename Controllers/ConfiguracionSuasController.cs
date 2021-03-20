@@ -9,11 +9,13 @@ using LoginBase.Models;
 using LoginBase.Models.Sua;
 using LoginBase.Models.Response;
 using LoginBase.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LoginBase.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ConfiguracionSuasController : ControllerBase
     {
         private readonly DataContext _context;
@@ -49,7 +51,7 @@ namespace LoginBase.Controllers
 
                         foreach (var itemSua in suaExcel)
                         {
-                            var excelTipo = await _context.ExcelTipos.Where(d => d.ExcelTipoId == itemSua.TipoPeriodoId).FirstOrDefaultAsync();
+                            var excelTipo = await _context.ExcelTipos.Where(d => d.ExcelTipoId == itemSua.ExcelTipoId).FirstOrDefaultAsync();
 
                             var excelColumna = await _context.ExcelColumnas.Where(d => d.ExcelColumnaId == itemSua.ExcelColumnaId).FirstOrDefaultAsync();
                             itemSua.ExcelTipo = excelTipo;
@@ -216,7 +218,7 @@ namespace LoginBase.Controllers
                                 {
                                     var suaExcel = new SuaExcel();
                                     suaExcel.ConfiguracionSuaNivelId =              configuracionSuaNivel.ConfiguracionSuaNivelId;
-                                    suaExcel.TipoPeriodoId = modelSuaExcel.TipoPeriodoId;
+                                    suaExcel.ExcelTipoId = modelSuaExcel.ExcelTipoId;
                                     suaExcel.ExcelColumnaId = modelSuaExcel.ExcelColumnaId;
                                     db.SuaExcels.Add(suaExcel);
                                     db.SaveChanges();
@@ -423,7 +425,7 @@ namespace LoginBase.Controllers
                                 {
                                     var suaExcel = new SuaExcel();
                                     suaExcel.ConfiguracionSuaNivelId = configuracionSuaNivel.ConfiguracionSuaNivelId;
-                                    suaExcel.TipoPeriodoId = modelSuaExcel.TipoPeriodoId;
+                                    suaExcel.ExcelTipoId = modelSuaExcel.ExcelTipoId;
                                     suaExcel.ExcelColumnaId = modelSuaExcel.ExcelColumnaId;
                                     db.SuaExcels.Add(suaExcel);
                                     db.SaveChanges();

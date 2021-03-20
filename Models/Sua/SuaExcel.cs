@@ -15,12 +15,12 @@ namespace LoginBase.Models.Sua
         [Key]
         public int SuaExcelId { get; set; }
 
-        public int TipoPeriodoId { get; set; }
+        //public int TipoPeriodoId { get; set; }
 
         public int ExcelColumnaId { get; set; }
 
         public  ExcelColumna ExcelColumna { get; set; }
-        [NotMapped]
+        //[NotMapped]
         //[JsonIgnore]
         public int ExcelTipoId { get; set; }
         [NotMapped]

@@ -54,7 +54,7 @@ namespace LoginBase.Services
                     return null;
                 }
 
-                //usuario.UsuarioToken = GetToken(usuario);
+                usuario.UsuarioToken = GetToken(usuario);
                 //_db.Entry(usuario).State = EntityState.Modified;
 
 

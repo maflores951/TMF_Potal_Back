@@ -19,7 +19,8 @@ namespace LoginBase.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    
+    //[Authorize]
+
     public class UserController : ControllerBase
     {
         private readonly DataContext _context;
@@ -60,6 +61,7 @@ namespace LoginBase.Controllers
         // POST: api/Users/EnviarEmail
         [HttpPost]
         [Route("EnviarEmail")]
+        [Authorize]
         public async Task<IActionResult> EnviarEmailAsync([FromBody] Usuario model)
         {
             var email = string.Empty;
