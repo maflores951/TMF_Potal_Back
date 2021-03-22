@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using LoginBase.Models;
@@ -9,11 +6,8 @@ using LoginBase.Models.Request;
 using LoginBase.Models.Response;
 using LoginBase.Services;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using OfficeOpenXml;
-using OfficeOpenXml.Table;
 
 namespace LoginBase.Controllers
 {
@@ -26,6 +20,7 @@ namespace LoginBase.Controllers
         private readonly DataContext _context;
         private IUserService _userService;
 
+        //Constructor para recuperar la interface del userService y el contexto de la base de datos
         public UserController(IUserService userService, DataContext db)
         {
             _userService = userService;
@@ -37,12 +32,16 @@ namespace LoginBase.Controllers
         [HttpPost("login")]
         public IActionResult Autentificar([FromBody] AuthRequest model)
         {
+            //Se crea la respuesta
             Respuesta respuesta = new Respuesta();
 
+            //Se crea la variable para asignar el empleado 
             Usuario usuario = new Usuario();
 
+            //Se valida el login y se crea el token
             var userResponse = _userService.Auth(model);
 
+            //Si no existe se asigna un mensaje de que el usuario es incorrecto y se retorna la respuesta
             if (userResponse == null)
             {
                 respuesta.Exito = 0;
@@ -50,10 +49,9 @@ namespace LoginBase.Controllers
                 return Ok(respuesta);
             }
 
+            //Si el usuario existe se retorna el usuario.
             respuesta.Exito = 1;
             respuesta.Data = userResponse;
-
-
             return Ok(respuesta);
         }
 

@@ -30,6 +30,7 @@ namespace LoginBase.Services
         //    return estatusComparacion;
         //}
 
+        //Comparativo con una diferencia de +-1
         public bool CR_INFONAVIT(double valorTemM, double valorSua, double valorEma)
         {
             Respuesta respuesta = new Respuesta();
@@ -52,6 +53,7 @@ namespace LoginBase.Services
             return estatusComparacion;
         }
 
+        //Comparativo con una diferencia de +-0.05
         public bool CompararCUOTAS_OP_RCV(double valorTemM, double valorSua, double valorEma)
         {
             Respuesta respuesta = new Respuesta();

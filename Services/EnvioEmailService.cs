@@ -44,8 +44,10 @@ namespace LoginBase.Services
                 var CredentialPassword = parametroPass.ParametroValorInicial;//"Sich2017";
                 var EmailCifrado = cifradoHelper.EncryptStringAES(Newtonsoft.Json.JsonConvert.SerializeObject(userEmail));
 
+                var smtpcl = await ParametroHelper.RecuperaParametro("smptcl", _db);
                 MailMessage mail = new MailMessage();
-                SmtpClient SmtpServer = new SmtpClient("SMTP.Office365.com");
+                //SmtpClient SmtpServer = new SmtpClient("SMTP.Office365.com");
+                SmtpClient SmtpServer = new SmtpClient(smtpcl.ParametroValorInicial);
 
                 var parametroSubject = await ParametroHelper.RecuperaParametro("smptsu", _db);
 
@@ -63,19 +65,26 @@ namespace LoginBase.Services
                     return null;
                 }
 
+                
+                var smtppo = await ParametroHelper.RecuperaParametro("smtppo", _db);
+
+                //Se arma el mensaje con los parametros recuperados
                 mail.From = new MailAddress(CredentialEmail);
                 mail.To.Add(userEmail.Email);
                 mail.Subject = parametroSubject.ParametroValorInicial;
                 mail.Body = parametroBody.ParametroValorInicial + EmailCifrado.Trim().Replace("/", "$").Replace("+", "&");
 
-                SmtpServer.Port = 587;
-                SmtpServer.Host = "SMTP.Office365.com";
+                SmtpServer.Port = Int32.Parse(smtppo.ParametroValorInicial);//587;
+                SmtpServer.Host = smtpcl.ParametroValorInicial;// "SMTP.Office365.com";
                 SmtpServer.EnableSsl = true;
                 SmtpServer.UseDefaultCredentials = false;
                 SmtpServer.Credentials = new System.Net.NetworkCredential(CredentialEmail, CredentialPassword);
 
+
+                //Se envia el correo 
                 SmtpServer.Send(mail);
 
+                //Se retorna una respuesta correcta
                 return new Respuesta
                 {
                     Exito = 1,
@@ -84,6 +93,7 @@ namespace LoginBase.Services
             }
             catch (Exception ex)
             {
+                //Se retorna una respuesta incorrecta
                 return new Respuesta
                 {
                     Exito = 0,

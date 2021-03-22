@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using LoginBase.Models;
@@ -30,6 +29,7 @@ namespace LoginBase.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<EmpleadoColumna>>> GetEmpleadoColumnas()
         {
+            //Se recuperan todos los empleados de la base de datos
             return await _context.EmpleadoColumnas.ToListAsync();
         }
 
@@ -45,39 +45,22 @@ namespace LoginBase.Controllers
             }
 
             return empleadoColumna;
-            //Respuesta respuesta = new Respuesta();
-
-            //var empleadoColumna = await _context.EmpleadoColumnas.
-            //                                                      Where(u => u.ConfiguracionSuaId == id ).
-            //                                                      FirstOrDefaultAsync();
-
-            //if (empleadoColumna == null)
-            //{
-            //    respuesta.Exito = 0;
-            //}
-            //else
-            //{
-            //    respuesta.Exito = 1;
-            //}
-
-            //return Ok(respuesta);
         }
 
-
+        //Api para validar si existen resultados con respecto a un año y un mes
         [HttpPost]
         [Route("ValidarColumnas")]
         public async Task<ActionResult<EmpleadoColumna>> ValidarColumnas(EmpleadoColumna empleadoColumnas)
         {
+            //Se crea la respuesta
             Respuesta respuesta = new Respuesta();
 
-            //var empleadoColumna = await _context.EmpleadoColumnas.
-            //                                                      Where(u => u.ConfiguracionSuaId == empleadoColumnas.ConfiguracionSuaId && u.EmpleadoColumnaAnio == empleadoColumnas.EmpleadoColumnaAnio && u.EmpleadoColumnaMes == empleadoColumnas.EmpleadoColumnaMes && u.ExcelTipoId == empleadoColumnas.ExcelTipoId).
-            //                                                      FirstOrDefaultAsync();
-
+            //Se busca si existe un empleado con respecto a el año, mes, tipo de archivo y usuario.
             var empleadoColumna = await _context.EmpleadoColumnas.
                                                                  Where(u =>  u.EmpleadoColumnaAnio == empleadoColumnas.EmpleadoColumnaAnio && u.EmpleadoColumnaMes == empleadoColumnas.EmpleadoColumnaMes && u.ExcelTipoId == empleadoColumnas.ExcelTipoId && u.UsuarioId == empleadoColumnas.UsuarioId).
                                                                  FirstOrDefaultAsync();
 
+            //Se valida el resultado 
             if (empleadoColumna == null)
             {
                 respuesta.Exito = 0;
@@ -86,12 +69,10 @@ namespace LoginBase.Controllers
             {
                 respuesta.Exito = 1;
             }
-
+            //Se recupera la respuesta
             return Ok(respuesta);
         }
             // PUT: api/EmpleadoColumnas/5
-            // To protect from overposting attacks, enable the specific properties you want to bind to, for
-            // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
             [HttpPut("{id}")]
         public async Task<IActionResult> PutEmpleadoColumna(int id, EmpleadoColumna empleadoColumna)
         {
@@ -122,122 +103,78 @@ namespace LoginBase.Controllers
         }
 
         // POST: api/EmpleadoColumnas
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        private SemaphoreSlim semaphoreSlim = new SemaphoreSlim(1);
-
         [HttpPost]
         public async Task<ActionResult<EmpleadoColumna>> PostEmpleadoColumna(List<EmpleadoColumna> empleadoColumnas)
         {
-            await semaphoreSlim.WaitAsync();
-
+            //Se crea la respuesta
             Respuesta respuesta = new Respuesta();
 
             try
             {
+                //Se crea el contexto para conectar con la base de datos
                 using (DataContext db = _context)
                 {
+                    //Se crea una transaction para proteger la base de datos
                     using (var transaction = db.Database.BeginTransaction())
                     {
                         try
                         {
-                            var hilo = 0;
+                            //Se crea esta variable para poder enviar la información por lotes y optimizar el performance
+                            var lote = 0;
+                            //Se recorren los datos por empleado para guardarlos
                             foreach (var empleadoColumna in empleadoColumnas)
                             {
-                                hilo++;
+                                //Se suma cada registro
+                                lote++;
                                 var bandera = true;
-                                //if(empleadoColumna != null)
-                                //{
+                                //Se recuperan los datos de la columna del excel relacionado
                                 var excelColumnaModel = await _context.ExcelColumnas.
                                                                    Where(u => u.ExcelColumnaNombre == empleadoColumna.ExcelColumnaNombre && u.ExcelTipoId == empleadoColumna.ExcelTipoId).
                                                                    FirstOrDefaultAsync();
-
+                                //Se valida si existe la columna 
                                 if (excelColumnaModel == null)
                                 {
-                                    //return BadRequest("No existe la columna: " + empleadoColumna.ExcelColumnaNombre + "en ninguna configuración.");
                                     bandera = false;
                                 }
 
-                                //if (bandera == true)
-                                //{
-                                //    var suaExcelModels = await _context.SuaExcels.
-                                //                                       Where(u => u.ExcelColumnaId == excelColumnaModel.ExcelColumnaId).ToListAsync();
-
-                                //    if (suaExcelModels == null)
-                                //    {
-                                //        //return BadRequest("No existe la columna en ninguna configuración.");
-                                //        bandera = false;
-                                //    }
-
-
-                                //    foreach (var suaExcelModel in suaExcelModels)
-                                //    {
-                                //        var configuracionSuaNivelModel = await _context.ConfiguracionSuaNiveles.
-                                //                                           Where(u => u.ConfiguracionSuaNivelId == suaExcelModel.ConfiguracionSuaNivelId && u.ConfiguracionSuaId == empleadoColumna.ConfiguracionSuaId).FirstOrDefaultAsync();
-
-                                //        if (configuracionSuaNivelModel.ConfiguracionSuaId > 0)
-                                //        {
-                                //            //return BadRequest("No existe la columna en ninguna configuración.");
-                                //            bandera = true;
-
-                                //        }
-                                //        else
-                                //        {
-                                //            bandera = false;
-                                //        }
-                                //    }
-                                //}
-
-
-
-
-
-                                ////empleadoColumna.ConfiguracionSuaId = empleadoColumna.ConfiguracionSuaId;
-                                //if (bandera == true)
-                                //{
-
-                                empleadoColumna.ExcelColumnaId = excelColumnaModel.ExcelColumnaId;
-
-                                //var validaEmpleadoCoolumna = await _context.EmpleadoColumnas.
-                                //                                 Where(u => u.ConfiguracionSuaId == empleadoColumna.ConfiguracionSuaId && u.EmpleadoColumnaAnio == empleadoColumna.EmpleadoColumnaAnio && u.EmpleadoColumnaMes == empleadoColumna.EmpleadoColumnaMes && u.ExcelTipoId == empleadoColumna.ExcelTipoId && u.ExcelColumnaId == empleadoColumna.ExcelColumnaId && u.EmpleadoColumnaNo == empleadoColumna.EmpleadoColumnaNo).
-                                //                                 FirstOrDefaultAsync();
-
-                                var validaEmpleadoCoolumna = await _context.EmpleadoColumnas.
-                                                                 Where(u => u.EmpleadoColumnaAnio == empleadoColumna.EmpleadoColumnaAnio && u.EmpleadoColumnaMes == empleadoColumna.EmpleadoColumnaMes && u.ExcelTipoId == empleadoColumna.ExcelTipoId && u.ExcelColumnaId == empleadoColumna.ExcelColumnaId && u.EmpleadoColumnaNo == empleadoColumna.EmpleadoColumnaNo && u.UsuarioId == empleadoColumna.UsuarioId).
-                                                                 FirstOrDefaultAsync();
-
-                                if (validaEmpleadoCoolumna == null)
+                                //Si no existe la columna no se guarda en la base de datos
+                                if (bandera == true)
                                 {
-                                    _context.EmpleadoColumnas.Add(empleadoColumna);
+                                    //Se asigna el id de la columna a cada registro
+                                    empleadoColumna.ExcelColumnaId = excelColumnaModel.ExcelColumnaId;
+
+                                    //Se busca si ya existe la columna
+                                    var validaEmpleadoCoolumna = await _context.EmpleadoColumnas.
+                                                                     Where(u => u.EmpleadoColumnaAnio == empleadoColumna.EmpleadoColumnaAnio && u.EmpleadoColumnaMes == empleadoColumna.EmpleadoColumnaMes && u.ExcelTipoId == empleadoColumna.ExcelTipoId && u.ExcelColumnaId == empleadoColumna.ExcelColumnaId && u.EmpleadoColumnaNo == empleadoColumna.EmpleadoColumnaNo && u.UsuarioId == empleadoColumna.UsuarioId).
+                                                                     FirstOrDefaultAsync();
+                                    //Si no existe se guarda
+                                    if (validaEmpleadoCoolumna == null)
+                                    {
+                                        _context.EmpleadoColumnas.Add(empleadoColumna);
+                                    }
+                                    //Si existe se actualiza
+                                    else
+                                    {
+                                        validaEmpleadoCoolumna.EmpleadoColumnaValor = empleadoColumna.EmpleadoColumnaValor;
+                                        _context.Entry(validaEmpleadoCoolumna).State = EntityState.Modified;
+                                    }
+
+                                    //Cada 500 registros se actualiza la base de datos
+                                    if (lote == 500)
+                                    {
+                                        await _context.SaveChangesAsync();
+                                        lote = 0;
+                                    }
                                 }
-                                else
-                                {
-                                    validaEmpleadoCoolumna.EmpleadoColumnaValor = empleadoColumna.EmpleadoColumnaValor;
-                                    _context.Entry(validaEmpleadoCoolumna).State = EntityState.Modified;
-                                }
-
-
-                                if (hilo == 500)
-                                {
-                                    await _context.SaveChangesAsync();
-                                    hilo = 0;
-                                }
-                               
-                                //transaction.Commit();
-                                //}
-                                //}
-
-
-
-
-                                //CreatedAtAction("GetEmpleadoColumna", new { id = empleadoColumna.EmpleadoColumnaId }, empleadoColumna);
                             }
+                            //Se guardan los ultimos registros y se confirman los registros
                             await _context.SaveChangesAsync();
                             transaction.Commit();
                             respuesta.Exito = 1;
                         }
                         catch (Exception)
                         {
+                            //Si algo sale mal no se actualiza la base de datos 
                             respuesta.Mensaje = "Error";
                             respuesta.Exito = 0;
                             transaction.Rollback();
@@ -247,14 +184,14 @@ namespace LoginBase.Controllers
 
                 }
             }
+            //Si algo sale mal no se ejecutan los registros
             catch (Exception ex)
             {
-
                 respuesta.Mensaje = ex.Message;
                 respuesta.Exito = 0;
             }
 
-            semaphoreSlim.Release();
+            //Se recupera la respuesta
             return Ok(respuesta);
         }
 
