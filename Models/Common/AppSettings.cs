@@ -8,5 +8,8 @@ namespace LoginBase.Models.Common
     public class AppSettings
     {
         public string Secreto { get; set; }
+
+        public string DataBaseServer { get; set; }
+
     }
 }

@@ -46,9 +46,7 @@ namespace LoginBase
 
             services.AddControllers();
 
-            //Conexión de la DB
-            var connection = @"Server=192.168.1.68;Database=TMFGroupSua;User ID=sa;Password=Tec2017;ConnectRetryCount=0";
-            services.AddDbContext<DataContext>(options => options.UseSqlServer(connection));
+            
 
 
             var appSettingsSection = Configuration.GetSection("AppSettings");
@@ -73,6 +71,10 @@ namespace LoginBase
                 };
             });
 
+            //Conexión de la DB
+            //var connection = @"Server=192.168.1.68;Database=TMFGroupSua;User ID=sa;Password=Tec2017;ConnectRetryCount=0";
+            var connection = appSettings.DataBaseServer;
+            services.AddDbContext<DataContext>(options => options.UseSqlServer(connection));
 
             services.AddScoped<IUserService, UserService>();
 

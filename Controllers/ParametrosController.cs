@@ -77,6 +77,34 @@ namespace LoginBase.Controllers
             return Ok(responses);
         }
 
+        // Post: api/RecuperaParametro
+        [HttpPost("RecuperaParametro")]
+        public async Task<ActionResult<Parametro>> RecuperaParametro(string parametroClave)
+        {
+            var responses = new Parametro();
+            var parametro = await _context.Parametros.Where(d => d.ParametroClave == parametroClave).FirstOrDefaultAsync();
+
+            if (parametro == null)
+            {
+                return NotFound();
+            }
+
+            responses = (new Parametro
+            {
+                ParametroId = parametro.ParametroId,
+                ParametroNombre = parametro.ParametroNombre,
+                ParametroClave = parametro.ParametroClave,
+                ParametroDescripcion = parametro.ParametroDescripcion,
+                ParametroValorInicial = parametro.ParametroValorInicial,
+                ParametroValorFinal = parametro.ParametroValorFinal,
+                ParametroEstatusDelete = parametro.ParametroEstatusDelete
+            });
+
+            //return parametro;
+            return Ok(responses);
+        }
+
+
         // PUT: api/Parametros/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
