@@ -38,7 +38,7 @@ namespace LoginBase
                 options.AddPolicy(name: MiCors,
                                   builder =>
                                   {
-                                      builder.WithOrigins("*","http://localhost:4200")
+                                      builder.WithOrigins("*","http://localhost:4200", "http://localhost")
                                       .AllowAnyHeader()
                                       .AllowAnyMethod();
                                   });
