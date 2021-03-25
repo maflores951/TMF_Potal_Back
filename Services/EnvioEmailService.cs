@@ -66,7 +66,7 @@ namespace LoginBase.Services
                 }
 
                 
-                var smtppo = await ParametroHelper.RecuperaParametro("smtppo", _db);
+                var SMPTPU = await ParametroHelper.RecuperaParametro("SMPTPU", _db);
 
                 //Se arma el mensaje con los parametros recuperados
                 mail.From = new MailAddress(CredentialEmail);
@@ -74,7 +74,7 @@ namespace LoginBase.Services
                 mail.Subject = parametroSubject.ParametroValorInicial;
                 mail.Body = parametroBody.ParametroValorInicial + EmailCifrado.Trim().Replace("/", "$").Replace("+", "&");
 
-                SmtpServer.Port = Int32.Parse(smtppo.ParametroValorInicial);//587;
+                SmtpServer.Port = Int32.Parse(SMPTPU.ParametroValorInicial);//587;
                 SmtpServer.Host = smtpcl.ParametroValorInicial;// "SMTP.Office365.com";
                 SmtpServer.EnableSsl = true;
                 SmtpServer.UseDefaultCredentials = false;

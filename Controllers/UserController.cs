@@ -59,11 +59,12 @@ namespace LoginBase.Controllers
         // POST: api/Users/EnviarEmail
         [HttpPost]
         [Route("EnviarEmail")]
-        [Authorize]
+       
         public async Task<IActionResult> EnviarEmailAsync([FromBody] Usuario model)
         {
             var email = string.Empty;
             RecuperaPassParametro usuarioEmail;
+            Respuesta respuesta = new Respuesta();
             //dynamic jsonObject = form;
 
             try
@@ -72,7 +73,10 @@ namespace LoginBase.Controllers
             }
             catch
             {
-                return BadRequest("Incorrect call");
+                respuesta.Exito = 0;
+                respuesta.Mensaje = "El email es incorrecto, favor de verificar.";
+                return Ok(respuesta);
+                //return BadRequest("Incorrect call");
             }
 
 
@@ -84,7 +88,9 @@ namespace LoginBase.Controllers
             //Se valida si existe el usuario
             if (usuario == null)
             {
-                return NotFound();
+                respuesta.Exito = 0;
+                respuesta.Mensaje = "El email no está registrado, favor de verificar";
+                return Ok(respuesta);
             }
 
 
@@ -118,7 +124,9 @@ namespace LoginBase.Controllers
             {
                 if (!UsuarioExists(id))
                 {
-                    return NotFound();
+                    respuesta.Exito = 0;
+                    respuesta.Mensaje = "El email no está registrado, favor de verificar";
+                    return Ok(respuesta);
                 }
                 else
                 {
@@ -131,7 +139,7 @@ namespace LoginBase.Controllers
             var emailResponse = await enviarEmail.EnivarEmail(usuarioEmail);
 
 
-            Respuesta respuesta = new Respuesta();
+           
             if (emailResponse.Exito == 1) {
                 respuesta.Exito = 1;
                 respuesta.Data = emailResponse;
@@ -140,6 +148,7 @@ namespace LoginBase.Controllers
             {
                 respuesta.Exito = 0;
                 respuesta.Data = emailResponse;
+                respuesta.Mensaje = "Error en el servidor, contacte al administrador del sistema.";
             }
             
             //return (IActionResult)emailResponse;

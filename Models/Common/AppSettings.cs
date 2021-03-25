@@ -11,5 +11,7 @@ namespace LoginBase.Models.Common
 
         public string DataBaseServer { get; set; }
 
+        public string UrlHost { get; set; }
+
     }
 }

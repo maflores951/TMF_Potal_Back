@@ -121,7 +121,7 @@ namespace LoginBase.Controllers
                 var stream = new MemoryStream(usuario.ImageArray);
                 var guid = Guid.NewGuid().ToString();
                 var file = string.Format("{0}.jpg", guid);
-                var folder = "~/Content/Images";
+                var folder = "uploads";
                 var fullPath = string.Format("{0}/{1}", folder, file);
                 var response = FilesHelper.UploadPhoto(stream, folder, file, _enviroment);
                 //var response = false;
@@ -242,7 +242,7 @@ namespace LoginBase.Controllers
                 var stream = new MemoryStream(usuario.ImageArray);
                 var guid = Guid.NewGuid().ToString();
                 var file = string.Format("{0}.jpg", guid);
-                var folder = "~/Content/Images";
+                var folder = "uploads";
                 var fullPath = string.Format("{0}/{1}", folder, file);
                 var response = FilesHelper.UploadPhoto(stream, folder, file, _enviroment);
                 if (response)
@@ -257,7 +257,7 @@ namespace LoginBase.Controllers
                 var stream = new MemoryStream(imageArray);
                 var guid = Guid.NewGuid().ToString();
                 var file = string.Format("{0}.jpg", guid);
-                var folder = "~/Content/Images";
+                var folder = "uploads";
                 var fullPath = string.Format("{0}/{1}", folder, file);
                 var response = FilesHelper.UploadPhoto(stream, folder, file, _enviroment);
                 if (response)
