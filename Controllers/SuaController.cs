@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using LoginBase.Models;
@@ -228,7 +229,11 @@ namespace LoginBase.Controllers
                         //Se recorre la configuración 
                         foreach (var suaExcel in suaExcels)
                         {
-
+                            if (suaExcel == null )
+                            {
+var suaPrueba = suaExcel;
+                            }
+                            
                             //Numero de empleado
 
                                 //valorEmpleado = empleadoColumnas.Where(x => suaExcel.ExcelColumnaId == x.ExcelColumnaId && x.EmpleadoColumnaNo == empleadoColumna.Key).FirstOrDefault();
@@ -263,6 +268,16 @@ namespace LoginBase.Controllers
                                     int caseSwitch = suaExcel.ExcelColumna.ExcelTipoId;
 
                                     //Se recupera el valor de la casilla sin espacios
+                                    if (valorEmpleado.EmpleadoColumnaValor == null)
+                                    {
+                                        valorEmpleado.EmpleadoColumnaValor = "";
+                                    }
+
+                                    if (valorEmpleado.EmpleadoColumnaNo == null)
+                                    {
+                                        valorEmpleado.EmpleadoColumnaNo = "";
+                                    }
+
                                     valor = valorEmpleado.EmpleadoColumnaValor.Trim();
                                     //Se recupera el número de empleado
                                     empleadoValor = valorEmpleado.EmpleadoColumnaNo.Trim();
@@ -274,8 +289,8 @@ namespace LoginBase.Controllers
                                     if (caseSwitch == 5 || caseSwitch == 6)
                                     {
                                         //Estas columas si se pueden agrupar
-                                        if (configuracionSuaNivel.ConfSuaNNombre == "Días" || configuracionSuaNivel.ConfSuaNNombre == "Retiro" ||
-                                            configuracionSuaNivel.ConfSuaNNombre == "Cesantía en Edad Avanzada y Vejez Patronal" || configuracionSuaNivel.ConfSuaNNombre == "Cesantía en Edad Avanzada y Vejez Obrero" || configuracionSuaNivel.ConfSuaNNombre == "Subtotal RCV" || configuracionSuaNivel.ConfSuaNNombre == "Aportación Patronal" || configuracionSuaNivel.ConfSuaNNombre == "Valor de Descuento" || configuracionSuaNivel.ConfSuaNNombre == "Amortización" || configuracionSuaNivel.ConfSuaNNombre == "Subtotal Infonavit" || configuracionSuaNivel.ConfSuaNNombre == "Total")
+                                        if (suaExcel.ExcelColumna.ExcelColumnaNombre == "Días" || suaExcel.ExcelColumna.ExcelColumnaNombre == "Retiro" ||
+                                            suaExcel.ExcelColumna.ExcelColumnaNombre == "Cesantía en Edad Avanzada y Vejez Patronal" || suaExcel.ExcelColumna.ExcelColumnaNombre == "Cesantía en Edad Avanzada y Vejez Obrero" || suaExcel.ExcelColumna.ExcelColumnaNombre == "Subtotal RCV" || suaExcel.ExcelColumna.ExcelColumnaNombre == "Aportación Patronal" || suaExcel.ExcelColumna.ExcelColumnaNombre == "Valor de Descuento" || suaExcel.ExcelColumna.ExcelColumnaNombre == "Amortización" || suaExcel.ExcelColumna.ExcelColumnaNombre == "Subtotal Infonavit" || suaExcel.ExcelColumna.ExcelColumnaNombre == "Total")
                                         {
                                             //Se intenta convertir en numerico 
                                             result = decimal.TryParse(valor, out valorInt); //i now = 108  
@@ -418,15 +433,25 @@ namespace LoginBase.Controllers
                         {
                             if (result)
                             {
-                                valorTemM = valorTemMInt.ToString().Trim();
+                                var valorCentavosTemM = valorTemMInt - Math.Truncate(valorTemMInt);
+                                if (valorCentavosTemM > 0)
+                                {
+                                    valorTemM = valorTemMInt.ToString("0.00");
+                                }
+                                else
+                                {
+                                    valorTemM = valorTemMInt.ToString();
+                                }
                             }
                             else
                             {
-                                if (valorTemM.IndexOf("$") > 0)
+                                if (valorTemM != null)
                                 {
-                                    valorTemM = valorTemM.Replace("$", " ").Trim();
+                                    if (valorTemM.IndexOf("$") > 0)
+                                    {
+                                        valorTemM = valorTemM.Replace("$", " ").Replace("/", "Ñ").Replace("#", "Ñ").Trim();
+                                    }
                                 }
-
                             }
                         }
                         //Se determina si el dato existe segun su posición, si es numerico se convierte a string y se quitan los espaciós, si este es una suma de caracteres se cambia & por espacios.
@@ -434,13 +459,24 @@ namespace LoginBase.Controllers
                         {
                             if (result)
                             {
-                                valorSua = valorSuaInt.ToString();
+                                var valorCentavosSua = valorSuaInt - Math.Truncate(valorSuaInt);
+                                if (valorCentavosSua > 0)
+                                {
+                                    valorSua = valorSuaInt.ToString("0.00");
+                                }
+                                else
+                                {
+                                    valorSua = valorSuaInt.ToString();
+                                }
                             }
                             else
                             {
-                                if (valorSua.IndexOf("$") > 0)
+                                if (valorSua != null)
                                 {
-                                    valorSua = valorSua.Replace("$", " ").Trim();
+                                    if (valorSua.IndexOf("$") > 0)
+                                    {
+                                        valorSua = valorSua.Replace("$", " ").Replace("/", "Ñ").Replace("#", "Ñ").Trim();
+                                    }
                                 }
                             }
                         }
@@ -449,13 +485,28 @@ namespace LoginBase.Controllers
                         {
                             if (result)
                             {
-                                valorEma = valorEmaInt.ToString();
+                                var valorCentavosEma = valorEmaInt - Math.Truncate(valorEmaInt);
+                                if (valorCentavosEma > 0)
+                                {
+                                    valorEma = valorEmaInt.ToString("0.00");
+                                }
+                                else
+                                {
+                                    valorEma = valorEmaInt.ToString();
+                                }
                             }
                             else
                             {
-                                if (valorEma.IndexOf("$") > 0)
+                                if (valorEma != null)
                                 {
-                                    valorEma = valorEma.Replace("$", " ").Trim();
+                                    if (valorEma.IndexOf("$") > 0)
+                                    {
+                                        valorEma = valorEma.Replace("$", " ").Replace("/", "Ñ").Replace("#", "Ñ").Trim();
+                                    }
+                                    else 
+                                    { 
+                                        valorEma = valorEma.Replace("#", "Ñ").Trim(); 
+                                    }
                                 }
                             }
                         }

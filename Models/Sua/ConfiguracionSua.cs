@@ -16,6 +16,8 @@ namespace LoginBase.Models.Sua
 
         public bool ConfSuaEstatus { get; set; }
 
+        public int ConfiguracionSuaTipo { get; set; }
+
         public  List<ConfiguracionSuaNivel> ConfiguracionSuaNivel { get; set; }
 
         public ConfiguracionSua()

@@ -57,8 +57,7 @@ namespace LoginBase.Controllers
 
             //Se busca si existe un empleado con respecto a el año, mes, tipo de archivo y usuario.
             var empleadoColumna = await _context.EmpleadoColumnas.
-                                                                 Where(u =>  u.EmpleadoColumnaAnio == empleadoColumnas.EmpleadoColumnaAnio && u.EmpleadoColumnaMes == empleadoColumnas.EmpleadoColumnaMes && u.ExcelTipoId == empleadoColumnas.ExcelTipoId && u.UsuarioId == empleadoColumnas.UsuarioId).
-                                                                 FirstOrDefaultAsync();
+                                                                 Where(u =>  u.EmpleadoColumnaAnio == empleadoColumnas.EmpleadoColumnaAnio && u.EmpleadoColumnaMes == empleadoColumnas.EmpleadoColumnaMes && u.ExcelTipoId == empleadoColumnas.ExcelTipoId && u.UsuarioId == empleadoColumnas.UsuarioId).FirstOrDefaultAsync();
 
             //Se valida el resultado 
             if (empleadoColumna == null)
@@ -72,8 +71,74 @@ namespace LoginBase.Controllers
             //Se recupera la respuesta
             return Ok(respuesta);
         }
-            // PUT: api/EmpleadoColumnas/5
-            [HttpPut("{id}")]
+
+        //Api para eliminar las columnas y optimizar los tiempos de actualización de datos 
+        [HttpPost]
+        [Route("EliminarColumnas")]
+        public async Task<ActionResult<EmpleadoColumna>> EliminarColumnas(EmpleadoColumna empleadoColumna)
+        {
+            //Se crea la respuesta
+            Respuesta respuesta = new Respuesta();
+
+            //Se busca si existe un empleado con respecto a el año, mes, tipo de archivo y usuario.
+            var empleadoColumnas = await _context.EmpleadoColumnas.
+                                                                 Where(u => u.EmpleadoColumnaAnio == empleadoColumna.EmpleadoColumnaAnio && u.EmpleadoColumnaMes == empleadoColumna.EmpleadoColumnaMes && u.ExcelTipoId == empleadoColumna.ExcelTipoId && u.UsuarioId == empleadoColumna.UsuarioId).ToListAsync();
+
+            //Se valida el resultado 
+            if (empleadoColumna == null)
+            {
+                respuesta.Exito = 0;
+            }
+            else
+            {
+                try
+                {
+                    //Se recupera el contexto para conectar con la base de datos
+                    using (DataContext db = _context)
+                    {
+                        //Se crea una transacción para poder proteger los datos
+                        using (var transaction = db.Database.BeginTransaction())
+                        {
+                            try
+                            {
+                               
+                                //Se recorren los niveles
+                                foreach (var empleadoCol in empleadoColumnas)
+                                {
+                                   
+                                    //Se eliminan los niveles
+                                    _context.EmpleadoColumnas.Remove(empleadoCol);
+                                    
+                                }
+                                //Se guarda la eliminación
+                                await _context.SaveChangesAsync();
+                                transaction.Commit();
+                                respuesta.Exito = 1;
+                            }
+                            catch (Exception)
+                            {
+                                //Si algo sale mal se restaura la base de datos sin almacenar los errores
+                                transaction.Rollback();
+                                respuesta.Exito = 0;
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    //Si algo sale mal no se ejecuta el flujo y retorna un error
+                    respuesta.Mensaje = ex.Message;
+                    respuesta.Exito = 0;
+                }
+            }
+
+
+            //Se recupera la respuesta
+            return Ok(respuesta);
+        }
+
+        // PUT: api/EmpleadoColumnas/5
+        [HttpPut("{id}")]
         public async Task<IActionResult> PutEmpleadoColumna(int id, EmpleadoColumna empleadoColumna)
         {
             if (id != empleadoColumna.EmpleadoColumnaId)
@@ -108,6 +173,7 @@ namespace LoginBase.Controllers
         {
             //Se crea la respuesta
             Respuesta respuesta = new Respuesta();
+           
 
             try
             {
@@ -121,6 +187,8 @@ namespace LoginBase.Controllers
                         {
                             //Se crea esta variable para poder enviar la información por lotes y optimizar el performance
                             var lote = 0;
+                            var banderaUpdate = true;
+                            var banderaValida = true;
                             //Se recorren los datos por empleado para guardarlos
                             foreach (var empleadoColumna in empleadoColumnas)
                             {
@@ -143,24 +211,45 @@ namespace LoginBase.Controllers
                                     //Se asigna el id de la columna a cada registro
                                     empleadoColumna.ExcelColumnaId = excelColumnaModel.ExcelColumnaId;
 
-                                    //Se busca si ya existe la columna
-                                    var validaEmpleadoCoolumna = await _context.EmpleadoColumnas.
-                                                                     Where(u => u.EmpleadoColumnaAnio == empleadoColumna.EmpleadoColumnaAnio && u.EmpleadoColumnaMes == empleadoColumna.EmpleadoColumnaMes && u.ExcelTipoId == empleadoColumna.ExcelTipoId && u.ExcelColumnaId == empleadoColumna.ExcelColumnaId && u.EmpleadoColumnaNo == empleadoColumna.EmpleadoColumnaNo && u.UsuarioId == empleadoColumna.UsuarioId).
-                                                                     FirstOrDefaultAsync();
-                                    //Si no existe se guarda
-                                    if (validaEmpleadoCoolumna == null)
-                                    {
-                                        _context.EmpleadoColumnas.Add(empleadoColumna);
-                                    }
-                                    //Si existe se actualiza
-                                    else
-                                    {
-                                        validaEmpleadoCoolumna.EmpleadoColumnaValor = empleadoColumna.EmpleadoColumnaValor;
-                                        _context.Entry(validaEmpleadoCoolumna).State = EntityState.Modified;
-                                    }
+                                    //if (banderaUpdate == true && banderaValida == true)
+                                    //{
+                                    //    // Se busca si ya existe la columna
+                                    //var updateEmpleadoCoolumna = await _context.EmpleadoColumnas.
+                                    //                                 Where(u => u.EmpleadoColumnaAnio == empleadoColumna.EmpleadoColumnaAnio && u.EmpleadoColumnaMes == empleadoColumna.EmpleadoColumnaMes && u.UsuarioId == empleadoColumna.UsuarioId).
+                                    //                                 FirstOrDefaultAsync();
+                                    //    if (updateEmpleadoCoolumna == null)
+                                    //    {
+                                    //        banderaUpdate = false;
+                                    //    }
+                                    //    banderaValida = false;
+                                    //}
 
-                                    //Cada 500 registros se actualiza la base de datos
-                                    if (lote == 500)
+                                    var validaEmpleadoCoolumna = new EmpleadoColumna();
+                                    //Se busca si ya existe la columna
+                                    //if (banderaUpdate == true)
+                                    //{
+                                    //    validaEmpleadoCoolumna = await _context.EmpleadoColumnas.
+                                    //                                 Where(u => u.EmpleadoColumnaAnio == empleadoColumna.EmpleadoColumnaAnio && u.EmpleadoColumnaMes == empleadoColumna.EmpleadoColumnaMes && u.ExcelTipoId == empleadoColumna.ExcelTipoId && u.ExcelColumnaId == empleadoColumna.ExcelColumnaId && u.EmpleadoColumnaNo == empleadoColumna.EmpleadoColumnaNo && u.UsuarioId == empleadoColumna.UsuarioId).
+                                    //                                 FirstOrDefaultAsync();
+                                    //}
+                                    //else
+                                    //{
+                                    //    validaEmpleadoCoolumna = null;
+                                    //}
+                                    //Si no existe se guarda
+                                    //if (validaEmpleadoCoolumna == null)
+                                    //{
+                                        _context.EmpleadoColumnas.Add(empleadoColumna);
+                                    //}
+                                    ////Si existe se actualiza
+                                    //else
+                                    //{
+                                    //    validaEmpleadoCoolumna.EmpleadoColumnaValor = empleadoColumna.EmpleadoColumnaValor;
+                                    //    _context.Entry(validaEmpleadoCoolumna).State = EntityState.Modified;
+                                    //}
+
+                                    //Cada 1000 registros se actualiza la base de datos
+                                    if (lote == 1000)
                                     {
                                         await _context.SaveChangesAsync();
                                         lote = 0;

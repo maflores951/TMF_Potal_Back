@@ -78,6 +78,7 @@ namespace LoginBase.Controllers
                         ConfiguracionSuaId = configuracionSua.ConfiguracionSuaId,
                         ConfSuaNombre = configuracionSua.ConfSuaNombre,
                         ConfSuaEstatus = configuracionSua.ConfSuaEstatus,
+                        ConfiguracionSuaTipo = configuracionSua.ConfiguracionSuaTipo,
                         ConfiguracionSuaNivel = suaNivel.ToList()
                     });
                 }
@@ -327,6 +328,7 @@ namespace LoginBase.Controllers
                         {
                             //Si algo sale mal se restaura la base de datos sin almacenar los errores
                             transaction.Rollback();
+                            respuesta.Exito = 0;
                         }
                     }
                 }
