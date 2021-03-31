@@ -268,20 +268,20 @@ namespace LoginBase.Controllers
         }
 
         // DELETE: api/ConfiguracionSuas/5
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<ConfiguracionSua>> DeleteConfiguracionSua(int id)
-        {
-            var configuracionSua = await _context.ConfiguracionSuas.FindAsync(id);
-            if (configuracionSua == null)
-            {
-                return NotFound();
-            }
+        //[HttpDelete("{id}")]
+        //public async Task<ActionResult<ConfiguracionSua>> DeleteConfiguracionSua(int id)
+        //{
+        //    var configuracionSua = await _context.ConfiguracionSuas.FindAsync(id);
+        //    if (configuracionSua == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            _context.ConfiguracionSuas.Remove(configuracionSua);
-            await _context.SaveChangesAsync();
+        //    _context.ConfiguracionSuas.Remove(configuracionSua);
+        //    await _context.SaveChangesAsync();
 
-            return configuracionSua;
-        }
+        //    return configuracionSua;
+        //}
 
         private bool ConfiguracionSuaExists(int id)
         {

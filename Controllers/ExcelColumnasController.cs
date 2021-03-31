@@ -99,19 +99,19 @@ namespace LoginBase.Controllers
 
         // DELETE: api/ExcelColumnas/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<ExcelColumna>> DeleteExcelColumna(int id)
-        {
-            var excelColumna = await _context.ExcelColumnas.FindAsync(id);
-            if (excelColumna == null)
-            {
-                return NotFound();
-            }
+        //public async Task<ActionResult<ExcelColumna>> DeleteExcelColumna(int id)
+        //{
+        //    var excelColumna = await _context.ExcelColumnas.FindAsync(id);
+        //    if (excelColumna == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            _context.ExcelColumnas.Remove(excelColumna);
-            await _context.SaveChangesAsync();
+        //    _context.ExcelColumnas.Remove(excelColumna);
+        //    await _context.SaveChangesAsync();
 
-            return excelColumna;
-        }
+        //    return excelColumna;
+        //}
 
         private bool ExcelColumnaExists(int id)
         {

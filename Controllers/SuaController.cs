@@ -111,6 +111,9 @@ namespace LoginBase.Controllers
         [HttpPost("Excel")]
         public async Task<IActionResult> ExportarExcelAsync(ReporteExcelCom model)
         {
+            //Se crea la respuesta a retornar
+            Respuesta respuesta = new Respuesta();
+
             //Se determina el formato de excel a utilizar
             string excelContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
             //string excelContentType = "application/vnd.ms-excel";
@@ -135,6 +138,13 @@ namespace LoginBase.Controllers
             var empleadoColumnas = await _context.EmpleadoColumnas.
               Where(u => u.EmpleadoColumnaAnio == model.EmpleadoColumnaAnio && u.EmpleadoColumnaMes == model.EmpleadoColumnaMes && u.UsuarioId == model.UsuarioId).
               ToListAsync();
+
+            if (empleadoColumnas.Count() == 0)
+            {
+                //Se recupera la respuesta
+                respuesta.Exito = 0;
+                return Ok(respuesta);
+            }
 
             //Se ordenan los empleados para la exportación
             var queryEmpleadoC =
@@ -229,11 +239,7 @@ namespace LoginBase.Controllers
                         //Se recorre la configuración 
                         foreach (var suaExcel in suaExcels)
                         {
-                            if (suaExcel == null )
-                            {
-var suaPrueba = suaExcel;
-                            }
-                            
+                           
                             //Numero de empleado
 
                                 //valorEmpleado = empleadoColumnas.Where(x => suaExcel.ExcelColumnaId == x.ExcelColumnaId && x.EmpleadoColumnaNo == empleadoColumna.Key).FirstOrDefault();
@@ -665,10 +671,10 @@ var suaPrueba = suaExcel;
             //Se asigna el reporte como un string en base64
             imagebase64 = Convert.ToBase64String(excel.FileContents);
 
-            //Se crea las respuesta
-            Respuesta respuesta = new Respuesta();
+
 
             //Se asigna el base64 en la respuesta 
+            respuesta.Exito = 1;
             respuesta.Data = imagebase64;
 
             //Se recupera la respuesta

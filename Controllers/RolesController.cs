@@ -123,21 +123,21 @@ namespace LoginBase.Controllers
             return CreatedAtAction("GetRol", new { id = rol.RolId }, rol);
         }
 
-        // DELETE: api/Roles/5
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<Rol>> DeleteRol(int id)
-        {
-            var rol = await _context.Roles.FindAsync(id);
-            if (rol == null)
-            {
-                return NotFound();
-            }
+        //// DELETE: api/Roles/5
+        //[HttpDelete("{id}")]
+        //public async Task<ActionResult<Rol>> DeleteRol(int id)
+        //{
+        //    var rol = await _context.Roles.FindAsync(id);
+        //    if (rol == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            _context.Roles.Remove(rol);
-            await _context.SaveChangesAsync();
+        //    _context.Roles.Remove(rol);
+        //    await _context.SaveChangesAsync();
 
-            return rol;
-        }
+        //    return rol;
+        //}
 
         private bool RolExists(int id)
         {

@@ -89,21 +89,21 @@ namespace LoginBase.Controllers
             return CreatedAtAction("GetExcelTipo", new { id = excelTipo.ExcelTipoId }, excelTipo);
         }
 
-        // DELETE: api/ExcelTipos/5
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<ExcelTipo>> DeleteExcelTipo(int id)
-        {
-            var excelTipo = await _context.ExcelTipos.FindAsync(id);
-            if (excelTipo == null)
-            {
-                return NotFound();
-            }
+        //// DELETE: api/ExcelTipos/5
+        //[HttpDelete("{id}")]
+        //public async Task<ActionResult<ExcelTipo>> DeleteExcelTipo(int id)
+        //{
+        //    var excelTipo = await _context.ExcelTipos.FindAsync(id);
+        //    if (excelTipo == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            _context.ExcelTipos.Remove(excelTipo);
-            await _context.SaveChangesAsync();
+        //    _context.ExcelTipos.Remove(excelTipo);
+        //    await _context.SaveChangesAsync();
 
-            return excelTipo;
-        }
+        //    return excelTipo;
+        //}
 
         private bool ExcelTipoExists(int id)
         {

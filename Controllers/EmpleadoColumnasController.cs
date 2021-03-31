@@ -285,20 +285,20 @@ namespace LoginBase.Controllers
         }
 
         // DELETE: api/EmpleadoColumnas/5
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<EmpleadoColumna>> DeleteEmpleadoColumna(int id)
-        {
-            var empleadoColumna = await _context.EmpleadoColumnas.FindAsync(id);
-            if (empleadoColumna == null)
-            {
-                return NotFound();
-            }
+        //[HttpDelete("{id}")]
+        //public async Task<ActionResult<EmpleadoColumna>> DeleteEmpleadoColumna(int id)
+        //{
+        //    var empleadoColumna = await _context.EmpleadoColumnas.FindAsync(id);
+        //    if (empleadoColumna == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            _context.EmpleadoColumnas.RemoveRange(empleadoColumna);
-            await _context.SaveChangesAsync();
+        //    _context.EmpleadoColumnas.RemoveRange(empleadoColumna);
+        //    await _context.SaveChangesAsync();
 
-            return empleadoColumna;
-        }
+        //    return empleadoColumna;
+        //}
 
         private bool EmpleadoColumnaExists(int id)
         {

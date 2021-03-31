@@ -151,20 +151,20 @@ namespace LoginBase.Controllers
         }
 
         // DELETE: api/Parametros/5
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<Parametro>> DeleteParametro(int id)
-        {
-            var parametro = await _context.Parametros.FindAsync(id);
-            if (parametro == null)
-            {
-                return NotFound();
-            }
+        //[HttpDelete("{id}")]
+        //public async Task<ActionResult<Parametro>> DeleteParametro(int id)
+        //{
+        //    var parametro = await _context.Parametros.FindAsync(id);
+        //    if (parametro == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            _context.Parametros.Remove(parametro);
-            await _context.SaveChangesAsync();
+        //    _context.Parametros.Remove(parametro);
+        //    await _context.SaveChangesAsync();
 
-            return parametro;
-        }
+        //    return parametro;
+        //}
 
         private bool ParametroExists(int id)
         {

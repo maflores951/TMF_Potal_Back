@@ -298,21 +298,21 @@ namespace LoginBase.Controllers
         }
 
         // DELETE: api/Usuarios/5
-        [HttpDelete("{id}")]
-        [Authorize]
-        public async Task<ActionResult<Usuario>> DeleteUsuario(int id)
-        {
-            var usuario = await _context.Usuarios.FindAsync(id);
-            if (usuario == null)
-            {
-                return NotFound();
-            }
+        //[HttpDelete("{id}")]
+        //[Authorize]
+        //public async Task<ActionResult<Usuario>> DeleteUsuario(int id)
+        //{
+        //    var usuario = await _context.Usuarios.FindAsync(id);
+        //    if (usuario == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            _context.Usuarios.Remove(usuario);
-            await _context.SaveChangesAsync();
+        //    _context.Usuarios.Remove(usuario);
+        //    await _context.SaveChangesAsync();
 
-            return usuario;
-        }
+        //    return usuario;
+        //}
 
         private bool UsuarioExists(int id)
         {
