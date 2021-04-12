@@ -40,6 +40,8 @@ namespace LoginBase.Models
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
+        public string UsuarioClave { get; set; }
+
         public string UsuarioToken { get; set; }
 
         [Display(Name = "Password")]

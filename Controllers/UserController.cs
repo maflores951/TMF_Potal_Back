@@ -49,6 +49,12 @@ namespace LoginBase.Controllers
                 return Ok(respuesta);
             }
 
+            if (userResponse.UsuarioFechaLimite < DateTime.Now)
+            {
+                respuesta.Exito = 0;
+                respuesta.Mensaje = "La contraseña expiro, por favor recupere una nueva.";
+                return Ok(respuesta);
+            }
             //Si el usuario existe se retorna el usuario.
             respuesta.Exito = 1;
             respuesta.Data = userResponse;

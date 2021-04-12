@@ -11,6 +11,7 @@ using System.IO;
 using LoginBase.Helper;
 using LoginBase.Models.Response;
 using Microsoft.AspNetCore.Hosting;
+using Fintech.API.Helpers;
 
 namespace LoginBase.Controllers
 {
@@ -36,6 +37,8 @@ namespace LoginBase.Controllers
             //return await _context.Usuarios.ToListAsync();
             var responses = new List<Usuario>();
             var usuarios = await _context.Usuarios.ToListAsync();
+            //Se crea una variable del tipo de servicio para poder decifrar la contraseña
+            CifradoHelper cifradoHelper = new CifradoHelper();
 
             foreach (var usuario in usuarios)
             {
@@ -50,8 +53,9 @@ namespace LoginBase.Controllers
                     UsuarioNumConfirmacion = usuario.UsuarioNumConfirmacion,
                     UsuarioFechaLimite = usuario.UsuarioFechaLimite,
                     UsuarioEstatusSesion = usuario.UsuarioEstatusSesion,
-                    Password = usuario.Password,
+                    Password = cifradoHelper.DecryptStringAES(usuario.Password),
                     Email = usuario.Email,
+                    UsuarioClave = usuario.UsuarioClave,
                     ImagePath = usuario.ImagePath,
                     RolId = usuario.RolId,
                     Rol = rol//usuario.Rol
@@ -116,6 +120,15 @@ namespace LoginBase.Controllers
             //    usuario.Password = usuarioBefore.Password;
             //}
 
+            //var usuarioEmail = await _context.Usuarios.
+            //  Where(u => u.Email.ToLower() == usuario.Email.ToLower()).
+            //  FirstOrDefaultAsync();
+
+            //if (usuarioEmail != null)
+            //{
+            //    return BadRequest("La cuenta de email que ingreso ya está registrada");
+            //}
+
             if (usuario.ImageArray != null && usuario.ImageArray.Length > 0)
             {
                 var stream = new MemoryStream(usuario.ImageArray);
@@ -147,6 +160,12 @@ namespace LoginBase.Controllers
                 }
             }
 
+            DateTime today = DateTime.Today;
+            var diasPass = await _context.Parametros.
+             Where(u => u.ParametroClave.ToLower() == "SETEXP").
+             FirstOrDefaultAsync();
+
+            usuario.UsuarioFechaLimite = today.AddDays(Int32.Parse(diasPass.ParametroValorInicial));
             _context.Entry(usuario).State = EntityState.Modified;
 
             try
@@ -174,6 +193,7 @@ namespace LoginBase.Controllers
         [Route("SetPassword")]
         public async Task<IActionResult> SetPassword(Usuario usuario)
         {
+
             var usuarioSave = await _context.Usuarios.FindAsync(usuario.UsuarioId);
 
             if (usuarioSave == null)
@@ -182,13 +202,22 @@ namespace LoginBase.Controllers
             }
 
 
-            if (usuarioSave.UsuarioFechaLimite
-                == null)
-            {
-                return BadRequest();
-            }
+            //if (usuarioSave.UsuarioFechaLimite
+            //    == null)
+            //{
+            //    return BadRequest();
+            //}
 
-            usuarioSave.UsuarioFechaLimite = null;
+
+            DateTime today = DateTime.Now;
+
+            var diasPass = await _context.Parametros.
+              Where(u => u.ParametroClave.ToLower() == "SETEXP").
+              FirstOrDefaultAsync();
+
+            usuarioSave.UsuarioFechaLimite = today.AddDays(Int32.Parse(diasPass.ParametroValorInicial));
+
+            //usuarioSave.UsuarioFechaLimite = null;
             //usuarioSave.usuario = usuario.Password;
             usuarioSave.Password = usuario.Password;
             _context.Entry(usuarioSave).State = EntityState.Modified;
@@ -218,19 +247,35 @@ namespace LoginBase.Controllers
         [HttpPost]
         public async Task<ActionResult<Usuario>> PostUsuario(Usuario usuario)
         {
+            Respuesta respuesta = new Respuesta();
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            
+
+            var usuarioClave = await _context.Usuarios.
+             Where(u => u.UsuarioClave.ToLower() == usuario.UsuarioClave.ToLower()).
+             FirstOrDefaultAsync();
+
+            if (usuarioClave != null)
+            {
+                respuesta.Mensaje = "El nombre de usuario que ingreso ya está registrado.";
+                respuesta.Exito = 0;
+                return Ok(respuesta);
+            }
+
             var usuarioEmail = await _context.Usuarios.
                Where(u => u.Email.ToLower() == usuario.Email.ToLower()).
                FirstOrDefaultAsync();
 
             if (usuarioEmail != null)
             {
-                return BadRequest("La cuenta de email que ingreso ya está registrada");
+                respuesta.Mensaje = "La cuenta de email que ingreso ya está registrada.";
+                respuesta.Exito = 0;
+                return Ok(respuesta);
             }
+
+           
 
             //if (usuarioEmail == null)
             //{
@@ -265,6 +310,14 @@ namespace LoginBase.Controllers
                     usuario.ImagePath = fullPath;
                 }
             }
+
+            DateTime today = DateTime.Now;
+
+            var diasPass = await _context.Parametros.
+              Where(u => u.ParametroClave.ToLower() == "SETEXP").
+              FirstOrDefaultAsync();
+
+            usuario.UsuarioFechaLimite = today.AddDays(Int32.Parse(diasPass.ParametroValorInicial));
             //usuarioEmail.Password = usuario.Password;
             _context.Usuarios.Add(usuario);
             //await _context.SaveChangesAsync();
@@ -294,7 +347,14 @@ namespace LoginBase.Controllers
             //_context.Usuarios.Add(usuario);
             //await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetUsuario", new { id = usuario.UsuarioId }, usuario);
+            //return CreatedAtAction("GetUsuario", new { id = usuario.UsuarioId }, usuario);
+
+            respuesta.Data = CreatedAtAction("GetUsuario", new { id = usuario.UsuarioId }, usuario);
+
+            respuesta.Mensaje = "Registro exitoso.";
+            respuesta.Exito = 1;
+
+            return Ok(respuesta);
         }
 
         // DELETE: api/Usuarios/5

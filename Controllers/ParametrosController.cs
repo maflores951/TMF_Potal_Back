@@ -77,8 +77,8 @@ namespace LoginBase.Controllers
             return Ok(responses);
         }
 
-        // Post: api/RecuperaParametro
-        [HttpPost("RecuperaParametro")]
+        // Post: api/Parametros/RecuperaParametro
+        [HttpPost("RecuperaParametro/{parametroClave}")]
         public async Task<ActionResult<Parametro>> RecuperaParametro(string parametroClave)
         {
             var responses = new Parametro();

@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using Fintech.API.Helpers;
 using LoginBase.Models;
 using LoginBase.Models.Empleado;
 using LoginBase.Models.Excel;
@@ -114,6 +115,9 @@ namespace LoginBase.Controllers
             //Se crea la respuesta a retornar
             Respuesta respuesta = new Respuesta();
 
+            //Se crea una variable del tipo de servicio para poder cifrar información
+            CifradoHelper cifradoHelper = new CifradoHelper();
+
             //Se determina el formato de excel a utilizar
             string excelContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
             //string excelContentType = "application/vnd.ms-excel";
@@ -184,15 +188,16 @@ namespace LoginBase.Controllers
                 var col = 1;
 
                 worksheet.Cells[fila, 1].Value = "Empleado";
-                worksheet.Cells[fila, 2].Value = "Columna";
-                worksheet.Cells[fila, 3].Value = "Dato";
+                worksheet.Cells[fila, 2].Value = "Nombre";
+                worksheet.Cells[fila, 3].Value = "Columna";
+                worksheet.Cells[fila, 4].Value = "Dato";
 
-                worksheet.Cells[fila, 4].Value = "Columna";
-                worksheet.Cells[fila, 5].Value = "Dato";
+                worksheet.Cells[fila, 5].Value = "Columna";
+                worksheet.Cells[fila, 6].Value = "Dato";
 
-                worksheet.Cells[fila, 6].Value = "Columna";
-                worksheet.Cells[fila, 7].Value = "Dato";
-                worksheet.Cells[fila, 8].Value = "Estatus";
+                worksheet.Cells[fila, 7].Value = "Columna";
+                worksheet.Cells[fila, 8].Value = "Dato";
+                worksheet.Cells[fila, 9].Value = "Estatus";
 
 
                 //Se recorren los empleados
@@ -278,15 +283,43 @@ namespace LoginBase.Controllers
                                     {
                                         valorEmpleado.EmpleadoColumnaValor = "";
                                     }
+                                    else
+                                    {
+                                        if (suaExcel.ExcelColumna.ExcelColumnaNombre == "NSS" ||
+                suaExcel.ExcelColumna.ExcelColumnaNombre == "Nombre" ||
+                suaExcel.ExcelColumna.ExcelColumnaNombre == "No. S.S." ||
+                suaExcel.ExcelColumna.ExcelColumnaNombre == "No. CR. INFONAVIT" ||
+                suaExcel.ExcelColumna.ExcelColumnaNombre == "APELLIDO PATERNO" ||
+                suaExcel.ExcelColumna.ExcelColumnaNombre == "APELLIDO MATERNO" ||
+                suaExcel.ExcelColumna.ExcelColumnaNombre == "NOMBRE(S)" ||
+                suaExcel.ExcelColumna.ExcelColumnaNombre == "RFC" ||
+                suaExcel.ExcelColumna.ExcelColumnaNombre == "CURP" ||
+                suaExcel.ExcelColumna.ExcelColumnaNombre == "RFC Trabajador" ||
+                suaExcel.ExcelColumna.ExcelColumnaNombre == "Nombre Trabajador" ||
+                suaExcel.ExcelColumna.ExcelColumnaNombre == "Número de Afiliación")
+                                        {
+                                            valor = cifradoHelper.DecryptStringAES(valorEmpleado.EmpleadoColumnaValor.Trim()).Trim();
+
+                                        }
+                                        else
+                                        {
+                                            valor = valorEmpleado.EmpleadoColumnaValor.Trim();
+                                        }
+                                    }
 
                                     if (valorEmpleado.EmpleadoColumnaNo == null)
                                     {
                                         valorEmpleado.EmpleadoColumnaNo = "";
                                     }
+                                    else
+                                    {
+                                        //Se recupera el número de empleado
+                                        empleadoValor = cifradoHelper.DecryptStringAES(valorEmpleado.EmpleadoColumnaNo.Trim()).Trim();
+                                    }
 
-                                    valor = valorEmpleado.EmpleadoColumnaValor.Trim();
-                                    //Se recupera el número de empleado
-                                    empleadoValor = valorEmpleado.EmpleadoColumnaNo.Trim();
+                                    
+
+                                    
 
                                     //Se crea el valor numerico para comparar de forma especial
                                     decimal valorInt = 0;
@@ -598,50 +631,130 @@ namespace LoginBase.Controllers
 
                         //worksheet.Cells[fila, 1].Value = empleadoValor;
                         //Se asigna el número de empleado
+                        //Se recupera el número de empleado
+                        empleadoValor = cifradoHelper.DecryptStringAES(empleadoColumna.Key.Trim()).Trim();
+                        
                         worksheet.Cells[fila, 1].Value = empleadoValor;
+
+                        worksheet.Cells[fila, 2].Value = configuracionSuaNivel.ConfSuaNNombre;
 
                         //Si existe una posición se agrega en una formula para determinar en letra la posición de la columna
                         if (excelPosicionTem > 0)
                         {
-                            worksheet.Cells[fila, 2].Formula = "=SUBSTITUTE(ADDRESS(1," + excelPosicionTem + ",4),\"1\",\"\")";
+                            worksheet.Cells[fila, 3].Formula = "=SUBSTITUTE(ADDRESS(1," + excelPosicionTem + ",4),\"1\",\"\")";
                         }
                         //Si no existe asigna NA
                         else
                         {
-                            worksheet.Cells[fila, 2].Value = "NA";
+                            worksheet.Cells[fila, 3].Value = "NA";
                         }
 
-                        //Se asigna el valor del template mensual
-                        worksheet.Cells[fila, 3].Value = valorTemM;
+                       
+                        if (result)
+                        {
+                            if (excelPosicionTem > 1)
+                            {
+                                var valorCentavosTemMExc = Convert.ToDouble(valorTemM) - Math.Truncate(Convert.ToDouble(valorTemM));
+                                if (valorCentavosTemMExc > 0)
+                                {
+                                    //Se asigna el valor del template mensual
+                                    //worksheet.Cells[fila, 4].Style.Numberformat = Convert.ToDouble(valorTemM);
+                                    worksheet.Cells[fila, 4].Value = Convert.ToDouble(valorTemM);
+                                }
+                                else
+                                {
+                                    worksheet.Cells[fila, 4].Value = Convert.ToDouble(valorTemM);
+                                }
+                            }
+                            else
+                            {
+                                //Se asigna el valor del template mensual
+                                worksheet.Cells[fila, 4].Value = valorTemM;
+                            }
+                        }
+                        else
+                        {
+                            //Se asigna el valor del template mensual
+                            worksheet.Cells[fila, 4].Value = valorTemM;
+                        }
+                       
 
                         //Si existe una posición se agrega en una formula para determinar en letra la posición de la columna
                         if (excelPosicionSua > 0)
                         {
-                            worksheet.Cells[fila, 4].Formula = "=SUBSTITUTE(ADDRESS(1," + excelPosicionSua + ",4),\"1\",\"\")";
+                            worksheet.Cells[fila, 5].Formula = "=SUBSTITUTE(ADDRESS(1," + excelPosicionSua + ",4),\"1\",\"\")";
                         }
                         else
                         {
-                            worksheet.Cells[fila, 4].Value = "NA";
+                            worksheet.Cells[fila, 5].Value = "NA";
                         }
 
-                        //Se asigna el valor del archivo SUA
-                        worksheet.Cells[fila, 5].Value = valorSua;
+                        if (result)
+                        {
+                            if (excelPosicionSua > 1)
+                            {
+                                var valorCentavosSuaExc = Convert.ToDouble(valorSua) - Math.Truncate(Convert.ToDouble(valorTemM));
+                                if (valorCentavosSuaExc > 0)
+                                {
+                                    worksheet.Cells[fila, 6].Value = Convert.ToDouble(valorSua);
+                                }
+                                else
+                                {
+                                    worksheet.Cells[fila, 6].Value = Convert.ToDouble(valorSua);
+                                }
+                            }
+                            else
+                            {
+                                //Se asigna el valor del archivo SUA
+                                worksheet.Cells[fila, 6].Value = valorSua;
+                            }
+                        }
+                        else
+                        {
+                            //Se asigna el valor del archivo SUA
+                            worksheet.Cells[fila, 6].Value = valorSua;
+                        }
+                        
 
                         //Si existe una posición se agrega en una formula para determinar en letra la posición de la columna
                         if (excelPosicionEma > 0)
                         {
-                            worksheet.Cells[fila, 6].Formula = "=SUBSTITUTE(ADDRESS(1," + excelPosicionEma + ",4),\"1\",\"\")";
+                            worksheet.Cells[fila, 7].Formula = "=SUBSTITUTE(ADDRESS(1," + excelPosicionEma + ",4),\"1\",\"\")";
                         }
                         else
                         {
-                            worksheet.Cells[fila, 6].Value = "NA";
+                            worksheet.Cells[fila, 7].Value = "NA";
                         }
 
-                        //Se agrega el valor del archivo EMA
-                        worksheet.Cells[fila, 7].Value = valorEma;
+                        if (result)
+                        {
+                            if (excelPosicionEma > 1)
+                            {
+                                var valorCentavosEmaExc = Convert.ToDouble(valorEma) - Math.Truncate(Convert.ToDouble(valorEma));
+                                if (valorCentavosEmaExc > 0)
+                                {
+                                    worksheet.Cells[fila, 8].Value = Convert.ToDouble(valorEma);
+                                }
+                                else
+                                {
+                                    worksheet.Cells[fila, 8].Value = Convert.ToDouble(valorEma);
+                                }
+                            }
+                            else
+                            {
+                                //Se agrega el valor del archivo EMA
+                                worksheet.Cells[fila, 8].Value = valorEma;
+                            }
+                        }
+                        else
+                        {
+                            //Se agrega el valor del archivo EMA
+                            worksheet.Cells[fila, 8].Value = valorEma;
+                        }
+                        
 
                         //Se asigna el estatus obtenido del comparativo
-                        worksheet.Cells[fila, 8].Value = estatusComparacion.ToString();
+                        worksheet.Cells[fila, 9].Value = estatusComparacion.ToString();
 
                         //worksheet.Column(col).AutoFit();
                         //worksheet.Cells[1,col].Value = "=SUBSTITUTE(DIRECCION(1,1,4),\"1\",\"\")";
