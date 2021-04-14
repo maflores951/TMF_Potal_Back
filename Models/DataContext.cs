@@ -35,5 +35,7 @@ namespace LoginBase.Models
         public DbSet<ExcelColumna> ExcelColumnas { get; set; }
 
         public DbSet<ExcelTipo> ExcelTipos { get; set; }
+
+        public DbSet<ExcelComparativo> ExcelComparativos { get; set; }
     }
 }

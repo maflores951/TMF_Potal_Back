@@ -175,15 +175,15 @@ namespace LoginBase.Controllers
                 //Se crean los titulos de las columnas
                 worksheet.Cells[1, 1].Value = "Empleado";
 
-                worksheet.Cells[1, 2, 1, 3].Merge = true;
-                worksheet.Cells[1, 4, 1, 5].Merge = true;
-                worksheet.Cells[1, 6, 1, 7].Merge = true;
+                worksheet.Cells[1, 3, 1, 4].Merge = true;
+                worksheet.Cells[1, 5, 1, 6].Merge = true;
+                worksheet.Cells[1, 7, 1, 8].Merge = true;
 
-                worksheet.Cells[1, 2].Value = "Sistema de Nomina";
+                worksheet.Cells[1, 3].Value = "Sistema de Nomina";
 
-                worksheet.Cells[1, 4].Value = "Sistema IMSS";
+                worksheet.Cells[1, 5].Value = "Sistema IMSS";
 
-                worksheet.Cells[1, 6].Value = "Emisión IMSS";
+                worksheet.Cells[1, 7].Value = "Emisión IMSS";
                 var fila = 2;
                 var col = 1;
 
@@ -531,7 +531,7 @@ namespace LoginBase.Controllers
                                 }
                                 else
                                 {
-                                    valorEma = valorEmaInt.ToString();
+                                    valorEma = valorEmaInt.ToString("0");
                                 }
                             }
                             else
@@ -557,6 +557,9 @@ namespace LoginBase.Controllers
                         //var pruebae = String.Equals(valorSua.Trim(), valorEma.Trim());
 
                         //Se comiensa a evaluar si los datos son iguales, en caso de que sean vacios, el comparativo solo se hace con los valores existentes
+                        if (empleadoValor == "11987404479") {
+                            var prueba = "";
+                        }
                         var estatusComparacion = false;
                         if (valorTemM != null && valorSua != null)
                         {
@@ -619,14 +622,14 @@ namespace LoginBase.Controllers
                         //Coparativo especial para comparar con una diferencia de +-0.05
                         if (excelColumnaCom.ExcelColumnaNombre == "Comparativo +-0.05")
                         {
-                            estatusComparacion = _comparativoEspecial.CompararCUOTAS_OP_RCV(Convert.ToDouble(valorTemM), Convert.ToDouble(valorSua), Convert.ToDouble(valorEma));
+                            estatusComparacion = _comparativoEspecial.CompararCUOTAS_OP_RCV(Convert.ToDouble(valorTemM), excelPosicionTem, Convert.ToDouble(valorSua), excelPosicionSua, Convert.ToDouble(valorEma), excelPosicionEma);
                             //estatusComparacion = _comparativoEspecial.CompararCUOTAS_OP_RCV(25.50, 25.50, 25.54);
                         }
 
                         //Coparativo especial para comparar con una diferencia de +-1
                         if (excelColumnaCom.ExcelColumnaNombre == "Comparativo +-1")
                         {
-                            estatusComparacion = _comparativoEspecial.CR_INFONAVIT(Convert.ToDouble(valorTemM), Convert.ToDouble(valorSua), Convert.ToDouble(valorEma));
+                            estatusComparacion = _comparativoEspecial.CR_INFONAVIT(Convert.ToDouble(valorTemM), excelPosicionTem, Convert.ToDouble(valorSua), excelPosicionSua, Convert.ToDouble(valorEma), excelPosicionEma);
                         }
 
                         //worksheet.Cells[fila, 1].Value = empleadoValor;

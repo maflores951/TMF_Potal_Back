@@ -56,16 +56,17 @@ namespace LoginBase.Controllers
             Respuesta respuesta = new Respuesta();
 
             //Se busca si existe un empleado con respecto a el año, mes, tipo de archivo y usuario.
-            var empleadoColumna = await _context.EmpleadoColumnas.
-                                                                 Where(u =>  u.EmpleadoColumnaAnio == empleadoColumnas.EmpleadoColumnaAnio && u.EmpleadoColumnaMes == empleadoColumnas.EmpleadoColumnaMes && u.ExcelTipoId == empleadoColumnas.ExcelTipoId && u.UsuarioId == empleadoColumnas.UsuarioId).FirstOrDefaultAsync();
+            var excelComparativo = await _context.ExcelComparativos.
+                                                                 Where(u =>  u.excelComparativoAnio == empleadoColumnas.EmpleadoColumnaAnio && u.excelComparativoMes == empleadoColumnas.EmpleadoColumnaMes && u.excelTipoId == empleadoColumnas.ExcelTipoId && u.UsuarioId == empleadoColumnas.UsuarioId).FirstOrDefaultAsync();
 
             //Se valida el resultado 
-            if (empleadoColumna == null)
+            if (excelComparativo == null)
             {
                 respuesta.Exito = 0;
             }
             else
             {
+                respuesta.Data = excelComparativo;
                 respuesta.Exito = 1;
             }
             //Se recupera la respuesta
@@ -185,6 +186,7 @@ namespace LoginBase.Controllers
                     {
                         try
                         {
+                                           
                             //Se crea esta variable para poder enviar la información por lotes y optimizar el performance
                             var lote = 0;
                             var banderaUpdate = true;

@@ -7,8 +7,8 @@ namespace LoginBase.Services
 {
     public interface IComparativoEspecial
     {
-        bool CompararCUOTAS_OP_RCV(double valorTemM, double valorSua, double valorEma);
+        bool CompararCUOTAS_OP_RCV(double valorTemM, int posicionTem, double valorSua, int posicionSua, double valorEma, int posicionEma);
 
-        bool CR_INFONAVIT(double valorTemM, double valorSua, double valorEma);
+        bool CR_INFONAVIT(double valorTemM, int posicionTem, double valorSua, int posicionSua, double valorEma, int posicionEma);
     }
 }

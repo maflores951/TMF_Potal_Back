@@ -31,13 +31,51 @@ namespace LoginBase.Services
         //}
 
         //Comparativo con una diferencia de +-1
-        public bool CR_INFONAVIT(double valorTemM, double valorSua, double valorEma)
+        public bool CR_INFONAVIT(double valorTemM, int posicionTem, double valorSua, int posicionSua, double valorEma, int posicionEma)
         {
             Respuesta respuesta = new Respuesta();
             var estatusComparacion = false;
-            if (valorTemM == valorSua || (valorTemM < valorSua + 1 && valorTemM > valorSua - 1))
+            if (posicionTem > 1 && posicionSua > 1)
             {
-                if (valorTemM == valorEma || (valorTemM < valorEma + 1 && valorTemM > valorEma - 1))
+                if (valorTemM == valorSua || (valorTemM <= valorSua + 1 && valorTemM >= valorSua - 1))
+                {
+                    if (posicionEma > 1)
+                    {
+                        if (valorTemM == valorEma || (valorTemM <= valorEma + 1 && valorTemM >= valorEma - 1))
+                        {
+                            estatusComparacion = true;
+                        }
+                        else
+                        {
+                            estatusComparacion = false;
+                        }
+                    }
+                    else
+                    {
+                        estatusComparacion = true;
+                    }
+
+                }
+                else
+                {
+                    estatusComparacion = false;
+                }
+            }
+            else if (posicionTem > 1 && posicionEma > 1)
+            {
+                if (valorTemM == valorEma || (valorTemM <= valorEma + 1 && valorTemM >= valorEma - 1))
+                {
+                    estatusComparacion = true;
+                }
+                else
+                {
+                    estatusComparacion = false;
+                }
+
+            }
+            else if (posicionSua > 1 && posicionEma > 1)
+            {
+                if (valorSua == valorEma || (valorSua <= valorEma + 1 && valorSua >= valorEma - 1))
                 {
                     estatusComparacion = true;
                 }
@@ -46,21 +84,56 @@ namespace LoginBase.Services
                     estatusComparacion = false;
                 }
             }
-            else
-            {
-                estatusComparacion = false;
-            }
+
             return estatusComparacion;
         }
 
         //Comparativo con una diferencia de +-0.05
-        public bool CompararCUOTAS_OP_RCV(double valorTemM, double valorSua, double valorEma)
+        public bool CompararCUOTAS_OP_RCV(double valorTemM, int posicionTem, double valorSua, int posicionSua, double valorEma, int posicionEma)
         {
             Respuesta respuesta = new Respuesta();
             var estatusComparacion = false;
-            if (valorTemM == valorSua || (valorTemM < valorSua + 0.05 && valorTemM > valorSua - 0.05))
+            if (posicionTem > 1 && posicionSua > 1)
             {
-                if (valorTemM == valorEma || (valorTemM < valorEma + 0.05 && valorTemM > valorEma - 0.05))
+                if (valorTemM == valorSua || (valorTemM <= valorSua + 0.05 && valorTemM >= valorSua - 0.05))
+                {
+                    if (posicionEma > 1)
+                    {
+                        if (valorTemM == valorEma || (valorTemM <= valorEma + 0.05 && valorTemM >= valorEma - 0.05))
+                        {
+                            estatusComparacion = true;
+                        }
+                        else
+                        {
+                            estatusComparacion = false;
+                        }
+                    }
+                    else
+                    {
+                        estatusComparacion = true;
+                    }
+
+                }
+                else
+                {
+                    estatusComparacion = false;
+                }
+            }
+            else if (posicionTem > 1 && posicionEma > 1)
+            {
+                if (valorTemM == valorEma || (valorTemM <= valorEma + 0.05 && valorTemM >= valorEma - 0.05))
+                {
+                    estatusComparacion = true;
+                }
+                else
+                {
+                    estatusComparacion = false;
+                }
+
+            }
+            else if (posicionSua > 1 && posicionEma > 1)
+            {
+                if (valorSua == valorEma || (valorSua <= valorEma + 0.05 && valorSua >= valorEma - 0.05))
                 {
                     estatusComparacion = true;
                 }
@@ -69,10 +142,7 @@ namespace LoginBase.Services
                     estatusComparacion = false;
                 }
             }
-            else
-            {
-                estatusComparacion = false;
-            }
+
             return estatusComparacion;
         }
     }
