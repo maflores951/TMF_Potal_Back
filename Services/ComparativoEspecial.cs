@@ -145,5 +145,76 @@ namespace LoginBase.Services
 
             return estatusComparacion;
         }
+
+        //Comparativo con de fechas para recuperar los dias
+        public bool Dias(double valorTemM, int posicionTem, double valorSua, int posicionSua, double valorEma, int posicionEma)
+        {
+            Respuesta respuesta = new Respuesta();
+            var estatusComparacion = false;
+
+
+
+            if (posicionTem >= 1  && posicionSua >= 1)
+            {
+                if (valorTemM == valorSua)
+                {
+                    if (posicionEma >= 1)
+                    {
+                        if (valorTemM == valorEma)
+                        {
+                            estatusComparacion = true;
+                        }
+                        else
+                        {
+                            estatusComparacion = false;
+                        }
+                    }
+                    else
+                    {
+                        estatusComparacion = false;
+                    }
+                }
+                else
+                {
+                    estatusComparacion = false;
+                }
+            }
+            else
+            {
+                estatusComparacion = false;
+            }
+
+            //}
+            //    else
+            //    {
+            //        estatusComparacion = false;
+            //    }
+            //}
+            //else if (posicionTem > 1 && posicionEma > 1)
+            //{
+            //    if (valorTemM == valorEma)
+            //    {
+            //        estatusComparacion = true;
+            //    }
+            //    else
+            //    {
+            //        estatusComparacion = false;
+            //    }
+
+            //}
+            //else if (posicionSua > 1 && posicionEma > 1)
+            //{
+            //    if (valorSua == valorEma)
+            //    {
+            //        estatusComparacion = true;
+            //    }
+            //    else
+            //    {
+            //        estatusComparacion = false;
+            //    }
+            //}
+
+            return estatusComparacion;
+        }
     }
 }

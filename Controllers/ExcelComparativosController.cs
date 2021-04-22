@@ -56,15 +56,15 @@ namespace LoginBase.Controllers
 
             var archivos = "";
 
-            if (configuracionSua.ConfiguracionSuaTipo == 2)
-            {
-                var excelSua = await _context.ExcelComparativos.
-                              Where(u => u.excelComparativoMes == model.EmpleadoColumnaMes && u.excelComparativoAnio == model.EmpleadoColumnaAnio && u.UsuarioId == model.UsuarioId && u.excelTipoId == 4).FirstOrDefaultAsync();
-                if (excelSua != null)
-                {
-                    archivos += excelSua.excelComparativoNombre + Environment.NewLine;
-                }
-            }
+            //if (configuracionSua.ConfiguracionSuaTipo == 2)
+            //{
+            //    var excelSua = await _context.ExcelComparativos.
+            //                  Where(u => u.excelComparativoMes == model.EmpleadoColumnaMes && u.excelComparativoAnio == model.EmpleadoColumnaAnio && u.UsuarioId == model.UsuarioId && u.excelTipoId == 4).FirstOrDefaultAsync();
+            //    if (excelSua != null)
+            //    {
+            //        archivos += excelSua.excelComparativoNombre + Environment.NewLine;
+            //    }
+            //}
             
 
             

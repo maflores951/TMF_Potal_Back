@@ -10,5 +10,7 @@ namespace LoginBase.Services
         bool CompararCUOTAS_OP_RCV(double valorTemM, int posicionTem, double valorSua, int posicionSua, double valorEma, int posicionEma);
 
         bool CR_INFONAVIT(double valorTemM, int posicionTem, double valorSua, int posicionSua, double valorEma, int posicionEma);
+
+        bool Dias(double valorTemM, int posicionTem, double valorSua, int posicionSua, double valorEma, int posicionEma);
     }
 }

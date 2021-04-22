@@ -57,6 +57,7 @@ namespace LoginBase.Controllers
                                 var configuracionSua = new ConfiguracionSua();
                                 configuracionSua.ConfSuaNombre = model.ConfSuaNombre;
                                 configuracionSua.ConfSuaEstatus = model.ConfSuaEstatus;
+                                configuracionSua.ConfiguracionSuaTipo = model.ConfiguracionSuaTipo;
                                 db.ConfiguracionSuas.Add(configuracionSua);
                                 db.SaveChanges();
                                 id = configuracionSua.ConfiguracionSuaId;
@@ -131,7 +132,28 @@ namespace LoginBase.Controllers
                Where(u => u.ConfiguracionSuaId == model.ConfiguracionSuaId).
                ToListAsync();
 
+            //Se recuperan los niveles de la configuración
+            var configuracionSuas = await _context.ConfiguracionSuas.
+               Where(u => u.ConfiguracionSuaId == model.ConfiguracionSuaId).
+               FirstOrDefaultAsync();
 
+            ExcelColumna excelColumnaId = new ExcelColumna();
+            
+            if (configuracionSuas.ConfiguracionSuaTipo == 1)
+            {
+                //Se recupera las filas comparativas por cada nivel
+                 excelColumnaId = await _context.ExcelColumnas.
+           Where(u => u.ExcelColumnaNombre == "No. EMP." && u.ExcelTipoId == 2).
+           FirstOrDefaultAsync();
+            }
+            else
+            {
+                //Se recupera las filas comparativas por cada nivel
+                 excelColumnaId = await _context.ExcelColumnas.
+           Where(u => u.ExcelColumnaNombre == "No. EMP." && u.ExcelTipoId == 3).
+           FirstOrDefaultAsync();
+            }
+           
 
 
             //var empleadoColumnas = await _context.EmpleadoColumnas.
@@ -172,32 +194,35 @@ namespace LoginBase.Controllers
 
                 //ExcelWorksheet hoja = libro.Workbook.Worksheets.Add("MiHoja de Excel");
 
+                worksheet.Cells[1, 1, 1, 2].Merge = true;
+                worksheet.Cells[1, 4, 1, 5].Merge = true;
+                worksheet.Cells[1, 6, 1, 7].Merge = true;
+                worksheet.Cells[1, 8, 1, 9].Merge = true;
+
                 //Se crean los titulos de las columnas
                 worksheet.Cells[1, 1].Value = "Empleado";
 
-                worksheet.Cells[1, 3, 1, 4].Merge = true;
-                worksheet.Cells[1, 5, 1, 6].Merge = true;
-                worksheet.Cells[1, 7, 1, 8].Merge = true;
+                worksheet.Cells[1, 4].Value = "Sistema de Nomina";
 
-                worksheet.Cells[1, 3].Value = "Sistema de Nomina";
+                worksheet.Cells[1, 6].Value = "SUA";
 
-                worksheet.Cells[1, 5].Value = "Sistema IMSS";
-
-                worksheet.Cells[1, 7].Value = "Emisión IMSS";
+                worksheet.Cells[1, 8].Value = "Emisión IMSS";
                 var fila = 2;
                 var col = 1;
 
-                worksheet.Cells[fila, 1].Value = "Empleado";
-                worksheet.Cells[fila, 2].Value = "Nombre";
-                worksheet.Cells[fila, 3].Value = "Columna";
-                worksheet.Cells[fila, 4].Value = "Dato";
+                worksheet.Cells[fila, 1].Value = "No. S.S.";
+                worksheet.Cells[fila, 2].Value = "No. EMP..";
+                
+                worksheet.Cells[fila, 3].Value = "Nombre";
+                worksheet.Cells[fila, 4].Value = "Columna";
+                worksheet.Cells[fila, 5].Value = "Dato";
 
-                worksheet.Cells[fila, 5].Value = "Columna";
-                worksheet.Cells[fila, 6].Value = "Dato";
+                worksheet.Cells[fila, 6].Value = "Columna";
+                worksheet.Cells[fila, 7].Value = "Dato";
 
-                worksheet.Cells[fila, 7].Value = "Columna";
-                worksheet.Cells[fila, 8].Value = "Dato";
-                worksheet.Cells[fila, 9].Value = "Estatus";
+                worksheet.Cells[fila, 8].Value = "Columna";
+                worksheet.Cells[fila, 9].Value = "Dato";
+                worksheet.Cells[fila, 10].Value = "Estatus";
 
 
                 //Se recorren los empleados
@@ -232,6 +257,9 @@ namespace LoginBase.Controllers
                         //Variable para acomodar cada valor por tipo de excel
                         string valor = "Hola";
 
+                        //Variables para alamcenar las fechas y compararlas
+                        string fechaAlta = "";
+                        string fechaBaja = "";
                         //Variables para determinar la información del excel y de el empleado
                         EmpleadoColumna valorEmpleado = new EmpleadoColumna();
                         ExcelColumna excelColumnaCom = new ExcelColumna();
@@ -385,29 +413,54 @@ namespace LoginBase.Controllers
                                         {
                                             //Se mete al case segun el tipo de archivo para poder asignar cada una de las variables y posteriormente compararlos, se determina si es numerico o string para poder hacer la agrupación
                                             case 2:
-                                                result = decimal.TryParse(valor, out valorInt); //i now = 108  
-                                                if (result)
+                                                if(suaExcel.ExcelColumna.ExcelColumnaNombre == "FECHA ALTA")
                                                 {
-
-                                                    valorTemMInt += valorInt;
+                                                     fechaAlta = valor;
+                                                }
+                                                else if(suaExcel.ExcelColumna.ExcelColumnaNombre == "FECHA BAJA")
+                                                {
+                                                     fechaBaja = valor;
                                                 }
                                                 else
                                                 {
-                                                    valorTemM += valor + " ";
+                                                    result = decimal.TryParse(valor, out valorInt); //i now = 108  
+                                                    if (result)
+                                                    {
+
+                                                        valorTemMInt += valorInt;
+                                                    }
+                                                    else
+                                                    {
+                                                        valorTemM += valor + " ";
+                                                    }
                                                 }
+                                               
 
                                                 excelPosicionTem = suaExcel.ExcelColumna.ExcelPosicion + 1;
                                                 break;
                                             case 3:
-                                                result = decimal.TryParse(valor, out valorInt); //i now = 108  
-                                                if (result)
+                                                if (suaExcel.ExcelColumna.ExcelColumnaNombre == "FECHA ALTA")
                                                 {
-                                                    valorTemMInt += valorInt;
+                                                     fechaAlta = valor;
+                                                }
+                                                else if (suaExcel.ExcelColumna.ExcelColumnaNombre == "FECHA BAJA")
+                                                {
+                                                     fechaBaja = valor;
                                                 }
                                                 else
                                                 {
-                                                    valorTemM += valor + " ";
+                                                    result = decimal.TryParse(valor, out valorInt); //i now = 108  
+                                                    if (result)
+                                                    {
+
+                                                        valorTemMInt += valorInt;
+                                                    }
+                                                    else
+                                                    {
+                                                        valorTemM += valor + " ";
+                                                    }
                                                 }
+
 
                                                 excelPosicionTem = suaExcel.ExcelColumna.ExcelPosicion + 1;
                                                 break;
@@ -557,9 +610,7 @@ namespace LoginBase.Controllers
                         //var pruebae = String.Equals(valorSua.Trim(), valorEma.Trim());
 
                         //Se comiensa a evaluar si los datos son iguales, en caso de que sean vacios, el comparativo solo se hace con los valores existentes
-                        if (empleadoValor == "11987404479") {
-                            var prueba = "";
-                        }
+                        
                         var estatusComparacion = false;
                         if (valorTemM != null && valorSua != null)
                         {
@@ -632,6 +683,154 @@ namespace LoginBase.Controllers
                             estatusComparacion = _comparativoEspecial.CR_INFONAVIT(Convert.ToDouble(valorTemM), excelPosicionTem, Convert.ToDouble(valorSua), excelPosicionSua, Convert.ToDouble(valorEma), excelPosicionEma);
                         }
 
+                        //Coparativo especial para comparar los dias de trabajo
+                        if (excelColumnaCom.ExcelColumnaNombre == "Comparativo Fecha")
+                        {
+                            result = true;
+
+                            if (fechaAlta == "" || fechaAlta == null)
+                            {
+                                estatusComparacion = false;
+                                valorTemM = "";
+                               
+                            }
+                            else {
+                                if (model.EmpleadoColumnaMes <= 12 && model.EmpleadoColumnaMes >= 1)
+                                {
+                                    //Primero obtenemos el día actual
+                                    DateTime date = Convert.ToDateTime("01/" + model.EmpleadoColumnaMes + "/" + model.EmpleadoColumnaAnio);//DateTime.Now;
+
+                                    //Asi obtenemos el primer dia del mes actual
+                                    DateTime oPrimerDiaDelMes = new DateTime(date.Year, date.Month, 1);
+
+                                    //if (fechaAlta == "" || fechaAlta == null)
+                                    //{
+                                    //    fechaAlta = date.ToString();
+                                    //}
+
+
+                                    if (fechaBaja == "" || fechaBaja == null)
+                                    {
+                                        fechaBaja = oPrimerDiaDelMes.AddMonths(1).AddDays(-1).ToString();
+                                    }
+
+
+                                    var fechaA = Convert.ToDateTime(fechaAlta);
+                                    var fechaB = Convert.ToDateTime(fechaBaja);
+
+
+
+                                    if (fechaA <= oPrimerDiaDelMes)
+                                    {
+                                        fechaA = oPrimerDiaDelMes;
+                                    }
+
+                                    if (fechaB > oPrimerDiaDelMes.AddMonths(1).AddDays(-1))
+                                    {
+                                        fechaB = oPrimerDiaDelMes.AddMonths(1).AddDays(-1);
+                                    }
+
+                                    var dias = fechaB.AddDays(1) - fechaA;
+
+                                    if (fechaB < oPrimerDiaDelMes)
+                                    {
+                                        valorTemM = "0";
+                                    }
+
+                                    else
+                                    {
+                                        valorTemM = dias.TotalDays.ToString();
+                                    }
+
+
+                                    estatusComparacion = _comparativoEspecial.Dias(Convert.ToDouble(valorTemM), excelPosicionTem, Convert.ToDouble(valorSua), excelPosicionSua, Convert.ToDouble(valorEma), excelPosicionEma);
+
+                                }
+                                //Se calculan los días para cuando es un bimestre
+                                else
+                                {
+                                    //int caseSwitch = 1;
+                                    DateTime oPrimerDiaDelMes = DateTime.Now;
+                                    switch (model.EmpleadoColumnaMes)
+                                    {
+                                        case 13:
+                                            //Primero obtenemos el día actual
+                                            oPrimerDiaDelMes = Convert.ToDateTime("01/" + "01" + "/" + model.EmpleadoColumnaAnio);//DateTime.Now;
+                                            break;
+                                        case 14:
+                                            //Primero obtenemos el día actual
+                                            oPrimerDiaDelMes = Convert.ToDateTime("01/" + "03" + "/" + model.EmpleadoColumnaAnio);
+                                            break;
+                                        case 15:
+                                            //Primero obtenemos el día actual
+                                            oPrimerDiaDelMes = Convert.ToDateTime("01/" + "05" + "/" + model.EmpleadoColumnaAnio);
+                                            break;
+                                        case 16:
+                                            //Primero obtenemos el día actual
+                                            oPrimerDiaDelMes = Convert.ToDateTime("01/" + "07" + "/" + model.EmpleadoColumnaAnio);
+                                            break;
+                                        case 17:
+                                            //Primero obtenemos el día actual
+                                            oPrimerDiaDelMes = Convert.ToDateTime("01/" + "09" + "/" + model.EmpleadoColumnaAnio);
+                                            break;
+                                        case 18:
+                                            //Primero obtenemos el día actual
+                                            oPrimerDiaDelMes = Convert.ToDateTime("01/" + "11" + "/" + model.EmpleadoColumnaAnio);
+                                            break;
+                                        default:
+                                            Console.WriteLine("Default case");
+                                            break;
+                                    }
+                                    
+
+                                    ////Asi obtenemos el primer dia del mes actual
+                                    //DateTime oPrimerDiaDelMes = new DateTime(date.Year, date.Month, 1);
+
+                                    //if (fechaAlta == "" || fechaAlta == null)
+                                    //{
+                                    //    fechaAlta = date.ToString();
+                                    //}
+
+
+                                    if (fechaBaja == "" || fechaBaja == null)
+                                    {
+                                        fechaBaja = oPrimerDiaDelMes.AddMonths(2).AddDays(-1).ToString();
+                                    }
+
+
+                                    var fechaA = Convert.ToDateTime(fechaAlta);
+                                    var fechaB = Convert.ToDateTime(fechaBaja);
+
+
+
+                                    if (fechaA <= oPrimerDiaDelMes)
+                                    {
+                                        fechaA = oPrimerDiaDelMes;
+                                    }
+
+                                    if (fechaB > oPrimerDiaDelMes.AddMonths(2).AddDays(-1))
+                                    {
+                                        fechaB = oPrimerDiaDelMes.AddMonths(2 ).AddDays(-1);
+                                    }
+
+                                    var dias = fechaB.AddDays(1) - fechaA;
+
+                                    if (fechaB < oPrimerDiaDelMes)
+                                    {
+                                        valorTemM = "0";
+                                    }
+
+                                    else
+                                    {
+                                        valorTemM = dias.TotalDays.ToString();
+                                    }
+
+
+                                    estatusComparacion = _comparativoEspecial.Dias(Convert.ToDouble(valorTemM), excelPosicionTem, Convert.ToDouble(valorSua), excelPosicionSua, Convert.ToDouble(valorEma), excelPosicionEma);
+                                }
+                            }
+                        }
+
                         //worksheet.Cells[fila, 1].Value = empleadoValor;
                         //Se asigna el número de empleado
                         //Se recupera el número de empleado
@@ -639,17 +838,31 @@ namespace LoginBase.Controllers
                         
                         worksheet.Cells[fila, 1].Value = empleadoValor;
 
-                        worksheet.Cells[fila, 2].Value = configuracionSuaNivel.ConfSuaNNombre;
+                        //Se recupera las filas comparativas por cada nivel
+                        var empleadoEmp = await _context.EmpleadoColumnas.
+                   Where(u => u.ExcelColumnaId == excelColumnaId.ExcelColumnaId && u.EmpleadoColumnaNo == empleadoColumna.Key.Trim()).
+                   FirstOrDefaultAsync();
+
+                        if(empleadoEmp != null)
+                        {
+                            worksheet.Cells[fila, 2].Value = empleadoEmp.EmpleadoColumnaValor;
+                        }
+                        else
+                        {
+                            worksheet.Cells[fila, 2].Value = "NA";
+                        }
+
+                        worksheet.Cells[fila, 3].Value = configuracionSuaNivel.ConfSuaNNombre;
 
                         //Si existe una posición se agrega en una formula para determinar en letra la posición de la columna
                         if (excelPosicionTem > 0)
                         {
-                            worksheet.Cells[fila, 3].Formula = "=SUBSTITUTE(ADDRESS(1," + excelPosicionTem + ",4),\"1\",\"\")";
+                            worksheet.Cells[fila, 4].Formula = "=SUBSTITUTE(ADDRESS(1," + excelPosicionTem + ",4),\"1\",\"\")";
                         }
                         //Si no existe asigna NA
                         else
                         {
-                            worksheet.Cells[fila, 3].Value = "NA";
+                            worksheet.Cells[fila, 4].Value = "NA";
                         }
 
                        
@@ -657,107 +870,131 @@ namespace LoginBase.Controllers
                         {
                             if (excelPosicionTem > 1)
                             {
-                                var valorCentavosTemMExc = Convert.ToDouble(valorTemM) - Math.Truncate(Convert.ToDouble(valorTemM));
-                                if (valorCentavosTemMExc > 0)
+                                if (valorTemM != "")
                                 {
-                                    //Se asigna el valor del template mensual
-                                    //worksheet.Cells[fila, 4].Style.Numberformat = Convert.ToDouble(valorTemM);
-                                    worksheet.Cells[fila, 4].Value = Convert.ToDouble(valorTemM);
+                                    var valorCentavosTemMExc = Convert.ToDouble(valorTemM) - Math.Truncate(Convert.ToDouble(valorTemM));
+                                    if (valorCentavosTemMExc > 0)
+                                    {
+                                        //Se asigna el valor del template mensual
+                                        //worksheet.Cells[fila, 4].Style.Numberformat = Convert.ToDouble(valorTemM);
+                                        worksheet.Cells[fila, 5].Value = Convert.ToDouble(valorTemM);
+                                    }
+                                    else
+                                    {
+                                        worksheet.Cells[fila, 5].Value = Convert.ToDouble(valorTemM);
+                                    }
                                 }
                                 else
                                 {
-                                    worksheet.Cells[fila, 4].Value = Convert.ToDouble(valorTemM);
+                                    //Se asigna el valor del template mensual
+                                    worksheet.Cells[fila, 5].Value = valorTemM;
                                 }
                             }
                             else
                             {
                                 //Se asigna el valor del template mensual
-                                worksheet.Cells[fila, 4].Value = valorTemM;
+                                worksheet.Cells[fila, 5].Value = valorTemM;
                             }
                         }
                         else
                         {
                             //Se asigna el valor del template mensual
-                            worksheet.Cells[fila, 4].Value = valorTemM;
+                            worksheet.Cells[fila, 5].Value = valorTemM;
                         }
                        
 
                         //Si existe una posición se agrega en una formula para determinar en letra la posición de la columna
                         if (excelPosicionSua > 0)
                         {
-                            worksheet.Cells[fila, 5].Formula = "=SUBSTITUTE(ADDRESS(1," + excelPosicionSua + ",4),\"1\",\"\")";
+                            worksheet.Cells[fila, 6].Formula = "=SUBSTITUTE(ADDRESS(1," + excelPosicionSua + ",4),\"1\",\"\")";
                         }
                         else
                         {
-                            worksheet.Cells[fila, 5].Value = "NA";
+                            worksheet.Cells[fila, 6].Value = "NA";
                         }
 
                         if (result)
                         {
                             if (excelPosicionSua > 1)
                             {
-                                var valorCentavosSuaExc = Convert.ToDouble(valorSua) - Math.Truncate(Convert.ToDouble(valorTemM));
-                                if (valorCentavosSuaExc > 0)
+                                if (valorSua != "")
                                 {
-                                    worksheet.Cells[fila, 6].Value = Convert.ToDouble(valorSua);
+                                    var valorCentavosSuaExc = Convert.ToDouble(valorSua) - Math.Truncate(Convert.ToDouble(valorSua));
+                                    if (valorCentavosSuaExc > 0)
+                                    {
+                                        worksheet.Cells[fila, 7].Value = Convert.ToDouble(valorSua);
+                                    }
+                                    else
+                                    {
+                                        worksheet.Cells[fila, 7].Value = Convert.ToDouble(valorSua);
+                                    }
                                 }
                                 else
                                 {
-                                    worksheet.Cells[fila, 6].Value = Convert.ToDouble(valorSua);
+                                    //Se asigna el valor del archivo SUA
+                                    worksheet.Cells[fila, 7].Value = valorSua;
                                 }
                             }
                             else
                             {
                                 //Se asigna el valor del archivo SUA
-                                worksheet.Cells[fila, 6].Value = valorSua;
+                                worksheet.Cells[fila, 7].Value = valorSua;
                             }
                         }
                         else
                         {
                             //Se asigna el valor del archivo SUA
-                            worksheet.Cells[fila, 6].Value = valorSua;
+                            worksheet.Cells[fila, 7].Value = valorSua;
                         }
                         
 
                         //Si existe una posición se agrega en una formula para determinar en letra la posición de la columna
                         if (excelPosicionEma > 0)
                         {
-                            worksheet.Cells[fila, 7].Formula = "=SUBSTITUTE(ADDRESS(1," + excelPosicionEma + ",4),\"1\",\"\")";
+                            worksheet.Cells[fila, 8].Formula = "=SUBSTITUTE(ADDRESS(1," + excelPosicionEma + ",4),\"1\",\"\")";
                         }
                         else
                         {
-                            worksheet.Cells[fila, 7].Value = "NA";
+                            worksheet.Cells[fila, 8].Value = "NA";
                         }
 
                         if (result)
                         {
                             if (excelPosicionEma > 1)
                             {
-                                var valorCentavosEmaExc = Convert.ToDouble(valorEma) - Math.Truncate(Convert.ToDouble(valorEma));
-                                if (valorCentavosEmaExc > 0)
+                                if (valorEma != "")
                                 {
-                                    worksheet.Cells[fila, 8].Value = Convert.ToDouble(valorEma);
+                                    var valorCentavosEmaExc = Convert.ToDouble(valorEma) - Math.Truncate(Convert.ToDouble(valorEma));
+                                    if (valorCentavosEmaExc > 0)
+                                    {
+                                        worksheet.Cells[fila, 9].Value = Convert.ToDouble(valorEma);
+                                    }
+                                    else
+                                    {
+                                        worksheet.Cells[fila, 9].Value = Convert.ToDouble(valorEma);
+                                    }
                                 }
                                 else
                                 {
-                                    worksheet.Cells[fila, 8].Value = Convert.ToDouble(valorEma);
+                                    //Se agrega el valor del archivo EMA
+                                    worksheet.Cells[fila, 9].Value = valorEma;
                                 }
                             }
                             else
                             {
                                 //Se agrega el valor del archivo EMA
-                                worksheet.Cells[fila, 8].Value = valorEma;
+                                worksheet.Cells[fila, 9].Value = valorEma;
                             }
                         }
                         else
                         {
                             //Se agrega el valor del archivo EMA
-                            worksheet.Cells[fila, 8].Value = valorEma;
+                            worksheet.Cells[fila, 9].Value = valorEma;
                         }
                         
 
                         //Se asigna el estatus obtenido del comparativo
-                        worksheet.Cells[fila, 9].Value = estatusComparacion.ToString();
+                        worksheet.Cells[fila, 10].Value = estatusComparacion.ToString();
 
                         //worksheet.Column(col).AutoFit();
                         //worksheet.Cells[1,col].Value = "=SUBSTITUTE(DIRECCION(1,1,4),\"1\",\"\")";
