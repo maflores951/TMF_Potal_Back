@@ -40,10 +40,12 @@ namespace LoginBase
                 options.AddPolicy(name: MiCors,
                                   builder =>
                                   {
-                                      builder.WithOrigins("*","http://localhost:4200", "http://localhost")
+                                      builder.WithOrigins("*", "http://craju1svas119.tmf-group.com", "https://craju1svas119.tmf-group.com", "http://localhost:4200", "http://localhost", "http://stelvio/Tmf_Front", "https://stelvio", "http://stelvio", "https://stelvio/Tmf_Front", "http://legvit.ddns.me:81", "http://localhost:81")
                                       .AllowAnyHeader()
-                                      .AllowAnyMethod();
+                                      .AllowAnyMethod()
+                                      .AllowAnyOrigin();
                                   });
+
             });
 
             services.AddControllers();
@@ -80,7 +82,6 @@ namespace LoginBase
 
             services.AddScoped<IUserService, UserService>();
 
-            services.AddScoped<IComparativoEspecial, ComparativoEspecial>();
 
             services.AddControllers().AddNewtonsoftJson(options =>
             options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);

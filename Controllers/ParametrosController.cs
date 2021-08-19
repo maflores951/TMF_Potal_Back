@@ -12,7 +12,7 @@ namespace LoginBase.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class ParametrosController : ControllerBase
     {
         private readonly DataContext _context;

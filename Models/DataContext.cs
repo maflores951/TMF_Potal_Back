@@ -1,6 +1,5 @@
-﻿using LoginBase.Models.Empleado;
-using LoginBase.Models.Excel;
-using LoginBase.Models.Sua;
+﻿
+using LoginBase.Models.Menu;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -22,20 +21,10 @@ namespace LoginBase.Models
         public DbSet<Rol> Roles { get; set; }
         public DbSet<Parametro> Parametros { get; set; }
 
-        public DbSet<ConfiguracionSua> ConfiguracionSuas { get; set; }
+        public DbSet<Funcion> Funciones { get; set; }
+        public DbSet<RolModulo> RolModulos { get; set; }
+        public DbSet<RolModFun> RolModFuns { get; set; }
 
-        public DbSet<ConfiguracionSuaNivel> ConfiguracionSuaNiveles { get; set; }
 
-        public DbSet<SuaExcel> SuaExcels { get; set; }
-
-        public DbSet<EmpleadoColumna> EmpleadoColumnas { get; set; }
-
-        //public DbSet<EmpleadoColumnaV> EmpleadoColumnaV { get; set; }
-
-        public DbSet<ExcelColumna> ExcelColumnas { get; set; }
-
-        public DbSet<ExcelTipo> ExcelTipos { get; set; }
-
-        public DbSet<ExcelComparativo> ExcelComparativos { get; set; }
     }
 }

@@ -80,8 +80,9 @@ namespace LoginBase.Services
                 SmtpServer.UseDefaultCredentials = false;
                 SmtpServer.Credentials = new System.Net.NetworkCredential(CredentialEmail, CredentialPassword);
 
-
+                //SmtpServer.DeliveryMethod = SmtpDeliveryMethod.PickupDirectoryFromIis;
                 //Se envia el correo 
+                
                 SmtpServer.Send(mail);
 
                 //Se retorna una respuesta correcta
