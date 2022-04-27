@@ -44,7 +44,9 @@ namespace LoginBase.Controllers
             {
                 if(usuario.UsuarioEstatusSesion == false) { 
                 var rol = await _context.Roles.FindAsync(usuario.RolId);
-                responses.Add(new Usuario
+                var empresa = await _context.Empresas.FindAsync(usuario.EmpresaId);
+
+                    responses.Add(new Usuario
                 {
                     UsuarioId = usuario.UsuarioId,
                     UsuarioNombre = usuario.UsuarioNombre,
@@ -58,8 +60,12 @@ namespace LoginBase.Controllers
                     UsuarioClave = usuario.UsuarioClave,
                     ImagePath = usuario.ImagePath,
                     RolId = usuario.RolId,
-                    Rol = rol//usuario.Rol
-                });
+                    Rol = rol,
+                    EmpleadoNoEmp = usuario.EmpleadoNoEmp,
+                    EmpresaId = usuario.EmpresaId,
+                    Empresa = empresa,
+                    EmpleadoRFC = usuario.EmpleadoRFC
+                    });
                 }
             }
 

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace LoginBase.Migrations
+namespace tmf_group.Migrations
 {
     [DbContext(typeof(DataContext))]
     partial class DataContextModelSnapshot : ModelSnapshot
@@ -18,90 +18,6 @@ namespace LoginBase.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.3")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("LoginBase.Models.Empleado.EmpleadoColumna", b =>
-                {
-                    b.Property<int>("EmpleadoColumnaId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("EmpleadoColumnaAnio")
-                        .HasColumnType("int");
-
-                    b.Property<int>("EmpleadoColumnaMes")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SuaExcelId")
-                        .HasColumnType("int");
-
-                    b.HasKey("EmpleadoColumnaId");
-
-                    b.HasIndex("SuaExcelId");
-
-                    b.ToTable("EmpleadoColumnas");
-                });
-
-            modelBuilder.Entity("LoginBase.Models.Empleado.EmpleadoColumnaV", b =>
-                {
-                    b.Property<int>("EmpleadoColumnaVId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("EmpleadoColumnaId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("EmpleadoColumnaValor")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("EmpleadoColumnaVId");
-
-                    b.HasIndex("EmpleadoColumnaId");
-
-                    b.ToTable("EmpleadoColumnaV");
-                });
-
-            modelBuilder.Entity("LoginBase.Models.Excel.ExcelColumna", b =>
-                {
-                    b.Property<int>("ExcelColumnaId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ExcelColumnaNombre")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ExcelTipoId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ExcelColumnaId");
-
-                    b.HasIndex("ExcelTipoId");
-
-                    b.ToTable("ExcelColumnas");
-                });
-
-            modelBuilder.Entity("LoginBase.Models.Excel.ExcelTipo", b =>
-                {
-                    b.Property<int>("ExcelTipoId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ExcelNombre")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ExcelTipoDescripcion")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("excelTipoPeriodo")
-                        .HasColumnType("int");
-
-                    b.HasKey("ExcelTipoId");
-
-                    b.ToTable("ExcelTipos");
-                });
 
             modelBuilder.Entity("LoginBase.Models.Parametro", b =>
                 {
@@ -160,69 +76,6 @@ namespace LoginBase.Migrations
                     b.ToTable("Roles");
                 });
 
-            modelBuilder.Entity("LoginBase.Models.Sua.ConfiguracionSua", b =>
-                {
-                    b.Property<int>("ConfiguracionSuaId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<bool>("ConfSuaEstatus")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("ConfSuaNombre")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ConfiguracionSuaId");
-
-                    b.ToTable("ConfiguracionSuas");
-                });
-
-            modelBuilder.Entity("LoginBase.Models.Sua.ConfiguracionSuaNivel", b =>
-                {
-                    b.Property<int>("ConfiguracionSuaNivelId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ConfSuaNNombre")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ConfiguracionSuaId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ConfiguracionSuaNivelId");
-
-                    b.HasIndex("ConfiguracionSuaId");
-
-                    b.ToTable("ConfiguracionSuaNiveles");
-                });
-
-            modelBuilder.Entity("LoginBase.Models.Sua.SuaExcel", b =>
-                {
-                    b.Property<int>("SuaExcelId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("ConfiguracionSuaNivelId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ExcelColumnaId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TipoPeriodoId")
-                        .HasColumnType("int");
-
-                    b.HasKey("SuaExcelId");
-
-                    b.HasIndex("ConfiguracionSuaNivelId");
-
-                    b.HasIndex("ExcelColumnaId");
-
-                    b.ToTable("SuaExcels");
-                });
-
             modelBuilder.Entity("LoginBase.Models.Usuario", b =>
                 {
                     b.Property<int>("UsuarioId")
@@ -232,6 +85,12 @@ namespace LoginBase.Migrations
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("EmpleadoNoEmp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("EmpresaId")
+                        .HasColumnType("int");
 
                     b.Property<string>("ImagePath")
                         .HasColumnType("nvarchar(max)");
@@ -246,6 +105,9 @@ namespace LoginBase.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UsuarioApellidoP")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UsuarioClave")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool?>("UsuarioEstatusSesion")
@@ -269,107 +131,110 @@ namespace LoginBase.Migrations
                         .IsUnique()
                         .HasFilter("[Email] IS NOT NULL");
 
+                    b.HasIndex("EmpresaId");
+
                     b.HasIndex("RolId");
 
                     b.ToTable("Usuarios");
                 });
 
-            modelBuilder.Entity("LoginBase.Models.Empleado.EmpleadoColumna", b =>
+            modelBuilder.Entity("tmf_group.Models.Empresa", b =>
                 {
-                    b.HasOne("LoginBase.Models.Sua.SuaExcel", "SuaExcel")
-                        .WithMany("EmpleadoColumna")
-                        .HasForeignKey("SuaExcelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<int>("EmpresaId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Navigation("SuaExcel");
+                    b.Property<string>("EmpresaColor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("EmpresaEstatus")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("EmpresaLogo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EmpresaNombre")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("EmpresaId");
+
+                    b.ToTable("Empresas");
                 });
 
-            modelBuilder.Entity("LoginBase.Models.Empleado.EmpleadoColumnaV", b =>
+            modelBuilder.Entity("tmf_group.Models.PeriodoTipo", b =>
                 {
-                    b.HasOne("LoginBase.Models.Empleado.EmpleadoColumna", "EmpleadoColumna")
-                        .WithMany("EmpleadoColumnaV")
-                        .HasForeignKey("EmpleadoColumnaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<int>("PeriodoTipoId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Navigation("EmpleadoColumna");
+                    b.Property<string>("PeriodoTipoNombre")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("PeriodoTipoId");
+
+                    b.ToTable("PeriodoTipos");
                 });
 
-            modelBuilder.Entity("LoginBase.Models.Excel.ExcelColumna", b =>
+            modelBuilder.Entity("tmf_group.Models.Recibo", b =>
                 {
-                    b.HasOne("LoginBase.Models.Excel.ExcelTipo", "ExcelTipo")
-                        .WithMany("ExcelColumna")
-                        .HasForeignKey("ExcelTipoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<string>("ReciboId")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Navigation("ExcelTipo");
-                });
+                    b.Property<string>("PeriodoTipoId")
+                        .HasColumnType("nvarchar(max)");
 
-            modelBuilder.Entity("LoginBase.Models.Sua.ConfiguracionSuaNivel", b =>
-                {
-                    b.HasOne("LoginBase.Models.Sua.ConfiguracionSua", null)
-                        .WithMany("ConfiguracionSuaNivel")
-                        .HasForeignKey("ConfiguracionSuaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
+                    b.Property<int?>("PeriodoTipoId1")
+                        .HasColumnType("int");
 
-            modelBuilder.Entity("LoginBase.Models.Sua.SuaExcel", b =>
-                {
-                    b.HasOne("LoginBase.Models.Sua.ConfiguracionSuaNivel", null)
-                        .WithMany("SuaExcel")
-                        .HasForeignKey("ConfiguracionSuaNivelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<bool>("ReciboEstatus")
+                        .HasColumnType("bit");
 
-                    b.HasOne("LoginBase.Models.Excel.ExcelColumna", "ExcelColumna")
-                        .WithMany("SuaExcel")
-                        .HasForeignKey("ExcelColumnaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<string>("ReciboPath")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Navigation("ExcelColumna");
+                    b.Property<string>("ReciboPeriodoA")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ReciboPeriodoD")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ReciboPeriodoM")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UsuarioNoEmp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ReciboId");
+
+                    b.HasIndex("PeriodoTipoId1");
+
+                    b.ToTable("Recibos");
                 });
 
             modelBuilder.Entity("LoginBase.Models.Usuario", b =>
                 {
+                    b.HasOne("tmf_group.Models.Empresa", "Empresa")
+                        .WithMany()
+                        .HasForeignKey("EmpresaId");
+
                     b.HasOne("LoginBase.Models.Rol", "Rol")
                         .WithMany()
                         .HasForeignKey("RolId");
 
+                    b.Navigation("Empresa");
+
                     b.Navigation("Rol");
                 });
 
-            modelBuilder.Entity("LoginBase.Models.Empleado.EmpleadoColumna", b =>
+            modelBuilder.Entity("tmf_group.Models.Recibo", b =>
                 {
-                    b.Navigation("EmpleadoColumnaV");
-                });
+                    b.HasOne("tmf_group.Models.PeriodoTipo", "PeriodoTipo")
+                        .WithMany()
+                        .HasForeignKey("PeriodoTipoId1");
 
-            modelBuilder.Entity("LoginBase.Models.Excel.ExcelColumna", b =>
-                {
-                    b.Navigation("SuaExcel");
-                });
-
-            modelBuilder.Entity("LoginBase.Models.Excel.ExcelTipo", b =>
-                {
-                    b.Navigation("ExcelColumna");
-                });
-
-            modelBuilder.Entity("LoginBase.Models.Sua.ConfiguracionSua", b =>
-                {
-                    b.Navigation("ConfiguracionSuaNivel");
-                });
-
-            modelBuilder.Entity("LoginBase.Models.Sua.ConfiguracionSuaNivel", b =>
-                {
-                    b.Navigation("SuaExcel");
-                });
-
-            modelBuilder.Entity("LoginBase.Models.Sua.SuaExcel", b =>
-                {
-                    b.Navigation("EmpleadoColumna");
+                    b.Navigation("PeriodoTipo");
                 });
 #pragma warning restore 612, 618
         }

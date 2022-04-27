@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using tmf_group.Models;
 
 namespace LoginBase.Models
 {
@@ -57,9 +58,17 @@ namespace LoginBase.Models
 
         public int? RolId { get; set; }
 
+        public string EmpleadoNoEmp { get; set; }
+
+        public string EmpleadoRFC { get; set; }
+
+        public int? EmpresaId { get; set; }
+
         //[JsonIgnore]
         //[NotMapped]
         public  Rol Rol { get; set; }
+
+        public Empresa Empresa { get; set; }
 
         [NotMapped]
         [JsonIgnore]

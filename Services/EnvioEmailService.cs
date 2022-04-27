@@ -4,6 +4,7 @@ using LoginBase.Models.Response;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
 
@@ -46,8 +47,7 @@ namespace LoginBase.Services
 
                 var smtpcl = await ParametroHelper.RecuperaParametro("smptcl", _db);
                 MailMessage mail = new MailMessage();
-                //SmtpClient SmtpServer = new SmtpClient("SMTP.Office365.com");
-                SmtpClient SmtpServer = new SmtpClient(smtpcl.ParametroValorInicial);
+               
 
                 var parametroSubject = await ParametroHelper.RecuperaParametro("smptsu", _db);
 
@@ -68,21 +68,44 @@ namespace LoginBase.Services
                 
                 var SMPTPU = await ParametroHelper.RecuperaParametro("SMPTPU", _db);
 
-                //Se arma el mensaje con los parametros recuperados
-                mail.From = new MailAddress(CredentialEmail);
-                mail.To.Add(userEmail.Email);
-                mail.Subject = parametroSubject.ParametroValorInicial;
-                mail.Body = parametroBody.ParametroValorInicial + EmailCifrado.Trim().Replace("/", "$").Replace("+", "&");
+                var SMPTAU = await ParametroHelper.RecuperaParametro("SMPTAU", _db);
 
-                SmtpServer.Port = Int32.Parse(SMPTPU.ParametroValorInicial);//587;
-                SmtpServer.Host = smtpcl.ParametroValorInicial;// "SMTP.Office365.com";
-                SmtpServer.EnableSsl = true;
-                SmtpServer.UseDefaultCredentials = false;
-                SmtpServer.Credentials = new System.Net.NetworkCredential(CredentialEmail, CredentialPassword);
+                if (SMPTAU.ParametroValorInicial.Equals("1"))
+                {
+                    //SmtpClient SmtpServer = new SmtpClient("SMTP.Office365.com");
+                    SmtpClient SmtpServer = new SmtpClient(smtpcl.ParametroValorInicial);
+                    //Se arma el mensaje con los parametros recuperados
+                    mail.From = new MailAddress(CredentialEmail);
+                    mail.To.Add(userEmail.Email);
+                    mail.Subject = parametroSubject.ParametroValorInicial;
+                    mail.Body = parametroBody.ParametroValorInicial + EmailCifrado.Trim().Replace("/", "$").Replace("+", "&");
+
+                    SmtpServer.Port = Int32.Parse(SMPTPU.ParametroValorInicial);//587;
+                    SmtpServer.Host = smtpcl.ParametroValorInicial;// "SMTP.Office365.com";
+                    SmtpServer.EnableSsl = true;
+                    SmtpServer.UseDefaultCredentials = false;
+                    SmtpServer.Credentials = new NetworkCredential(CredentialEmail, CredentialPassword);
+                    //Se envia el correo 
+                    SmtpServer.Send(mail);
+                }
+                else
+                {
+                    string to = userEmail.Email;
+                    string from = CredentialEmail;
+                    string subject = parametroSubject.ParametroValorInicial; 
+                    string body = parametroBody.ParametroValorInicial + EmailCifrado.Trim().Replace("/", "$").Replace("+", "&");
+
+                    MailMessage message = new MailMessage(from, to, subject, body);
+                    SmtpClient client = new SmtpClient(smtpcl.ParametroValorInicial, Int32.Parse(SMPTPU.ParametroValorInicial));
+                    // Credentials are necessary if the server requires the client
+                    // to authenticate before it will send email on the client's behalf.
+                    client.Credentials = CredentialCache.DefaultNetworkCredentials;
+                    client.Send(message);
+                }
+               
 
 
-                //Se envia el correo 
-                SmtpServer.Send(mail);
+               
 
                 //Se retorna una respuesta correcta
                 return new Respuesta

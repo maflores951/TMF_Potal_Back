@@ -62,7 +62,7 @@ namespace LoginBase.Services
                 }
 
 
-
+               
                 //Se crea y se recupera el token de seguridad 
                 usuario.UsuarioToken = GetToken(usuario);
                 //_db.Entry(usuario).State = EntityState.Modified;
@@ -75,6 +75,11 @@ namespace LoginBase.Services
                 //userResponse.Token = GetToken(usuario);
 
                 //Se asigna el usuario 
+
+                var empresa = _db.Empresas.Where(d => d.EmpresaId == usuario.EmpresaId).FirstOrDefault();
+
+                usuario.Empresa = empresa;
+
                 usuarioM = usuario;
 
 
