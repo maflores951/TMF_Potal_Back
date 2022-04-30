@@ -8,7 +8,7 @@ using tmf_group.Models;
 
 namespace LoginBase.Models
 {
-    [Index(nameof(Email), IsUnique = true)]
+    //[Index(nameof(Email), IsUnique = true)]
     public class Usuario 
     {
         [Key]

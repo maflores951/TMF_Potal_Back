@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LoginBase.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -31,6 +32,8 @@ namespace tmf_group.Models
         public int EmpresaId { get; set; }
 
         public Empresa Empresa { get; set; }
+        [NotMapped]
+        public Usuario Usuario { get; set; }
 
     }
 }

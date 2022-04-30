@@ -45,7 +45,13 @@ namespace LoginBase.Controllers
                 if(usuario.UsuarioEstatusSesion == false) { 
                 var rol = await _context.Roles.FindAsync(usuario.RolId);
                 var empresa = await _context.Empresas.FindAsync(usuario.EmpresaId);
-
+                    var password = "";
+                    if (usuario.Password == null) {
+                         password = usuario.Password;
+                    }
+                    else{
+                         password = cifradoHelper.DecryptStringAES(usuario.Password);
+                    }
                     responses.Add(new Usuario
                 {
                     UsuarioId = usuario.UsuarioId,
@@ -55,7 +61,7 @@ namespace LoginBase.Controllers
                     UsuarioNumConfirmacion = usuario.UsuarioNumConfirmacion,
                     UsuarioFechaLimite = usuario.UsuarioFechaLimite,
                     UsuarioEstatusSesion = usuario.UsuarioEstatusSesion,
-                    Password = cifradoHelper.DecryptStringAES(usuario.Password),
+                    Password = password,
                     Email = usuario.Email,
                     UsuarioClave = usuario.UsuarioClave,
                     ImagePath = usuario.ImagePath,
@@ -359,6 +365,133 @@ namespace LoginBase.Controllers
 
             respuesta.Mensaje = "Registro exitoso.";
             respuesta.Exito = 1;
+
+            return Ok(respuesta);
+        }
+
+        [HttpPost("EmpledosMasivo")]
+        public async Task<ActionResult<Usuario>> EmpledosMasivoAsync(List<Usuario> usuarios)
+        {
+            //Se crea una variable del tipo de servicio para poder decifrar la contraseña
+            CifradoHelper cifradoHelper = new CifradoHelper();
+
+            Respuesta respuesta = new Respuesta();
+            int contadorNoEmp = 0;
+            int contadorEmail= 0;
+            int contadorNoEmpSinRegistro = 0;
+
+            string noEmp = "";
+            string email = "";
+            string noEmpSinRegistro = "";
+
+            foreach (var usuario in usuarios)
+            {
+                 var EmpleadoNoEmp = await _context.Usuarios.Where(u => u.EmpleadoNoEmp == usuario.EmpleadoNoEmp && u.EmpresaId == usuario.EmpresaId && u.UsuarioEstatusSesion == false).
+                 FirstOrDefaultAsync();
+                    respuesta.Exito = 1;
+                    if (EmpleadoNoEmp != null)
+                    {
+                        //respuesta.Mensaje = "El número de empleado ya esta registrado, actualicelo desde el sistema o asigne un nuevo número de empleado.";
+                        respuesta.Exito = 0;
+                        contadorNoEmp += 1;
+                        noEmp += EmpleadoNoEmp.EmpleadoNoEmp + ", EmpresaId:" + EmpleadoNoEmp.EmpresaId + ", ";
+                        //return Ok(respuesta);
+                    }
+
+                    var usuarioEmail = await _context.Usuarios.
+                       Where(u => u.Email.ToLower() == usuario.Email.ToLower() && u.UsuarioEstatusSesion == false).
+                       FirstOrDefaultAsync();
+
+                    if (usuarioEmail != null)
+                    {
+                        //respuesta.Mensaje = "La cuenta de email que ingreso ya está registrada.";
+                        respuesta.Exito = 0;
+                        contadorEmail += 1;
+                    email += usuarioEmail.Email + ", ";
+                        //return Ok(respuesta);
+                    }
+
+                    if(respuesta.Exito == 1)
+                    {
+                    DateTime today = DateTime.Now;
+
+                    var diasPass = await _context.Parametros.
+                      Where(u => u.ParametroClave.ToLower() == "SETEXP").
+                      FirstOrDefaultAsync();
+
+                    usuario.UsuarioFechaLimite = today.AddDays(Int32.Parse(diasPass.ParametroValorInicial));
+                    //usuarioEmail.Password = usuario.Password;
+
+                    usuario.Password = cifradoHelper.EncryptStringAES("UsuarioTmF28");
+
+                    _context.Usuarios.Add(usuario);
+                    //await _context.SaveChangesAsync();
+
+
+                    try
+                    {
+                        await _context.SaveChangesAsync();
+                    }
+                    catch (Exception es)
+                    {
+                        //respuesta.Mensaje = "El número de empleado ya esta registrado, actualicelo desde el sistema o asigne un nuevo número de empleado.";
+                        respuesta.Exito = 0;
+                        contadorNoEmpSinRegistro += 1;
+                        noEmpSinRegistro += usuario.EmpleadoNoEmp + ", ";
+                    }
+                }
+                //Respuesta respuesta = new Respuesta();
+                //respuesta.Exito = 1;
+                //respuesta.Data = usuario.Email;
+                //return Ok(respuesta);
+                //UsersHelper.CreateUserASP(user.Email, "User", user.Password);
+                //return CreatedAtRoute("DefaultApi", new { id = usuario.UsuarioId }, usuario);
+                //_context.Usuarios.Add(usuario);
+                //await _context.SaveChangesAsync();
+
+                //return CreatedAtAction("GetUsuario", new { id = usuario.UsuarioId }, usuario);
+
+                //respuesta.Data = CreatedAtAction("GetUsuario", new { id = usuario.UsuarioId }, usuario);
+
+                //respuesta.Mensaje = "Registro exitoso.";
+                //respuesta.Exito = 1;
+            }
+            respuesta.Exito = 1;
+            //int contadorNoEmp = 0;
+            //int contadorEmail = 0;
+            //int contadorNoEmpSinRegistro = 0;
+
+            if (contadorNoEmp > 0)
+            {
+                var quitarComaNoEmp = noEmp.Substring(0, noEmp.Length - 2);
+                respuesta.Mensaje += "Los siguientes números de empleado ya están registrados, debe actualizarlos: " + quitarComaNoEmp + ". ";
+                respuesta.Exito = 0;
+            }
+
+            if (contadorEmail > 0)
+            {
+                var quitarComaEmail = email.Substring(0, email.Length - 2);
+                respuesta.Mensaje += "Los siguientes email ya están registrados, debe actualizarlos: " + quitarComaEmail + ". ";
+                respuesta.Exito = 0;
+            }
+
+            if (contadorNoEmpSinRegistro > 0)
+            {
+                var quitarComanoEmpSinRegistro = noEmpSinRegistro.Substring(0, noEmpSinRegistro.Length - 2);
+                respuesta.Mensaje += "Los siguientes números de empleado no se pudieron registrar, contacte al administrador: " + quitarComanoEmpSinRegistro + ". ";
+                respuesta.Exito = 0;
+            }
+
+            if (respuesta.Exito == 1)
+            {
+                respuesta.Mensaje = "Todos los empleados se registraron con éxito.";
+            }
+            //else
+            //{
+            //    respuesta.Mensaje = "Registro exitoso.";
+            //    respuesta.Exito = 1;
+            //}
+
 
             return Ok(respuesta);
         }
