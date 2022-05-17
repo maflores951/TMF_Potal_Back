@@ -58,7 +58,8 @@ namespace tmf_group.Controllers.Recibos
                         ReciboEstatus = recibo.ReciboEstatus,
                         PeriodoTipoId = recibo.PeriodoTipoId,
                         ReciboPeriodoNumero = recibo.ReciboPeriodoNumero,
-                        ReciboPath = recibo.ReciboPath,
+                        ReciboPathPDF = recibo.ReciboPathPDF,
+                        ReciboPathXML = recibo.ReciboPathXML,
                         UsuarioNoEmp = recibo.UsuarioNoEmp,
                         EmpresaId = recibo.EmpresaId,
                         Usuario = usuario,
@@ -169,7 +170,7 @@ namespace tmf_group.Controllers.Recibos
             int contador = 0;
             string empleadosNoRegistrados = "";
             //Proceso para guardar el documento en el servidor, se convierte de base64 a archivo
-            byte[] imageArray = Convert.FromBase64String(model.ReciboPath);
+            byte[] imageArray = Convert.FromBase64String(model.ReciboPathPDF);
             var stream = new MemoryStream(imageArray);
             var guid = Guid.NewGuid().ToString();
             var file = string.Format("{0}.zip", guid);//Nombre con el que se guarda el Zip original
@@ -255,7 +256,7 @@ namespace tmf_group.Controllers.Recibos
                         Console.WriteLine(fi.Name);
                         //Se recupera el ultimo guion para poder recuperar el número de empleado
                         var posicionFinal = fi.Name.LastIndexOf('_');
-                        //Se extra el número de emplado 
+                        //Se extra el número de empleado 
                         var empleadoNoD = fi.Name.Substring(posicionFinal + 1);
                         // Se recupera el tamaño para poder eliminar el dominio
                         var lenght = empleadoNoD.Length;
@@ -380,34 +381,47 @@ namespace tmf_group.Controllers.Recibos
 
 
 
-                            //Aqui ya estan los archivos en las carpetas
-                            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+                            ////Aqui ya estan los archivos en las carpetas
+                            //Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+                            //try
+                            //{
+                            //    if (System.IO.File.Exists(extractPathGuardar))
+                            //    {
+                            //        System.IO.File.Delete(extractPathGuardar);
+                            //        //Se empaquetan y se cifran los archivos
+                            //        using (var zip = new Ionic.Zip.ZipFile())
+                            //        {
+                            //            zip.Password = usuario.EmpleadoRFC.ToUpper().Trim();
+                            //            zip.Encryption = EncryptionAlgorithm.PkzipWeak;
+                            //            zip.AddDirectory(pathReciboZipExtraer, "");
+                            //            zip.Save(extractPathGuardar);
+                            //        }
+                            //    }
+                            //    else
+                            //    {
+                            //        try
+                            //        {
+                            //            //Se empaquetan y se cifran los archivos
+                            //            using (var zip = new Ionic.Zip.ZipFile())
+                            //            {
+                            //                zip.Password = usuario.EmpleadoRFC.ToUpper().Trim();
+                            //                zip.Encryption = EncryptionAlgorithm.PkzipWeak;
+                            //                zip.AddDirectory(pathReciboZipExtraer, "");
+                            //                zip.Save(extractPathGuardar);
+                            //            }
+                            //        }
+                            //        catch (Exception)
+                            //        {
+                            //            respuesta.Mensaje += "Error al generar los archivos zip, valide que todos los empleados cuenten con un RFC registrado o contacte al administrador del sistema.";
+                            //            respuesta.Exito = 0;
+
+                            //            return Ok(respuesta);
+                            //        }
+
+                            //    }
+
                             try
                             {
-                                if (System.IO.File.Exists(extractPathGuardar))
-                                {
-                                    System.IO.File.Delete(extractPathGuardar);
-                                    //Se empaquetan y se cifran los archivos
-                                    using (var zip = new Ionic.Zip.ZipFile())
-                                    {
-                                        zip.Password = usuario.EmpleadoRFC.ToUpper().Trim();
-                                        zip.Encryption = EncryptionAlgorithm.PkzipWeak;
-                                        zip.AddDirectory(pathReciboZipExtraer, "");
-                                        zip.Save(extractPathGuardar);
-                                    }
-                                }
-                                else
-                                {
-                                    //Se empaquetan y se cifran los archivos
-                                    using (var zip = new Ionic.Zip.ZipFile())
-                                    {
-                                        zip.Password = usuario.EmpleadoRFC.ToUpper().Trim();
-                                        zip.Encryption = EncryptionAlgorithm.PkzipWeak;
-                                        zip.AddDirectory(pathReciboZipExtraer, "");
-                                        zip.Save(extractPathGuardar);
-                                    }
-                                }
-
                                 //Se valida si existe algun registro relacionado al mismo empleado y al mismo periodo
                                 var reciboEmpleado = await _context.Recibos.Where(u => u.EmpresaId == model.EmpresaId && u.PeriodoTipoId == model.PeriodoTipoId && u.ReciboPeriodoA == model.ReciboPeriodoA && u.ReciboPeriodoM == model.ReciboPeriodoM && u.ReciboPeriodoNumero == model.ReciboPeriodoNumero && u.UsuarioNoEmp == usuario.EmpleadoNoEmp).FirstOrDefaultAsync();
 
@@ -423,7 +437,9 @@ namespace tmf_group.Controllers.Recibos
                                     recibo.ReciboEstatus = true;
                                     recibo.PeriodoTipoId = model.PeriodoTipoId;
                                     recibo.ReciboPeriodoNumero = model.ReciboPeriodoNumero;
-                                    recibo.ReciboPath = Path.Combine(pathEmpPeriodo, nombreCifrado + ".zip");
+                                    //recibo.ReciboPathPDF = Path.Combine(pathEmpPeriodo, nombreCifrado + ".zip");
+                                    recibo.ReciboPathPDF = pathEmpPeriodo + "\\" + usuario.EmpleadoNoEmp + "\\" + cifradoHelper.EncryptStringAES(Newtonsoft.Json.JsonConvert.SerializeObject(model.Empresa.EmpresaNombre + "_" + usuario.EmpleadoNoEmp.ToString() + model.ReciboPeriodoA.ToString() + model.ReciboPeriodoM.ToString() + model.PeriodoTipoId.ToString() + model.ReciboPeriodoNumero.ToString())).Replace("/", "$").Replace("+", "&") + ".pdf";
+                                    recibo.ReciboPathXML = pathEmpPeriodo + "\\" + usuario.EmpleadoNoEmp + "\\" + cifradoHelper.EncryptStringAES(Newtonsoft.Json.JsonConvert.SerializeObject(model.Empresa.EmpresaNombre + "_" + usuario.EmpleadoNoEmp.ToString() + model.ReciboPeriodoA.ToString() + model.ReciboPeriodoM.ToString() + model.PeriodoTipoId.ToString() + model.ReciboPeriodoNumero.ToString())).Replace("/", "$").Replace("+", "&") + ".xml";
                                     recibo.UsuarioNoEmp = usuario.EmpleadoNoEmp;
                                     recibo.EmpresaId = model.EmpresaId;
                                     //Se crea el registro del recibo
@@ -444,7 +460,10 @@ namespace tmf_group.Controllers.Recibos
                                 }
                                 else
                                 {
-                                    reciboEmpleado.ReciboPath = Path.Combine(pathEmpPeriodo, nombreCifrado + ".zip");
+                                    //reciboEmpleado.ReciboPathPDF = Path.Combine(pathEmpPeriodo, nombreCifrado + ".zip");
+                                    reciboEmpleado.ReciboPathPDF = pathEmpPeriodo + "\\" + usuario.EmpleadoNoEmp + "\\" + cifradoHelper.EncryptStringAES(Newtonsoft.Json.JsonConvert.SerializeObject(model.Empresa.EmpresaNombre + "_" + usuario.EmpleadoNoEmp.ToString() + model.ReciboPeriodoA.ToString() + model.ReciboPeriodoM.ToString() + model.PeriodoTipoId.ToString() + model.ReciboPeriodoNumero.ToString())).Replace("/", "$").Replace("+", "&") + ".pdf";
+                                    reciboEmpleado.ReciboPathXML = pathEmpPeriodo + "\\" + usuario.EmpleadoNoEmp + "\\" + cifradoHelper.EncryptStringAES(Newtonsoft.Json.JsonConvert.SerializeObject(model.Empresa.EmpresaNombre + "_" + usuario.EmpleadoNoEmp.ToString() + model.ReciboPeriodoA.ToString() + model.ReciboPeriodoM.ToString() + model.PeriodoTipoId.ToString() + model.ReciboPeriodoNumero.ToString())).Replace("/", "$").Replace("+", "&") + ".xml";
+
 
                                     _context.Entry(reciboEmpleado).State = EntityState.Modified;
 
@@ -470,17 +489,17 @@ namespace tmf_group.Controllers.Recibos
                                 return Ok(respuesta);
                             }
 
-                            try
-                            {
-                                //Se eliminan los archivos sin empaquetar
-                                System.IO.Directory.Delete(pathReciboZipExtraer, true);
-                            }
-                            catch (Exception es)
-                            {
-                                respuesta.Mensaje = es.Message;
-                                respuesta.Exito = 0;
-                                return Ok(respuesta);
-                            }
+                            //try
+                            //{
+                            //    //Se eliminan los archivos sin empaquetar
+                            //    System.IO.Directory.Delete(pathReciboZipExtraer, true);
+                            //}
+                            //catch (Exception es)
+                            //{
+                            //    respuesta.Mensaje = es.Message;
+                            //    respuesta.Exito = 0;
+                            //    return Ok(respuesta);
+                            //}
                         }
                     }
                 }
@@ -603,12 +622,79 @@ namespace tmf_group.Controllers.Recibos
             usuarioEmail = new EnviarRecibo
             {
                 Email = usuario.Email,
-                PathRecibo = Path.Combine(_enviroment.ContentRootPath, folder, recibo.ReciboPath)
+                PathRecibo = Path.Combine(_enviroment.ContentRootPath, folder, recibo.ReciboPathPDF)
             };
 
             //Se envia el email si todo es correcto
             EnvioEmailService enviarEmail = new EnvioEmailService(_context);
             var emailResponse = await enviarEmail.EnivarRecibo(usuarioEmail);
+
+            if (emailResponse.Exito == 1)
+            {
+                respuesta.Exito = 1;
+                respuesta.Data = emailResponse;
+                respuesta.Mensaje = "El recibo se envió con éxito.";
+            }
+            else
+            {
+                respuesta.Exito = 0;
+                respuesta.Data = emailResponse;
+                respuesta.Mensaje = "Error en el servidor, contacte al administrador del sistema.";
+            }
+
+            return Ok(respuesta);
+        }
+
+        //Envio de recibo individual
+        [HttpPost("EnviarNotificacion")]
+        public async Task<IActionResult> EnviarNotificacionAsync(Recibo model)
+        {
+            //Se crea la respuesta para el front
+            Respuesta respuesta = new Respuesta();
+            //Variable para enviar el email
+            var email = string.Empty;
+            EnviarRecibo usuarioEmail;
+
+            //var folder = "uploads\\Nomina";
+
+
+            //Se valida que el número de empleado exista 
+            var recibo = await _context.Recibos.Where(u =>
+            u.EmpresaId == model.EmpresaId &&
+            u.PeriodoTipoId == model.PeriodoTipoId &&
+            u.ReciboPeriodoA == model.ReciboPeriodoA &&
+            u.ReciboPeriodoM == model.ReciboPeriodoM &&
+            u.ReciboPeriodoNumero == model.ReciboPeriodoNumero &&
+            u.UsuarioNoEmp == model.UsuarioNoEmp).FirstOrDefaultAsync();
+
+            if (recibo == null)
+            {
+                respuesta.Mensaje = "No existen registros para este periodo y empresa";
+                respuesta.Exito = 0;
+                return Ok(respuesta);
+            }
+
+            //Se busca la información del usuario en la tabla Users por medio del email
+            var usuario = await _context.Usuarios.
+               Where(u => u.EmpleadoNoEmp.ToLower() == model.UsuarioNoEmp.ToLower()).
+               FirstOrDefaultAsync();
+
+            if (usuario == null)
+            {
+                respuesta.Mensaje = "No existen registros para este usuario, contacte al administrador";
+                respuesta.Exito = 0;
+                return Ok(respuesta);
+            }
+
+            usuarioEmail = new EnviarRecibo
+            {
+                Email = usuario.Email,
+                //PathRecibo = Path.Combine(_enviroment.ContentRootPath, folder, recibo.ReciboPathPDF)
+            };
+
+            //Se envia el email si todo es correcto
+            EnvioEmailService enviarEmail = new EnvioEmailService(_context);
+            var emailResponse = await enviarEmail.EnivarNotificacion(usuarioEmail);
 
             if (emailResponse.Exito == 1)
             {
@@ -677,7 +763,7 @@ namespace tmf_group.Controllers.Recibos
                 usuarioEmail = new EnviarRecibo
                 {
                     Email = usuario.Email,
-                    PathRecibo = Path.Combine(_enviroment.ContentRootPath, folder, recibo.ReciboPath)
+                    PathRecibo = Path.Combine(_enviroment.ContentRootPath, folder, recibo.ReciboPathPDF)
                 };
 
                 //Se envia el email si todo es correcto
@@ -714,6 +800,313 @@ namespace tmf_group.Controllers.Recibos
 
             return Ok(respuesta);
         }
+
+        //Envio de recibo individual
+        [HttpPost("NotificarMasivo")]
+        public async Task<IActionResult> NotificarMasivoAsync(Recibo model)
+        {
+            //Se crea la respuesta para el front
+            Respuesta respuesta = new Respuesta();
+            //Variable para enviar el email
+            var email = string.Empty;
+            EnviarRecibo usuarioEmail;
+
+            var folder = "uploads\\Nomina";
+
+            var contador = 0;
+            var contadorEmpNo = "";
+
+
+            //Se valida que el número de empleado exista 
+            var recibos = await _context.Recibos.Where(u =>
+            u.EmpresaId == model.EmpresaId &&
+            u.PeriodoTipoId == model.PeriodoTipoId &&
+            u.ReciboPeriodoA == model.ReciboPeriodoA &&
+            u.ReciboPeriodoM == model.ReciboPeriodoM &&
+            u.ReciboPeriodoNumero == model.ReciboPeriodoNumero).ToListAsync();
+
+            if (recibos == null)
+            {
+                respuesta.Mensaje = "No existen registros para este periodo y empresa";
+                respuesta.Exito = 0;
+                return Ok(respuesta);
+            }
+
+
+            foreach (var recibo in recibos)
+            {
+                //Se busca la información del usuario en la tabla Users por medio del email
+                var usuario = await _context.Usuarios.
+                   Where(u => u.EmpleadoNoEmp.ToLower() == recibo.UsuarioNoEmp.ToLower()).
+                   FirstOrDefaultAsync();
+
+                if (usuario == null)
+                {
+                    respuesta.Mensaje = "Error #1, contacte al administrador del sistema.";
+                    respuesta.Exito = 0;
+                    return Ok(respuesta);
+                }
+
+
+                usuarioEmail = new EnviarRecibo
+                {
+                    Email = usuario.Email,
+                    //PathRecibo = Path.Combine(_enviroment.ContentRootPath, folder, recibo.ReciboPathPDF)
+                };
+
+                //Se envia el email si todo es correcto
+                EnvioEmailService enviarEmail = new(_context);
+                var emailResponse = await enviarEmail.EnivarNotificacion(usuarioEmail);
+
+                if (emailResponse.Exito == 1)
+                {
+                    respuesta.Exito = 1;
+                    //respuesta.Data = emailResponse;
+                }
+                else
+                {
+                    respuesta.Exito = 0;
+                    //respuesta.Data = emailResponse;
+                    contador += 1;
+                    contadorEmpNo += usuario.EmpleadoNoEmp + ", ";
+                    //respuesta.Mensaje = "No se pudo enviar";
+                }
+            }
+
+            if (contador > 0)
+            {
+                var quitarComa = contadorEmpNo.Substring(0, contadorEmpNo.Length - 2);
+                respuesta.Exito = 0;
+                respuesta.Mensaje = "Los siguientes empleados no estan registrados en el sistema : " + quitarComa + ".";
+            }
+            else
+            {
+                respuesta.Exito = 1;
+                respuesta.Mensaje = "Todos los recibos se enviaron con éxito.";
+            }
+
+
+            return Ok(respuesta);
+        }
+
+        //Envio de recibo individual
+        [HttpPost("BorrarIndividual")]
+        public async Task<IActionResult> BorrarIndividualAsync(Recibo model)
+        {
+            //Se crea la respuesta para el front
+            Respuesta respuesta = new Respuesta();
+
+            var folder = "uploads\\Nomina";
+
+
+            //Se valida que el número de empleado exista 
+            var recibo = await _context.Recibos.Where(u =>
+            u.EmpresaId == model.EmpresaId &&
+            u.PeriodoTipoId == model.PeriodoTipoId &&
+            u.ReciboPeriodoA == model.ReciboPeriodoA &&
+            u.ReciboPeriodoM == model.ReciboPeriodoM &&
+            u.ReciboPeriodoNumero == model.ReciboPeriodoNumero &&
+            u.UsuarioNoEmp == model.UsuarioNoEmp).FirstOrDefaultAsync();
+
+            if (recibo == null)
+            {
+                respuesta.Mensaje = "No existen registros para este periodo y empresa";
+                respuesta.Exito = 0;
+                return Ok(respuesta);
+            }
+
+            ////Se busca la información del usuario en la tabla Users por medio del email
+            //var usuario = await _context.Usuarios.
+            //   Where(u => u.EmpleadoNoEmp.ToLower() == model.UsuarioNoEmp.ToLower()).
+            //   FirstOrDefaultAsync();
+
+            //if (usuario == null)
+            //{
+            //    respuesta.Mensaje = "No existen registros para este usuario, contacte al administrador";
+            //    respuesta.Exito = 0;
+            //    return Ok(respuesta);
+            //}
+
+            var pathReciboPDF = Path.Combine(_enviroment.ContentRootPath, folder, recibo.ReciboPathPDF);
+
+            var pathReciboXML = Path.Combine(_enviroment.ContentRootPath, folder, recibo.ReciboPathXML);
+
+            if (System.IO.File.Exists(pathReciboPDF))
+            {
+                //Se elimina el archivo
+                try
+                {
+                    System.IO.File.Delete(pathReciboPDF);
+                }
+                catch (Exception)
+                {
+                    respuesta.Mensaje = "Error al eliminar el archivo, intente de nuevo o contacte al administrador del sistema.";
+                    respuesta.Exito = 0;
+                    return Ok(respuesta);
+                }
+            }
+
+            if (System.IO.File.Exists(pathReciboXML))
+            {
+                //Se elimina el archivo
+                try
+                {
+                    System.IO.File.Delete(pathReciboXML);
+                }
+                catch (Exception)
+                {
+                    respuesta.Mensaje = "Error al eliminar el archivo, intente de nuevo o contacte al administrador del sistema.";
+                    respuesta.Exito = 0;
+                    return Ok(respuesta);
+                }
+            }
+
+
+            _context.Recibos.Remove(recibo);
+
+            try
+            {
+
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+                respuesta.Mensaje = "Error al eliminar el registro, intente de nuevo o contacte al administrador del sistema.";
+                respuesta.Exito = 0;
+                return Ok(respuesta);
+            }
+
+            respuesta.Exito = 1;
+            respuesta.Mensaje = "El archivo se eliminó correctamente.";
+
+
+            return Ok(respuesta);
+        }
+
+        //Envio de recibo individual
+        [HttpPost("BorrarMasivo")]
+        public async Task<IActionResult> BorrarMasivoAsync(Recibo model)
+        {
+            //Se crea la respuesta para el front
+            Respuesta respuesta = new Respuesta();
+            respuesta.Exito = 1;
+            respuesta.Mensaje = "Todos los recibos se eliminaron correctamente.";
+            var folder = "uploads\\Nomina";
+
+            var contador = 0;
+            var contadorEmpNo = "";
+
+
+            //Se valida que el número de empleado exista 
+            var recibos = await _context.Recibos.Where(u =>
+            u.EmpresaId == model.EmpresaId &&
+            u.PeriodoTipoId == model.PeriodoTipoId &&
+            u.ReciboPeriodoA == model.ReciboPeriodoA &&
+            u.ReciboPeriodoM == model.ReciboPeriodoM &&
+            u.ReciboPeriodoNumero == model.ReciboPeriodoNumero).ToListAsync();
+
+            if (recibos == null)
+            {
+                respuesta.Mensaje = "No existen registros para este periodo y empresa";
+                respuesta.Exito = 0;
+                return Ok(respuesta);
+            }
+
+            //Carpeta en donde se guardan los recibos por cada empresa
+            var pathEmpPeriodo = model.Empresa.EmpresaNombre + "\\" + model.ReciboPeriodoA + "\\" + model.ReciboPeriodoM + "\\" + model.PeriodoTipoId + "\\" + model.ReciboPeriodoNumero;
+            //Se junta el nombre de la carpeta con la ruta donde se almacena el sistema
+            var pathEmpresa = Path.Combine(_enviroment.ContentRootPath, folder, pathEmpPeriodo);
+            //Se valida si existe la carpeta
+            var existePath = System.IO.Directory.Exists(pathEmpresa);
+
+
+            if (existePath)
+            {
+                //Se eliminan los archivos sin empaquetar
+                try
+                {
+                    System.IO.Directory.Delete(pathEmpresa, true);
+                }
+                catch (Exception)
+                {
+                    respuesta.Mensaje = "Error al eliminar los archivos, intente de nuevo o contacte al administrador del sistema.";
+                    respuesta.Exito = 0;
+                    return Ok(respuesta);
+                }
+            }
+
+            foreach (var recibo in recibos)
+            {
+ 
+                _context.Recibos.Remove(recibo);
+
+                try
+                {
+                    await _context.SaveChangesAsync();
+                }
+                catch (Exception)
+                {
+                    //respuesta.Mensaje = "Error al eliminar el registro, intente de nuevo o contacte al administrador del sistema.";
+                    //respuesta.Exito = 0;
+                    //return Ok(respuesta);
+                    contador += 1;
+                    contadorEmpNo += recibo.UsuarioNoEmp + ", ";
+                }
+
+            }
+
+            if (contador > 0)
+            {
+                var quitarComa = contadorEmpNo.Substring(0, contadorEmpNo.Length - 2);
+                respuesta.Exito = 0;
+                respuesta.Mensaje = "Los siguientes recibos no se pudieron eliminar, intente de nuevo o contacte al administrador del sistema : " + quitarComa + ".";
+            }
+
+            return Ok(respuesta);
+        }
+
+        // Recuperar recibos por usuario
+        [HttpPost("Usuario")]
+        public async Task<IActionResult> UsuarioAsync(Recibo model)
+        {
+            //return await _context.Usuarios.ToListAsync();
+            var responses = new List<Recibo>();
+            var recibos = await _context.Recibos.Where(r => r.EmpresaId == model.EmpresaId && r.UsuarioNoEmp == model.UsuarioNoEmp && r.ReciboEstatus == true).ToListAsync();
+
+            var folder = "uploads\\Nomina";
+
+            foreach (var recibo in recibos)
+            {
+                
+                var usuario = await _context.Usuarios.Where(r => r.EmpleadoNoEmp == recibo.UsuarioNoEmp).FirstOrDefaultAsync();
+
+                //var empresa = await _context.Empresas.FindAsync(recibo.EmpresaId);
+
+                var periodoTipo = await _context.PeriodoTipos.FindAsync(recibo.PeriodoTipoId);
+
+                responses.Add(new Recibo
+                {
+                    ReciboId = recibo.ReciboId,
+                    ReciboPeriodoA = recibo.ReciboPeriodoA,
+                    ReciboPeriodoM = recibo.ReciboPeriodoM,
+                    ReciboPeriodoD = recibo.ReciboPeriodoD,
+                    ReciboEstatus = recibo.ReciboEstatus,
+                    PeriodoTipoId = recibo.PeriodoTipoId,
+                    ReciboPeriodoNumero = recibo.ReciboPeriodoNumero,
+                    ReciboPathPDF = Path.Combine(folder,recibo.ReciboPathPDF).Replace("\\", "/"),
+                    ReciboPathXML = Path.Combine(folder,recibo.ReciboPathXML).Replace("\\", "/"),
+                    UsuarioNoEmp = recibo.UsuarioNoEmp,
+                    EmpresaId = recibo.EmpresaId,
+                    Usuario = usuario,
+                    //Empresa = empresa,
+                    PeriodoTipo = periodoTipo
+                });
+            }
+
+            return Ok(responses);
+            //return await _context.Recibos.ToListAsync();
+        }
+
         private bool ReciboExists(string id)
         {
             return _context.Recibos.Any(e => e.ReciboId == id);

@@ -7716,11 +7716,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\models\\VisualStudio-Angular\\TMF_Masivo\\tmf_masivo_back\\LoginBase.csproj",
+      "projectUniqueName": "C:\\models\\VisualStudio-Angular\\TMF_Portal\\tmf_portal_back\\LoginBase.csproj",
       "projectName": "LoginBase",
-      "projectPath": "C:\\models\\VisualStudio-Angular\\TMF_Masivo\\tmf_masivo_back\\LoginBase.csproj",
+      "projectPath": "C:\\models\\VisualStudio-Angular\\TMF_Portal\\tmf_portal_back\\LoginBase.csproj",
       "packagesPath": "C:\\Users\\maflores\\.nuget\\packages\\",
-      "outputPath": "C:\\models\\VisualStudio-Angular\\TMF_Masivo\\tmf_masivo_back\\obj\\",
+      "outputPath": "C:\\models\\VisualStudio-Angular\\TMF_Portal\\tmf_portal_back\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
@@ -7820,7 +7820,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.204\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.407\\RuntimeIdentifierGraph.json"
       }
     }
   },

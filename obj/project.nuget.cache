@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "E/g4g6IHf0NgK/ZZbWrtDin61y1er8vcOpx3n0/udsgq9pUE5OnylpfTMtOsTGqeHaHl+3Oc+vTaYZoiTgxjOA==",
+  "dgSpecHash": "r3xMoNM992ETg8M6+MXYK/9LFHvYpofBA5scvISobU55lFmk+nXMZwxsjhaFbzHyFZKACacqSE+5vAcNw3pZGQ==",
   "success": true,
-  "projectFilePath": "C:\\models\\VisualStudio-Angular\\TMF_Masivo\\tmf_masivo_back\\LoginBase.csproj",
+  "projectFilePath": "C:\\models\\VisualStudio-Angular\\TMF_Portal\\tmf_portal_back\\LoginBase.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\maflores\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\maflores\\.nuget\\packages\\ionic.zip-1.9.1.8\\1.9.1.8\\ionic.zip-1.9.1.8.1.9.1.8.nupkg.sha512",

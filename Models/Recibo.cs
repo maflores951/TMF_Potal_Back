@@ -25,7 +25,9 @@ namespace tmf_group.Models
 
         public PeriodoTipo PeriodoTipo { get; set; }
 
-        public string ReciboPath { get; set; }
+        public string ReciboPathPDF { get; set; }
+
+        public string ReciboPathXML { get; set; }
 
         public string UsuarioNoEmp { get; set; }
 
