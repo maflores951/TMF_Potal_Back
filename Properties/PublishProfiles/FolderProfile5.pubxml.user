@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <_PublishTargetUrl>C:\inetpub\wwwroot\Tmf_Portal_Back</_PublishTargetUrl>
+    <History>True|2022-05-27T01:59:24.7966948Z;True|2022-05-26T19:37:19.4493657-05:00;True|2022-05-26T00:30:55.5171707-05:00;True|2022-05-23T00:46:40.0282694-05:00;True|2022-05-20T00:30:36.2695136-05:00;</History>
+  </PropertyGroup>
+</Project>

@@ -78,6 +78,59 @@ namespace LoginBase.Controllers
             return Ok(responses);
         }
 
+        // GET: api/Usuarios
+        [HttpGet]
+        [Route("Empleados")]
+        [Authorize]
+        public async Task<ActionResult<IEnumerable<Usuario>>> GetEmpleados()
+        {
+            //return await _context.Usuarios.ToListAsync();
+            var responses = new List<Usuario>();
+            var usuarios = await _context.Usuarios.ToListAsync();
+            //Se crea una variable del tipo de servicio para poder decifrar la contraseña
+            CifradoHelper cifradoHelper = new CifradoHelper();
+
+            foreach (var usuario in usuarios)
+            {
+                if (usuario.UsuarioEstatusSesion == false && usuario.EmpleadoNoEmp != null)
+                {
+                    var rol = await _context.Roles.FindAsync(usuario.RolId);
+                    var empresa = await _context.Empresas.FindAsync(usuario.EmpresaId);
+                    var password = "";
+                    if (usuario.Password == null)
+                    {
+                        password = usuario.Password;
+                    }
+                    else
+                    {
+                        password = cifradoHelper.DecryptStringAES(usuario.Password);
+                    }
+                    responses.Add(new Usuario
+                    {
+                        UsuarioId = usuario.UsuarioId,
+                        UsuarioNombre = usuario.UsuarioNombre,
+                        UsuarioApellidoP = usuario.UsuarioApellidoP,
+                        UsuarioApellidoM = usuario.UsuarioApellidoM,
+                        UsuarioNumConfirmacion = usuario.UsuarioNumConfirmacion,
+                        UsuarioFechaLimite = usuario.UsuarioFechaLimite,
+                        UsuarioEstatusSesion = usuario.UsuarioEstatusSesion,
+                        Password = password,
+                        Email = usuario.Email,
+                        UsuarioClave = usuario.UsuarioClave,
+                        ImagePath = usuario.ImagePath,
+                        RolId = usuario.RolId,
+                        Rol = rol,
+                        EmpleadoNoEmp = usuario.EmpleadoNoEmp,
+                        EmpresaId = usuario.EmpresaId,
+                        Empresa = empresa,
+                        EmpleadoRFC = usuario.EmpleadoRFC
+                    });
+                }
+            }
+
+            return Ok(responses);
+        }
+
         // GET: api/Usuarios/5
         [HttpGet("{id}")]
         [Authorize]
@@ -398,18 +451,18 @@ namespace LoginBase.Controllers
                         //return Ok(respuesta);
                     }
 
-                    var usuarioEmail = await _context.Usuarios.
-                       Where(u => u.Email.ToLower() == usuario.Email.ToLower() && u.UsuarioEstatusSesion == false).
-                       FirstOrDefaultAsync();
+                    //var usuarioEmail = await _context.Usuarios.
+                    //   Where(u => u.Email.ToLower() == usuario.Email.ToLower() && u.UsuarioEstatusSesion == false).
+                    //   FirstOrDefaultAsync();
 
-                    if (usuarioEmail != null)
-                    {
-                        //respuesta.Mensaje = "La cuenta de email que ingreso ya está registrada.";
-                        respuesta.Exito = 0;
-                        contadorEmail += 1;
-                    email += usuarioEmail.Email + ", ";
-                        //return Ok(respuesta);
-                    }
+                    //if (usuarioEmail != null)
+                    //{
+                    //    //respuesta.Mensaje = "La cuenta de email que ingreso ya está registrada.";
+                    //    respuesta.Exito = 0;
+                    //    contadorEmail += 1;
+                    //email += usuarioEmail.Email + ", ";
+                    //    //return Ok(respuesta);
+                    //}
 
                     if(respuesta.Exito == 1)
                     {

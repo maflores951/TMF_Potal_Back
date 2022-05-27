@@ -40,7 +40,7 @@ namespace LoginBase
                 options.AddPolicy(name: MiCors,
                                   builder =>
                                   {
-                                      builder.WithOrigins("*", "http://localhost:4200", "http://localhost", "http://stelvio/Tmf_Front", "https://stelvio", "http://stelvio", "https://stelvio/Tmf_Front")
+                                      builder.WithOrigins("*", "http://localhost:4200", "http://localhost:9096", "http://stelvio/Tmf_Front", "https://stelvio", "http://stelvio", "https://stelvio/Tmf_Front")
                                       .AllowAnyHeader()
                                       .AllowAnyMethod()
                                       .AllowAnyOrigin();
@@ -118,6 +118,7 @@ namespace LoginBase
             Path.Combine(env.ContentRootPath, "uploads")),
                 RequestPath = "/uploads"
             });
+
         }
     }
 }

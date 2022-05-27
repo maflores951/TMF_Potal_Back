@@ -6,6 +6,7 @@ using LoginBase.Models.Request;
 using LoginBase.Models.Response;
 using LoginBase.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,12 +20,14 @@ namespace LoginBase.Controllers
     {
         private readonly DataContext _context;
         private IUserService _userService;
+        private readonly IWebHostEnvironment _enviroment;
 
         //Constructor para recuperar la interface del userService y el contexto de la base de datos
-        public UserController(IUserService userService, DataContext db)
+        public UserController(IUserService userService, DataContext db, IWebHostEnvironment env)
         {
             _userService = userService;
             _context = db;
+            _enviroment = env;
         }
 
         
@@ -141,7 +144,7 @@ namespace LoginBase.Controllers
             }
 
             //Se envia el email si todo es correcto
-            EnvioEmailService enviarEmail = new EnvioEmailService(_context);
+            EnvioEmailService enviarEmail = new EnvioEmailService(_context,_enviroment);
             var emailResponse = await enviarEmail.EnivarEmail(usuarioEmail);
 
 

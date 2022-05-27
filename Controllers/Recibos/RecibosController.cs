@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using LoginBase.Models;
@@ -11,8 +10,6 @@ using LoginBase.Models.Response;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using LoginBase.Helper;
-using System.Text;
-using Ionic.Zip;
 using Fintech.API.Helpers;
 using LoginBase.Services;
 
@@ -35,24 +32,23 @@ namespace tmf_group.Controllers.Recibos
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Recibo>>> GetRecibos()
         {
-            //return await _context.Usuarios.ToListAsync();
             var responses = new List<Recibo>();
-            var recibos = await _context.Recibos.ToListAsync();
+            //var recibos = await _context.Recibos.ToListAsync();
+
+            var recibos = await _context.Recibos.Where(u => u.ReciboEstatus == true).ToListAsync();
+
+            var usuario = await _context.Usuarios.ToListAsync();
+
+            var empresa = await _context.Empresas.ToListAsync();
+
+            var periodoTipo = await _context.PeriodoTipos.ToListAsync();
 
             foreach (var recibo in recibos)
             {
-                if (recibo.ReciboEstatus == true)
-                {
-                    var usuario = await _context.Usuarios.Where(r => r.EmpleadoNoEmp == recibo.UsuarioNoEmp). FirstOrDefaultAsync();
-
-                    var empresa = await _context.Empresas.FindAsync(recibo.EmpresaId);
-
-                    var periodoTipo = await _context.PeriodoTipos.FindAsync(recibo.PeriodoTipoId);
-
                     responses.Add(new Recibo
                     {
-                       ReciboId = recibo.ReciboId,
-                       ReciboPeriodoA = recibo.ReciboPeriodoA,
+                        ReciboId = recibo.ReciboId,
+                        ReciboPeriodoA = recibo.ReciboPeriodoA,
                         ReciboPeriodoM = recibo.ReciboPeriodoM,
                         ReciboPeriodoD = recibo.ReciboPeriodoD,
                         ReciboEstatus = recibo.ReciboEstatus,
@@ -62,15 +58,44 @@ namespace tmf_group.Controllers.Recibos
                         ReciboPathXML = recibo.ReciboPathXML,
                         UsuarioNoEmp = recibo.UsuarioNoEmp,
                         EmpresaId = recibo.EmpresaId,
-                        Usuario = usuario,
-                        Empresa = empresa,
-                        PeriodoTipo = periodoTipo
+                        Usuario = usuario.Find(u => u.EmpleadoNoEmp == recibo.UsuarioNoEmp),
+                        Empresa = empresa.Find(u => u.EmpresaId == recibo.EmpresaId),
+                        PeriodoTipo = periodoTipo.Find(u => u.PeriodoTipoId == recibo.PeriodoTipoId)
                     });
-                }
+                
             }
 
+            //foreach (var recibo in recibos)
+            //{
+            //    if (recibo.ReciboEstatus == true)
+            //    {
+            //        var usuario = await _context.Usuarios.Where(r => r.EmpleadoNoEmp == recibo.UsuarioNoEmp).FirstOrDefaultAsync();
+
+            //        var empresa = await _context.Empresas.FindAsync(recibo.EmpresaId);
+
+            //        var periodoTipo = await _context.PeriodoTipos.FindAsync(recibo.PeriodoTipoId);
+
+            //        responses.Add(new Recibo
+            //        {
+            //            ReciboId = recibo.ReciboId,
+            //            ReciboPeriodoA = recibo.ReciboPeriodoA,
+            //            ReciboPeriodoM = recibo.ReciboPeriodoM,
+            //            ReciboPeriodoD = recibo.ReciboPeriodoD,
+            //            ReciboEstatus = recibo.ReciboEstatus,
+            //            PeriodoTipoId = recibo.PeriodoTipoId,
+            //            ReciboPeriodoNumero = recibo.ReciboPeriodoNumero,
+            //            ReciboPathPDF = recibo.ReciboPathPDF,
+            //            ReciboPathXML = recibo.ReciboPathXML,
+            //            UsuarioNoEmp = recibo.UsuarioNoEmp,
+            //            EmpresaId = recibo.EmpresaId,
+            //            Usuario = usuario,
+            //            Empresa = empresa,
+            //            PeriodoTipo = periodoTipo
+            //        });
+            //    }
+            //}
+
             return Ok(responses);
-            //return await _context.Recibos.ToListAsync();
         }
 
         // GET: api/Recibos/5
@@ -159,13 +184,15 @@ namespace tmf_group.Controllers.Recibos
         //    return NoContent();
         //}
 
-        //Login del usuario y creación de token
+        //Se carga la información del archivo
         [HttpPost("cargarArchivo")]
         public async Task<IActionResult> cargarArchivoAsync(Recibo model)
         {
             CifradoHelper cifradoHelper = new CifradoHelper();
             //Se crea la respuesta para el front
             Respuesta respuesta = new Respuesta();
+
+            List<Recibo> reciboList = new List<Recibo>();
 
             int contador = 0;
             string empleadosNoRegistrados = "";
@@ -310,6 +337,7 @@ namespace tmf_group.Controllers.Recibos
                             var pathRecibo = folder + "\\" + nombreZip + "\\" + di.Name;// + fi.Name;
                             var pathReciboFull = Path.Combine(_enviroment.ContentRootPath, pathRecibo, fi.Name);
 
+                            //Si ya existe un archivo se elimina y crea el nuevo registro
                             try
                             {
                                 if (System.IO.File.Exists(pathEmpNumeroFullDom))
@@ -354,8 +382,48 @@ namespace tmf_group.Controllers.Recibos
                     var carpetaZipFinal = "";
 
                     //Se recorre la carpeta en donde se extrajo el Zip para recuperar el nombre
+                    var tamanio = 0;
+                    var contadorVuelta = 1;
+                    var numeroVuelta = 0;
+                    var contadorRegistro = 0;
+                    var residuo = 0;
+
+                    if (existePathZipFinal.GetDirectories().Length > 10)
+                    {
+                        tamanio = Convert.ToInt32(existePathZipFinal.GetDirectories().Length / 10);
+                        //if (tamanio > 1)
+                        //{
+                            if (existePathZipFinal.GetDirectories().Length % tamanio == 0)
+                            {
+                                numeroVuelta = existePathZipFinal.GetDirectories().Length / tamanio;
+                            }
+                            else
+                            {
+                            residuo = existePathZipFinal.GetDirectories().Length % tamanio;
+                            numeroVuelta = (existePathZipFinal.GetDirectories().Length / tamanio) + 1;
+                            }
+                        //}
+                        //else
+                        //{
+                        //    if (tamanio%10 == 0)
+                        //    {
+                        //        numeroVuelta = tamanio;
+                        //    }
+                        //    else
+                        //    {
+                        //        numeroVuelta = tamanio + 1;
+                        //    }
+                        //}
+                    }
+                    else
+                    {
+                        tamanio = existePathZipFinal.GetDirectories().Length;
+                    }
+
                     foreach (var dir in existePathZipFinal.GetDirectories())
                     {
+                       
+                        contadorRegistro += 1;
                         carpetaZipFinal = dir.FullName;
                         //Se recupera el numero de empleado
                         var empleadoNoFinal = dir.Name;
@@ -374,12 +442,10 @@ namespace tmf_group.Controllers.Recibos
                             //Se empaquetan y cifran las carpetas creadas
                             //Se crean las rutas para poder empaquetar los archivos
                             //var pathReciboZip = pathEmpPeriodo; //+ "\\" + empleadoNoFinal;
-                            var pathReciboZipExtraer = carpetaZipFinal;//Path.Combine(_enviroment.ContentRootPath, folder, pathReciboZip);
+                            //var pathReciboZipExtraer = carpetaZipFinal;//Path.Combine(_enviroment.ContentRootPath, folder, pathReciboZip);
 
-                            var nombreCifrado = cifradoHelper.EncryptStringAES(Newtonsoft.Json.JsonConvert.SerializeObject(model.Empresa.EmpresaNombre + "_" + empleadoNoFinal.ToString() + model.ReciboPeriodoA.ToString() + model.ReciboPeriodoM.ToString() + model.PeriodoTipoId.ToString() + model.ReciboPeriodoNumero.ToString())).Replace("/", "$").Replace("+", "&");
-                            var extractPathGuardar = Path.Combine(_enviroment.ContentRootPath, folder, pathEmpPeriodo, nombreCifrado + ".zip");
-
-
+                            //var nombreCifrado = cifradoHelper.EncryptStringAES(Newtonsoft.Json.JsonConvert.SerializeObject(model.Empresa.EmpresaNombre + "_" + empleadoNoFinal.ToString() + model.ReciboPeriodoA.ToString() + model.ReciboPeriodoM.ToString() + model.PeriodoTipoId.ToString() + model.ReciboPeriodoNumero.ToString())).Replace("/", "$").Replace("+", "&");
+                            //var extractPathGuardar = Path.Combine(_enviroment.ContentRootPath, folder, pathEmpPeriodo, nombreCifrado + ".zip");
 
                             ////Aqui ya estan los archivos en las carpetas
                             //Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
@@ -420,6 +486,7 @@ namespace tmf_group.Controllers.Recibos
 
                             //    }
 
+                            
                             try
                             {
                                 //Se valida si existe algun registro relacionado al mismo empleado y al mismo periodo
@@ -444,19 +511,35 @@ namespace tmf_group.Controllers.Recibos
                                     recibo.EmpresaId = model.EmpresaId;
                                     //Se crea el registro del recibo
                                     _context.Recibos.Add(recibo);
-                                    try
-                                    {
-                                        await _context.SaveChangesAsync();
-                                    }
-                                    catch (Exception es)
-                                    {
-                                        respuesta.Mensaje += es.Message;//"No se pudo crear el registro del recibo";
-                                        var iner = es.InnerException;
-                                        respuesta.Exito = 0;
 
-                                        return Ok(respuesta);
-                                    }
+                                    reciboList.Add(recibo);
+                                    if (contadorRegistro == tamanio )
+                                    { 
+                                        try
+                                        {
+                                            await _context.SaveChangesAsync();
+                                             contadorVuelta += 1;
+                                            if (contadorRegistro == tamanio)
+                                            {
+                                                contadorRegistro = 0;
+                                            }
+                                            if(contadorVuelta == numeroVuelta)
+                                            {
+                                                if (residuo > 0)
+                                                {
+                                                    tamanio = residuo;
+                                                }
+                                            }
+                                        }
+                                        catch (Exception es)
+                                        {
+                                            respuesta.Mensaje += es.Message;//"No se pudo crear el registro del recibo";
+                                            var iner = es.InnerException;
+                                            respuesta.Exito = 0;
 
+                                            return Ok(respuesta);
+                                        }
+                                    }
                                 }
                                 else
                                 {
@@ -466,18 +549,32 @@ namespace tmf_group.Controllers.Recibos
 
 
                                     _context.Entry(reciboEmpleado).State = EntityState.Modified;
-
-                                    try
+                                    if (contadorRegistro == tamanio)
                                     {
-                                        await _context.SaveChangesAsync();
-                                    }
-                                    catch (Exception es)
-                                    {
-                                        respuesta.Mensaje += es.Message;//"No se pudo crear el registro del recibo";
-                                        var iner = es.InnerException;
-                                        respuesta.Exito = 0;
+                                        try
+                                        {
+                                            await _context.SaveChangesAsync();
+                                            contadorVuelta += 1;
+                                            if (contadorRegistro == tamanio)
+                                            {
+                                                contadorRegistro = 0;
+                                            }
+                                            if (contadorVuelta == numeroVuelta)
+                                            {
+                                                if(residuo > 0)
+                                                {
+                                                    tamanio = residuo;
+                                                }
+                                            }
+                                        }
+                                        catch (Exception es)
+                                        {
+                                            respuesta.Mensaje += es.Message;//"No se pudo crear el registro del recibo";
+                                            var iner = es.InnerException;
+                                            respuesta.Exito = 0;
 
-                                        return Ok(respuesta);
+                                            return Ok(respuesta);
+                                        }
                                     }
                                 }
 
@@ -521,7 +618,7 @@ namespace tmf_group.Controllers.Recibos
             //    var prueba = fullPath;
             //}
 
-
+            //Si no se pudieron caargar todos los archivos por que el empleado no esta registrado se muestra el mensaje de error
             if (contador > 0)
             {
                 var quitarComa = empleadosNoRegistrados.Substring(0, empleadosNoRegistrados.Length - 2);
@@ -536,25 +633,7 @@ namespace tmf_group.Controllers.Recibos
             return Ok(respuesta);
         }
 
-
-
-        //// DELETE: api/Recibos/5
-        //[HttpDelete("{id}")]
-        //public async Task<IActionResult> DeleteRecibo(string id)
-        //{
-        //    var recibo = await _context.Recibos.FindAsync(id);
-        //    if (recibo == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    _context.Recibos.Remove(recibo);
-        //    await _context.SaveChangesAsync();
-
-        //    return NoContent();
-        //}
-
-        //Login del usuario y creación de token
+        //Se valida si existen archivos existentes
         [HttpPost("ValidarArchivo")]
         public async Task<IActionResult> ValidarArchivoAsync(Recibo model)
         {
@@ -592,12 +671,12 @@ namespace tmf_group.Controllers.Recibos
 
 
             //Se valida que el número de empleado exista 
-            var recibo = await _context.Recibos.Where(u => 
-            u.EmpresaId == model.EmpresaId && 
-            u.PeriodoTipoId == model.PeriodoTipoId && 
-            u.ReciboPeriodoA == model.ReciboPeriodoA && 
-            u.ReciboPeriodoM == model.ReciboPeriodoM && 
-            u.ReciboPeriodoNumero == model.ReciboPeriodoNumero && 
+            var recibo = await _context.Recibos.Where(u =>
+            u.EmpresaId == model.EmpresaId &&
+            u.PeriodoTipoId == model.PeriodoTipoId &&
+            u.ReciboPeriodoA == model.ReciboPeriodoA &&
+            u.ReciboPeriodoM == model.ReciboPeriodoM &&
+            u.ReciboPeriodoNumero == model.ReciboPeriodoNumero &&
             u.UsuarioNoEmp == model.UsuarioNoEmp).FirstOrDefaultAsync();
 
             if (recibo == null)
@@ -626,7 +705,7 @@ namespace tmf_group.Controllers.Recibos
             };
 
             //Se envia el email si todo es correcto
-            EnvioEmailService enviarEmail = new EnvioEmailService(_context);
+            EnvioEmailService enviarEmail = new EnvioEmailService(_context,_enviroment);
             var emailResponse = await enviarEmail.EnivarRecibo(usuarioEmail);
 
             if (emailResponse.Exito == 1)
@@ -693,7 +772,7 @@ namespace tmf_group.Controllers.Recibos
             };
 
             //Se envia el email si todo es correcto
-            EnvioEmailService enviarEmail = new EnvioEmailService(_context);
+            EnvioEmailService enviarEmail = new EnvioEmailService(_context,_enviroment);
             var emailResponse = await enviarEmail.EnivarNotificacion(usuarioEmail);
 
             if (emailResponse.Exito == 1)
@@ -759,7 +838,7 @@ namespace tmf_group.Controllers.Recibos
                     return Ok(respuesta);
                 }
 
-                
+
                 usuarioEmail = new EnviarRecibo
                 {
                     Email = usuario.Email,
@@ -767,7 +846,7 @@ namespace tmf_group.Controllers.Recibos
                 };
 
                 //Se envia el email si todo es correcto
-                EnvioEmailService enviarEmail = new(_context);
+                EnvioEmailService enviarEmail = new(_context,_enviroment);
                 var emailResponse = await enviarEmail.EnivarRecibo(usuarioEmail);
 
                 if (emailResponse.Exito == 1)
@@ -808,85 +887,85 @@ namespace tmf_group.Controllers.Recibos
             //Se crea la respuesta para el front
             Respuesta respuesta = new Respuesta();
             //Variable para enviar el email
-            var email = string.Empty;
-            EnviarRecibo usuarioEmail;
+            //var email = string.Empty;
+            //EnviarRecibo usuarioEmail;
 
-            var folder = "uploads\\Nomina";
+            //var folder = "uploads\\Nomina";
 
-            var contador = 0;
-            var contadorEmpNo = "";
-
-
-            //Se valida que el número de empleado exista 
-            var recibos = await _context.Recibos.Where(u =>
-            u.EmpresaId == model.EmpresaId &&
-            u.PeriodoTipoId == model.PeriodoTipoId &&
-            u.ReciboPeriodoA == model.ReciboPeriodoA &&
-            u.ReciboPeriodoM == model.ReciboPeriodoM &&
-            u.ReciboPeriodoNumero == model.ReciboPeriodoNumero).ToListAsync();
-
-            if (recibos == null)
-            {
-                respuesta.Mensaje = "No existen registros para este periodo y empresa";
-                respuesta.Exito = 0;
-                return Ok(respuesta);
-            }
+            //var contador = 0;
+            //var contadorEmpNo = "";
 
 
-            foreach (var recibo in recibos)
-            {
-                //Se busca la información del usuario en la tabla Users por medio del email
-                var usuario = await _context.Usuarios.
-                   Where(u => u.EmpleadoNoEmp.ToLower() == recibo.UsuarioNoEmp.ToLower()).
-                   FirstOrDefaultAsync();
+            ////Se valida que el número de empleado exista 
+            //var recibos = await _context.Recibos.Where(u =>
+            //u.EmpresaId == model.EmpresaId &&
+            //u.PeriodoTipoId == model.PeriodoTipoId &&
+            //u.ReciboPeriodoA == model.ReciboPeriodoA &&
+            //u.ReciboPeriodoM == model.ReciboPeriodoM &&
+            //u.ReciboPeriodoNumero == model.ReciboPeriodoNumero).ToListAsync();
 
-                if (usuario == null)
-                {
-                    respuesta.Mensaje = "Error #1, contacte al administrador del sistema.";
-                    respuesta.Exito = 0;
-                    return Ok(respuesta);
-                }
-
-
-                usuarioEmail = new EnviarRecibo
-                {
-                    Email = usuario.Email,
-                    //PathRecibo = Path.Combine(_enviroment.ContentRootPath, folder, recibo.ReciboPathPDF)
-                };
-
-                //Se envia el email si todo es correcto
-                EnvioEmailService enviarEmail = new(_context);
-                var emailResponse = await enviarEmail.EnivarNotificacion(usuarioEmail);
-
-                if (emailResponse.Exito == 1)
-                {
-                    respuesta.Exito = 1;
-                    //respuesta.Data = emailResponse;
-                }
-                else
-                {
-                    respuesta.Exito = 0;
-                    //respuesta.Data = emailResponse;
-                    contador += 1;
-                    contadorEmpNo += usuario.EmpleadoNoEmp + ", ";
-                    //respuesta.Mensaje = "No se pudo enviar";
-                }
-            }
-
-            if (contador > 0)
-            {
-                var quitarComa = contadorEmpNo.Substring(0, contadorEmpNo.Length - 2);
-                respuesta.Exito = 0;
-                respuesta.Mensaje = "Los siguientes empleados no estan registrados en el sistema : " + quitarComa + ".";
-            }
-            else
-            {
-                respuesta.Exito = 1;
-                respuesta.Mensaje = "Todos los recibos se enviaron con éxito.";
-            }
+            //if (recibos == null)
+            //{
+            //    respuesta.Mensaje = "No existen registros para este periodo y empresa";
+            //    respuesta.Exito = 0;
+            //    return Ok(respuesta);
+            //}
 
 
-            return Ok(respuesta);
+            //foreach (var recibo in recibos)
+            //{
+            //    //Se busca la información del usuario en la tabla Users por medio del email
+            //    var usuario = await _context.Usuarios.
+            //       Where(u => u.EmpleadoNoEmp.ToLower() == recibo.UsuarioNoEmp.ToLower()).
+            //       FirstOrDefaultAsync();
+
+            //    if (usuario == null)
+            //    {
+            //        respuesta.Mensaje = "Error #1, contacte al administrador del sistema.";
+            //        respuesta.Exito = 0;
+            //        return Ok(respuesta);
+            //    }
+
+
+            //    usuarioEmail = new EnviarRecibo
+            //    {
+            //        Email = usuario.Email,
+            //        //PathRecibo = Path.Combine(_enviroment.ContentRootPath, folder, recibo.ReciboPathPDF)
+            //    };
+
+            //Se envia el email si todo es correcto
+            EnvioEmailService enviarEmail = new(_context, _enviroment);
+            var emailResponse = await enviarEmail.EnivarNotificacionMasivo(model);
+
+            //    if (emailResponse.Exito == 1)
+            //    {
+            //        respuesta.Exito = 1;
+            //        //respuesta.Data = emailResponse;
+            //    }
+            //    else
+            //    {
+            //        respuesta.Exito = 0;
+            //        //respuesta.Data = emailResponse;
+            //        contador += 1;
+            //        contadorEmpNo += usuario.EmpleadoNoEmp + ", ";
+            //        //respuesta.Mensaje = "No se pudo enviar";
+            //    }
+            //}
+
+            //if (contador > 0)
+            //{
+            //    var quitarComa = contadorEmpNo.Substring(0, contadorEmpNo.Length - 2);
+            //    respuesta.Exito = 0;
+            //    respuesta.Mensaje = "Los siguientes empleados no estan registrados en el sistema : " + quitarComa + ".";
+            //}
+            //else
+            //{
+            //    respuesta.Exito = 1;
+            //    respuesta.Mensaje = "Todos los recibos se enviaron con éxito.";
+            //}
+
+
+            return Ok(emailResponse);
         }
 
         //Envio de recibo individual
@@ -1037,7 +1116,7 @@ namespace tmf_group.Controllers.Recibos
 
             foreach (var recibo in recibos)
             {
- 
+
                 _context.Recibos.Remove(recibo);
 
                 try
@@ -1077,7 +1156,7 @@ namespace tmf_group.Controllers.Recibos
 
             foreach (var recibo in recibos)
             {
-                
+
                 var usuario = await _context.Usuarios.Where(r => r.EmpleadoNoEmp == recibo.UsuarioNoEmp).FirstOrDefaultAsync();
 
                 //var empresa = await _context.Empresas.FindAsync(recibo.EmpresaId);
@@ -1093,8 +1172,8 @@ namespace tmf_group.Controllers.Recibos
                     ReciboEstatus = recibo.ReciboEstatus,
                     PeriodoTipoId = recibo.PeriodoTipoId,
                     ReciboPeriodoNumero = recibo.ReciboPeriodoNumero,
-                    ReciboPathPDF = Path.Combine(folder,recibo.ReciboPathPDF).Replace("\\", "/"),
-                    ReciboPathXML = Path.Combine(folder,recibo.ReciboPathXML).Replace("\\", "/"),
+                    ReciboPathPDF = Path.Combine(folder, recibo.ReciboPathPDF).Replace("\\", "/"),
+                    ReciboPathXML = Path.Combine(folder, recibo.ReciboPathXML).Replace("\\", "/"),
                     UsuarioNoEmp = recibo.UsuarioNoEmp,
                     EmpresaId = recibo.EmpresaId,
                     Usuario = usuario,
@@ -1102,6 +1181,51 @@ namespace tmf_group.Controllers.Recibos
                     PeriodoTipo = periodoTipo
                 });
             }
+
+            return Ok(responses);
+            //return await _context.Recibos.ToListAsync();
+        }
+
+        // Recuperar recibos por usuario
+        [HttpPost("CargaMasivaArchivos")]
+        public async Task<IActionResult> CargaMasivaArchivosAsync(Recibo model)
+        {
+            //return await _context.Usuarios.ToListAsync();
+            var responses = new Respuesta();
+
+            var folder = "uploads\\Masivo";
+
+            var filePdf = "P_SLE_ADM_20220101_20220131_00_V2_0000_00000_FILE_1.pdf";
+
+            var fileXml = "P_SLE_ADM_20220101_20220131_00_V2_0000_00000_FILE_1.xml";
+
+            var fileBase = "P_SLE_ADM_20220101_20220131_00_V2_0000_00000_FILE_";
+
+            var pathPdf = Path.Combine(_enviroment.ContentRootPath, folder, filePdf);
+            var pathXml = Path.Combine(_enviroment.ContentRootPath, folder, fileXml);
+
+            try
+            {
+                for (int i = 2; i < model.ReciboPeriodoNumero; i++)
+                {
+                    //var fileDestinoPdf = fileBase + i.ToString() + ".pdf";
+                    //var fileDestinoXml = fileBase + i.ToString() + ".xml";
+
+                    var fileDestinoPdf = Path.Combine(_enviroment.ContentRootPath, folder, fileBase +i+".pdf");
+                    var fileDestinoXml = Path.Combine(_enviroment.ContentRootPath, folder, fileBase + i + ".xml");
+
+                    System.IO.File.Copy(pathPdf, fileDestinoPdf);
+                    System.IO.File.Copy(pathXml, fileDestinoXml);
+                }
+                responses.Exito = 1;
+            }
+            catch (Exception es)
+            {
+
+                responses.Mensaje = es.Message;
+                responses.Exito = 0;
+            }
+            
 
             return Ok(responses);
             //return await _context.Recibos.ToListAsync();
