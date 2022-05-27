@@ -36,21 +36,21 @@ namespace LoginBase.Controllers
         {
             //return await _context.Usuarios.ToListAsync();
             var responses = new List<Usuario>();
-            var usuarios = await _context.Usuarios.ToListAsync();
+            var usuarios = await _context.Usuarios.Where(u => u.UsuarioEstatusSesion == false).ToListAsync();
+            var rol = await _context.Roles.ToListAsync();
+            var empresa = await _context.Empresas.ToListAsync();
+
             //Se crea una variable del tipo de servicio para poder decifrar la contraseña
             CifradoHelper cifradoHelper = new CifradoHelper();
 
             foreach (var usuario in usuarios)
             {
-                if(usuario.UsuarioEstatusSesion == false) { 
-                var rol = await _context.Roles.FindAsync(usuario.RolId);
-                var empresa = await _context.Empresas.FindAsync(usuario.EmpresaId);
                     var password = "";
                     if (usuario.Password == null) {
-                         password = usuario.Password;
+                            password = usuario.Password;
                     }
                     else{
-                         password = cifradoHelper.DecryptStringAES(usuario.Password);
+                            password = cifradoHelper.DecryptStringAES(usuario.Password);
                     }
                     responses.Add(new Usuario
                 {
@@ -66,13 +66,12 @@ namespace LoginBase.Controllers
                     UsuarioClave = usuario.UsuarioClave,
                     ImagePath = usuario.ImagePath,
                     RolId = usuario.RolId,
-                    Rol = rol,
+                    Rol = rol.Find(r => r.RolId == usuario.RolId),
                     EmpleadoNoEmp = usuario.EmpleadoNoEmp,
                     EmpresaId = usuario.EmpresaId,
-                    Empresa = empresa,
-                    EmpleadoRFC = usuario.EmpleadoRFC
+                    Empresa = empresa.Find(e => e.EmpresaId == usuario.EmpresaId),
+                        EmpleadoRFC = usuario.EmpleadoRFC
                     });
-                }
             }
 
             return Ok(responses);
@@ -86,49 +85,93 @@ namespace LoginBase.Controllers
         {
             //return await _context.Usuarios.ToListAsync();
             var responses = new List<Usuario>();
-            var usuarios = await _context.Usuarios.ToListAsync();
+            var usuarios = await _context.Usuarios.Where(u => u.UsuarioEstatusSesion == false && u.EmpleadoNoEmp != null).ToListAsync();
+            var rol = await _context.Roles.ToListAsync();
+            var empresa = await _context.Empresas.ToListAsync();
+
             //Se crea una variable del tipo de servicio para poder decifrar la contraseña
             CifradoHelper cifradoHelper = new CifradoHelper();
 
             foreach (var usuario in usuarios)
             {
-                if (usuario.UsuarioEstatusSesion == false && usuario.EmpleadoNoEmp != null)
+                var password = "";
+                if (usuario.Password == null)
                 {
-                    var rol = await _context.Roles.FindAsync(usuario.RolId);
-                    var empresa = await _context.Empresas.FindAsync(usuario.EmpresaId);
-                    var password = "";
-                    if (usuario.Password == null)
-                    {
-                        password = usuario.Password;
-                    }
-                    else
-                    {
-                        password = cifradoHelper.DecryptStringAES(usuario.Password);
-                    }
-                    responses.Add(new Usuario
-                    {
-                        UsuarioId = usuario.UsuarioId,
-                        UsuarioNombre = usuario.UsuarioNombre,
-                        UsuarioApellidoP = usuario.UsuarioApellidoP,
-                        UsuarioApellidoM = usuario.UsuarioApellidoM,
-                        UsuarioNumConfirmacion = usuario.UsuarioNumConfirmacion,
-                        UsuarioFechaLimite = usuario.UsuarioFechaLimite,
-                        UsuarioEstatusSesion = usuario.UsuarioEstatusSesion,
-                        Password = password,
-                        Email = usuario.Email,
-                        UsuarioClave = usuario.UsuarioClave,
-                        ImagePath = usuario.ImagePath,
-                        RolId = usuario.RolId,
-                        Rol = rol,
-                        EmpleadoNoEmp = usuario.EmpleadoNoEmp,
-                        EmpresaId = usuario.EmpresaId,
-                        Empresa = empresa,
-                        EmpleadoRFC = usuario.EmpleadoRFC
-                    });
+                    password = usuario.Password;
                 }
+                else
+                {
+                    password = cifradoHelper.DecryptStringAES(usuario.Password);
+                }
+                responses.Add(new Usuario
+                {
+                    UsuarioId = usuario.UsuarioId,
+                    UsuarioNombre = usuario.UsuarioNombre,
+                    UsuarioApellidoP = usuario.UsuarioApellidoP,
+                    UsuarioApellidoM = usuario.UsuarioApellidoM,
+                    UsuarioNumConfirmacion = usuario.UsuarioNumConfirmacion,
+                    UsuarioFechaLimite = usuario.UsuarioFechaLimite,
+                    UsuarioEstatusSesion = usuario.UsuarioEstatusSesion,
+                    Password = password,
+                    Email = usuario.Email,
+                    UsuarioClave = usuario.UsuarioClave,
+                    ImagePath = usuario.ImagePath,
+                    RolId = usuario.RolId,
+                    Rol = rol.Find(r => r.RolId == usuario.RolId),
+                    EmpleadoNoEmp = usuario.EmpleadoNoEmp,
+                    EmpresaId = usuario.EmpresaId,
+                    Empresa = empresa.Find(e => e.EmpresaId == usuario.EmpresaId),
+                    EmpleadoRFC = usuario.EmpleadoRFC
+                });
             }
 
             return Ok(responses);
+
+            ////return await _context.Usuarios.ToListAsync();
+            //var responses = new List<Usuario>();
+            //var usuarios = await _context.Usuarios.ToListAsync();
+            ////Se crea una variable del tipo de servicio para poder decifrar la contraseña
+            //CifradoHelper cifradoHelper = new CifradoHelper();
+
+            //foreach (var usuario in usuarios)
+            //{
+            //    if (usuario.UsuarioEstatusSesion == false && usuario.EmpleadoNoEmp != null)
+            //    {
+            //        var rol = await _context.Roles.FindAsync(usuario.RolId);
+            //        var empresa = await _context.Empresas.FindAsync(usuario.EmpresaId);
+            //        var password = "";
+            //        if (usuario.Password == null)
+            //        {
+            //            password = usuario.Password;
+            //        }
+            //        else
+            //        {
+            //            password = cifradoHelper.DecryptStringAES(usuario.Password);
+            //        }
+            //        responses.Add(new Usuario
+            //        {
+            //            UsuarioId = usuario.UsuarioId,
+            //            UsuarioNombre = usuario.UsuarioNombre,
+            //            UsuarioApellidoP = usuario.UsuarioApellidoP,
+            //            UsuarioApellidoM = usuario.UsuarioApellidoM,
+            //            UsuarioNumConfirmacion = usuario.UsuarioNumConfirmacion,
+            //            UsuarioFechaLimite = usuario.UsuarioFechaLimite,
+            //            UsuarioEstatusSesion = usuario.UsuarioEstatusSesion,
+            //            Password = password,
+            //            Email = usuario.Email,
+            //            UsuarioClave = usuario.UsuarioClave,
+            //            ImagePath = usuario.ImagePath,
+            //            RolId = usuario.RolId,
+            //            Rol = rol,
+            //            EmpleadoNoEmp = usuario.EmpleadoNoEmp,
+            //            EmpresaId = usuario.EmpresaId,
+            //            Empresa = empresa,
+            //            EmpleadoRFC = usuario.EmpleadoRFC
+            //        });
+            //    }
+            //}
+
+            //return Ok(responses);
         }
 
         // GET: api/Usuarios/5
