@@ -515,30 +515,30 @@ namespace tmf_group.Controllers.Recibos
                                     reciboList.Add(recibo);
                                     if (contadorRegistro == tamanio )
                                     { 
-                                        try
-                                        {
-                                            await _context.SaveChangesAsync();
-                                             contadorVuelta += 1;
-                                            if (contadorRegistro == tamanio)
-                                            {
-                                                contadorRegistro = 0;
-                                            }
-                                            if(contadorVuelta == numeroVuelta)
-                                            {
-                                                if (residuo > 0)
-                                                {
-                                                    tamanio = residuo;
-                                                }
-                                            }
-                                        }
-                                        catch (Exception es)
-                                        {
-                                            respuesta.Mensaje += es.Message;//"No se pudo crear el registro del recibo";
-                                            var iner = es.InnerException;
-                                            respuesta.Exito = 0;
+                                        //try
+                                        //{
+                                        //    await _context.SaveChangesAsync();
+                                        //     contadorVuelta += 1;
+                                        //    if (contadorRegistro == tamanio)
+                                        //    {
+                                        //        contadorRegistro = 0;
+                                        //    }
+                                        //    if(contadorVuelta == numeroVuelta)
+                                        //    {
+                                        //        if (residuo > 0)
+                                        //        {
+                                        //            tamanio = residuo;
+                                        //        }
+                                        //    }
+                                        //}
+                                        //catch (Exception es)
+                                        //{
+                                        //    respuesta.Mensaje += es.Message;//"No se pudo crear el registro del recibo";
+                                        //    var iner = es.InnerException;
+                                        //    respuesta.Exito = 0;
 
-                                            return Ok(respuesta);
-                                        }
+                                        //    return Ok(respuesta);
+                                        //}
                                     }
                                 }
                                 else
@@ -549,33 +549,33 @@ namespace tmf_group.Controllers.Recibos
 
 
                                     _context.Entry(reciboEmpleado).State = EntityState.Modified;
-                                    if (contadorRegistro == tamanio)
-                                    {
-                                        try
-                                        {
-                                            await _context.SaveChangesAsync();
-                                            contadorVuelta += 1;
-                                            if (contadorRegistro == tamanio)
-                                            {
-                                                contadorRegistro = 0;
-                                            }
-                                            if (contadorVuelta == numeroVuelta)
-                                            {
-                                                if(residuo > 0)
-                                                {
-                                                    tamanio = residuo;
-                                                }
-                                            }
-                                        }
-                                        catch (Exception es)
-                                        {
-                                            respuesta.Mensaje += es.Message;//"No se pudo crear el registro del recibo";
-                                            var iner = es.InnerException;
-                                            respuesta.Exito = 0;
+                                    //if (contadorRegistro == tamanio)
+                                    //{
+                                    //    try
+                                    //    {
+                                    //        await _context.SaveChangesAsync();
+                                    //        contadorVuelta += 1;
+                                    //        if (contadorRegistro == tamanio)
+                                    //        {
+                                    //            contadorRegistro = 0;
+                                    //        }
+                                    //        if (contadorVuelta == numeroVuelta)
+                                    //        {
+                                    //            if(residuo > 0)
+                                    //            {
+                                    //                tamanio = residuo;
+                                    //            }
+                                    //        }
+                                    //    }
+                                    //    catch (Exception es)
+                                    //    {
+                                    //        respuesta.Mensaje += es.Message;//"No se pudo crear el registro del recibo";
+                                    //        var iner = es.InnerException;
+                                    //        respuesta.Exito = 0;
 
-                                            return Ok(respuesta);
-                                        }
-                                    }
+                                    //        return Ok(respuesta);
+                                    //    }
+                                    //}
                                 }
 
                             }
@@ -598,6 +598,30 @@ namespace tmf_group.Controllers.Recibos
                             //    return Ok(respuesta);
                             //}
                         }
+                    }
+                    try
+                    {
+                        await _context.SaveChangesAsync();
+                        //contadorVuelta += 1;
+                        //if (contadorRegistro == tamanio)
+                        //{
+                        //    contadorRegistro = 0;
+                        //}
+                        //if (contadorVuelta == numeroVuelta)
+                        //{
+                        //    if (residuo > 0)
+                        //    {
+                        //        tamanio = residuo;
+                        //    }
+                        //}
+                    }
+                    catch (Exception es)
+                    {
+                        respuesta.Mensaje += es.Message;//"No se pudo crear el registro del recibo";
+                        var iner = es.InnerException;
+                        respuesta.Exito = 0;
+
+                        return Ok(respuesta);
                     }
                 }
                 else
@@ -1116,12 +1140,9 @@ namespace tmf_group.Controllers.Recibos
 
             foreach (var recibo in recibos)
             {
-
-                _context.Recibos.Remove(recibo);
-
                 try
                 {
-                    await _context.SaveChangesAsync();
+                    _context.Recibos.Remove(recibo);
                 }
                 catch (Exception)
                 {
@@ -1140,6 +1161,23 @@ namespace tmf_group.Controllers.Recibos
                 respuesta.Exito = 0;
                 respuesta.Mensaje = "Los siguientes recibos no se pudieron eliminar, intente de nuevo o contacte al administrador del sistema : " + quitarComa + ".";
             }
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+                //respuesta.Mensaje = "Error al eliminar el registro, intente de nuevo o contacte al administrador del sistema.";
+                //respuesta.Exito = 0;
+                //return Ok(respuesta);
+                //contador += 1;
+                //contadorEmpNo += recibo.UsuarioNoEmp + ", ";
+                respuesta.Exito = 0;
+                respuesta.Mensaje = "Los recibos no se pudieron eliminar, intente de nuevo o contacte al administrador del sistema.";
+            }
+
+            
 
             return Ok(respuesta);
         }

@@ -12,6 +12,7 @@ using LoginBase.Helper;
 using LoginBase.Models.Response;
 using Microsoft.AspNetCore.Hosting;
 using Fintech.API.Helpers;
+using LoginBase.Services;
 
 namespace LoginBase.Controllers
 {
@@ -196,6 +197,7 @@ namespace LoginBase.Controllers
         [Authorize]
         public async Task<IActionResult> PutUsuario(int id, Usuario usuario)
         {
+            Respuesta respuesta = new Respuesta();
             //if (id != usuario.UsuarioId)
             //{
             //    return BadRequest();
@@ -276,6 +278,8 @@ namespace LoginBase.Controllers
             usuario.UsuarioFechaLimite = today.AddDays(Int32.Parse(diasPass.ParametroValorInicial));
             _context.Entry(usuario).State = EntityState.Modified;
 
+           
+
             try
             {
                 await _context.SaveChangesAsync();
@@ -284,7 +288,8 @@ namespace LoginBase.Controllers
             {
                 if (!UsuarioExists(id))
                 {
-                    return NotFound();
+                    respuesta.Exito = 0;
+                    respuesta.Mensaje = "Error en el servidor, contacte al administrador del sistema.";
                 }
                 else
                 {
@@ -292,7 +297,9 @@ namespace LoginBase.Controllers
                 }
             }
 
-            return Ok(usuario);
+            
+
+            return Ok(respuesta);
         }
 
         //[HttpPut("{id}")]
@@ -355,6 +362,8 @@ namespace LoginBase.Controllers
         [HttpPost]
         public async Task<ActionResult<Usuario>> PostUsuario(Usuario usuario)
         {
+            RecuperaPassParametro usuarioEmailModel;
+
             Respuesta respuesta = new Respuesta();
             if (!ModelState.IsValid)
             {
@@ -427,6 +436,18 @@ namespace LoginBase.Controllers
 
             usuario.UsuarioFechaLimite = today.AddDays(Int32.Parse(diasPass.ParametroValorInicial));
             //usuarioEmail.Password = usuario.Password;
+            //Se prepara el email (Aqui se debe de asignar el email)
+            var random = new Random();
+            var numConfirmacion = random.Next(100000, 999999);
+
+
+            //Se actualizan los datos del Usuario asignando el codigo de seguridad
+            usuario.UsuarioEstatusSesion = false;
+            usuario.UsuarioFechaLimite = DateTime.Now.AddMonths(1);
+            usuario.UsuarioNumConfirmacion = numConfirmacion;
+
+            
+
             _context.Usuarios.Add(usuario);
             //await _context.SaveChangesAsync();
 
@@ -446,6 +467,35 @@ namespace LoginBase.Controllers
                     throw;
                 }
             }
+
+            respuesta.Data = CreatedAtAction("GetUsuario", new { id = usuario.UsuarioId }, usuario);
+
+            respuesta.Mensaje = "Registro exitoso.";
+            respuesta.Exito = 1;
+            usuarioEmailModel = new RecuperaPassParametro
+            {
+                Email = usuario.Email,
+                UsuarioFechaLimite = DateTime.Now.AddMinutes(10),
+                UsuarioId = usuario.UsuarioId
+            };
+
+            //Se envia el email si todo es correcto
+            EnvioEmailService enviarEmail = new EnvioEmailService(_context, _enviroment);
+            var emailResponse = await enviarEmail.EnivarEmailNuevaCuenta(usuarioEmailModel);
+
+
+
+            if (emailResponse.Exito == 1)
+            {
+                respuesta.Exito = 1;
+                respuesta.Data = emailResponse;
+            }
+            else
+            {
+                respuesta.Exito = 0;
+                respuesta.Data = emailResponse;
+                respuesta.Mensaje = "Error al notificar al usuario, contacte al administrador.";
+            }
             //Respuesta respuesta = new Respuesta();
             //respuesta.Exito = 1;
             //respuesta.Data = usuario.Email;
@@ -457,10 +507,7 @@ namespace LoginBase.Controllers
 
             //return CreatedAtAction("GetUsuario", new { id = usuario.UsuarioId }, usuario);
 
-            respuesta.Data = CreatedAtAction("GetUsuario", new { id = usuario.UsuarioId }, usuario);
-
-            respuesta.Mensaje = "Registro exitoso.";
-            respuesta.Exito = 1;
+            
 
             return Ok(respuesta);
         }
@@ -494,20 +541,20 @@ namespace LoginBase.Controllers
                         //return Ok(respuesta);
                     }
 
-                    //var usuarioEmail = await _context.Usuarios.
-                    //   Where(u => u.Email.ToLower() == usuario.Email.ToLower() && u.UsuarioEstatusSesion == false).
-                    //   FirstOrDefaultAsync();
+                    var usuarioEmail = await _context.Usuarios.
+                        Where(u => u.Email.ToLower() == usuario.Email.ToLower() && u.UsuarioEstatusSesion == false).
+                        FirstOrDefaultAsync();
 
-                    //if (usuarioEmail != null)
-                    //{
-                    //    //respuesta.Mensaje = "La cuenta de email que ingreso ya está registrada.";
-                    //    respuesta.Exito = 0;
-                    //    contadorEmail += 1;
-                    //email += usuarioEmail.Email + ", ";
-                    //    //return Ok(respuesta);
-                    //}
+                    if (usuarioEmail != null)
+                    {
+                        //respuesta.Mensaje = "La cuenta de email que ingreso ya está registrada.";
+                        respuesta.Exito = 0;
+                        contadorEmail += 1;
+                        email += usuarioEmail.Email + ", ";
+                        //return Ok(respuesta);
+                    }
 
-                    if(respuesta.Exito == 1)
+                if (respuesta.Exito == 1)
                     {
                     DateTime today = DateTime.Now;
 

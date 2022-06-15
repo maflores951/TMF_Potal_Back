@@ -3,6 +3,8 @@ using LoginBase.Models;
 using LoginBase.Models.Response;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -49,8 +51,8 @@ namespace LoginBase.Services
                 {
                     return null;
                 }
-                var CredentialEmail = parametroEmail.ParametroValorInicial;//"maflores@legvit.com";
-                var CredentialPassword = parametroPass.ParametroValorInicial;//"Sich2017";
+                var CredentialEmail = parametroEmail.ParametroValorInicial;
+                var CredentialPassword = parametroPass.ParametroValorInicial;
                 var EmailCifrado = cifradoHelper.EncryptStringAES(Newtonsoft.Json.JsonConvert.SerializeObject(userEmail));
 
                 var smtpcl = await ParametroHelper.RecuperaParametro("smptcl", _db);
@@ -133,6 +135,114 @@ namespace LoginBase.Services
             }
         }
 
+        public async Task<Respuesta> EnivarEmailNuevaCuenta(RecuperaPassParametro userEmail)
+        {
+            try
+            {
+                CifradoHelper cifradoHelper = new CifradoHelper();
+
+
+                ////Se busca la información del parametro en la tabla Parametros por medio de la clave
+                var parametroEmail = await ParametroHelper.RecuperaParametro("smptem", _db);
+
+                //Se valida si existe el parametro
+                if (parametroEmail == null)
+                {
+                    return null;
+                }
+
+                ////Se busca la información del parametro en la tabla Parametros por medio de la clave
+                var parametroPass = await ParametroHelper.RecuperaParametro("smptpa", _db);
+
+                //Se valida si existe el parametro
+                if (parametroPass == null)
+                {
+                    return null;
+                }
+                var CredentialEmail = parametroEmail.ParametroValorInicial;
+                var CredentialPassword = parametroPass.ParametroValorInicial;
+                var EmailCifrado = cifradoHelper.EncryptStringAES(Newtonsoft.Json.JsonConvert.SerializeObject(userEmail));
+
+                var smtpcl = await ParametroHelper.RecuperaParametro("smptcl", _db);
+                MailMessage mail = new MailMessage();
+
+
+                var parametroSubject = await ParametroHelper.RecuperaParametro("smptsn", _db);
+
+                //Se valida si existe el parametro
+                if (parametroSubject == null)
+                {
+                    return null;
+                }
+
+                var parametroBody = await ParametroHelper.RecuperaParametro("smptbn", _db);
+
+                //Se valida si existe el parametro
+                if (parametroBody == null)
+                {
+                    return null;
+                }
+
+
+                var SMPTPU = await ParametroHelper.RecuperaParametro("SMPTPU", _db);
+
+                var SMPTAU = await ParametroHelper.RecuperaParametro("SMPTAU", _db);
+
+                if (SMPTAU.ParametroValorInicial.Equals("1"))
+                {
+                    //SmtpClient SmtpServer = new SmtpClient("SMTP.Office365.com");
+                    SmtpClient SmtpServer = new SmtpClient(smtpcl.ParametroValorInicial);
+                    //Se arma el mensaje con los parametros recuperados
+                    mail.From = new MailAddress(CredentialEmail);
+                    mail.To.Add(userEmail.Email);
+                    mail.Subject = parametroSubject.ParametroValorInicial;
+                    mail.Body = parametroBody.ParametroValorInicial + EmailCifrado.Trim().Replace("/", "$").Replace("+", "&");
+
+                    SmtpServer.Port = Int32.Parse(SMPTPU.ParametroValorInicial);//587;
+                    SmtpServer.Host = smtpcl.ParametroValorInicial;// "SMTP.Office365.com";
+                    SmtpServer.EnableSsl = true;
+                    SmtpServer.UseDefaultCredentials = false;
+                    SmtpServer.Credentials = new NetworkCredential(CredentialEmail, CredentialPassword);
+                    //Se envia el correo 
+                    SmtpServer.Send(mail);
+                }
+                else
+                {
+                    string to = userEmail.Email;
+                    string from = CredentialEmail;
+                    string subject = parametroSubject.ParametroValorInicial;
+                    string body = parametroBody.ParametroValorInicial + EmailCifrado.Trim().Replace("/", "$").Replace("+", "&");
+
+                    MailMessage message = new MailMessage(from, to, subject, body);
+                    SmtpClient client = new SmtpClient(smtpcl.ParametroValorInicial, Int32.Parse(SMPTPU.ParametroValorInicial));
+                    // Credentials are necessary if the server requires the client
+                    // to authenticate before it will send email on the client's behalf.
+                    client.Credentials = CredentialCache.DefaultNetworkCredentials;
+                    client.Send(message);
+                }
+
+
+
+
+
+                //Se retorna una respuesta correcta
+                return new Respuesta
+                {
+                    Exito = 1,
+                    //Message = messageJs
+                };
+            }
+            catch (Exception ex)
+            {
+                //Se retorna una respuesta incorrecta
+                return new Respuesta
+                {
+                    Exito = 0,
+                    Mensaje = ex.Message
+                };
+            }
+        }
+
         public async Task<Respuesta> EnivarRecibo(EnviarRecibo userEmail)
         {
             try
@@ -157,8 +267,8 @@ namespace LoginBase.Services
                 {
                     return null;
                 }
-                var CredentialEmail = parametroEmail.ParametroValorInicial;//"maflores@legvit.com";
-                var CredentialPassword = parametroPass.ParametroValorInicial;//"Sich2017";
+                var CredentialEmail = parametroEmail.ParametroValorInicial;
+                var CredentialPassword = parametroPass.ParametroValorInicial;
                 //var EmailCifrado = cifradoHelper.EncryptStringAES(Newtonsoft.Json.JsonConvert.SerializeObject(userEmail));
 
                 var smtpcl = await ParametroHelper.RecuperaParametro("smptcl", _db);
@@ -287,8 +397,8 @@ namespace LoginBase.Services
                 {
                     return null;
                 }
-                var CredentialEmail = parametroEmail.ParametroValorInicial;//"maflores@legvit.com";
-                var CredentialPassword = parametroPass.ParametroValorInicial;//"Sich2017";
+                var CredentialEmail = parametroEmail.ParametroValorInicial;
+                var CredentialPassword = parametroPass.ParametroValorInicial;
                 //var EmailCifrado = cifradoHelper.EncryptStringAES(Newtonsoft.Json.JsonConvert.SerializeObject(userEmail));
 
                 var smtpcl = await ParametroHelper.RecuperaParametro("smptcl", _db);
@@ -424,8 +534,9 @@ namespace LoginBase.Services
                     respuesta.Exito = 0;
                     return respuesta;
                 }
+
                 ////Se busca la información del parametro en la tabla Parametros por medio de la clave
-                var parametroEmail = await ParametroHelper.RecuperaParametro("smptem", _db);
+                var parametroEmail = await ParametroHelper.RecuperaParametro("smptae", _db);
 
                 //Se valida si existe el parametro
                 if (parametroEmail == null)
@@ -435,18 +546,52 @@ namespace LoginBase.Services
                     return respuesta;
                 }
 
-                ////Se busca la información del parametro en la tabla Parametros por medio de la clave
-                var parametroPass = await ParametroHelper.RecuperaParametro("smptpa", _db);
+                var emails = JsonConvert.DeserializeObject<List<EmailModel>>(parametroEmail.ParametroValorInicial);//parametroEmail.ParametroValorInicial;
 
-                //Se valida si existe el parametro
-                if (parametroPass == null)
+                var tamanio = 0;
+                var contadorVuelta = 1;
+                var numeroVuelta = 0;
+                var contadorRegistro = 0;
+                var residuo = 0;
+                var contadorEmail = 0;
+
+                if (recibos.Count > emails.Count)
                 {
-                    respuesta.Mensaje = "Error en el parametro 'smptpa', contacte al administrador";
-                    respuesta.Exito = 0;
-                    return respuesta;
+                    tamanio = recibos.Count / emails.Count;
+                    //if (tamanio > 1)
+                    //{
+                    if (recibos.Count % tamanio == 0)
+                    {
+                        numeroVuelta = recibos.Count / tamanio;
+                    }
+                    else
+                    {
+                        residuo = recibos.Count % tamanio;
+                        numeroVuelta = (recibos.Count / tamanio) + 1;
+                    }
                 }
-                var CredentialEmail = parametroEmail.ParametroValorInicial;//"maflores@legvit.com";
-                var CredentialPassword = parametroPass.ParametroValorInicial;//"Sich2017";
+                else
+                {
+                    tamanio = recibos.Count;
+                }
+
+                //foreach (var item in emails)
+                //{
+                //    var prueba = emails.Count;
+                //}
+                ////Se busca la información del parametro en la tabla Parametros por medio de la clave
+                //var parametroPass = await ParametroHelper.RecuperaParametro("smptpa", _db);
+
+                ////Se valida si existe el parametro
+                //if (parametroPass == null)
+                //{
+                //    respuesta.Mensaje = "Error en el parametro 'smptpa', contacte al administrador";
+                //    respuesta.Exito = 0;
+                //    return respuesta;
+                //}
+
+                var CredentialEmail = emails[contadorEmail].Email; //parametroEmail.ParametroValorInicial;
+                var CredentialPassword = emails[contadorEmail].Pass;//parametroPass.ParametroValorInicial;
                 //var EmailCifrado = cifradoHelper.EncryptStringAES(Newtonsoft.Json.JsonConvert.SerializeObject(userEmail));
 
                 var smtpcl = await ParametroHelper.RecuperaParametro("smptcl", _db);
@@ -506,6 +651,7 @@ namespace LoginBase.Services
                 {
                     foreach (var recibo in recibos)
                     {
+                        contadorRegistro += 1;
                         //Se busca la información del usuario en la tabla Users por medio del email
                         var usuario = await _db.Usuarios.
                            Where(u => u.EmpleadoNoEmp.ToLower() == recibo.UsuarioNoEmp.ToLower()).
@@ -531,23 +677,51 @@ namespace LoginBase.Services
 
                         try
                         {
-                            //SmtpClient SmtpServer = new SmtpClient("SMTP.Office365.com");
-                            SmtpClient SmtpServer = new SmtpClient(smtpcl.ParametroValorInicial);
+                            if (contadorRegistro == tamanio)
+                            {
+                                //SmtpClient SmtpServer = new SmtpClient("SMTP.Office365.com");
+                                SmtpClient SmtpServer = new SmtpClient(smtpcl.ParametroValorInicial);
 
-                            mail.From = new MailAddress(CredentialEmail);
-
-                            mail.To.Add(usuario.Email);
-                            mail.Subject = parametroSubject.ParametroValorInicial;
-                            mail.Body = parametroBody.ParametroValorInicial;
+                                mail.From = new MailAddress(CredentialEmail);
 
 
-                            SmtpServer.Port = Int32.Parse(SMPTPU.ParametroValorInicial);//587;
-                            SmtpServer.Host = smtpcl.ParametroValorInicial;// "SMTP.Office365.com";
-                            SmtpServer.EnableSsl = true;
-                            SmtpServer.UseDefaultCredentials = false;
-                            SmtpServer.Credentials = new NetworkCredential(CredentialEmail, CredentialPassword);
-                            //Se envia el correo 
-                            SmtpServer.Send(mail);
+                                mail.Subject = parametroSubject.ParametroValorInicial;
+                                mail.Body = parametroBody.ParametroValorInicial;
+                                mail.To.Add(usuario.Email);
+
+                                SmtpServer.Port = Int32.Parse(SMPTPU.ParametroValorInicial);//587;
+                                SmtpServer.Host = smtpcl.ParametroValorInicial;// "SMTP.Office365.com";
+                                SmtpServer.EnableSsl = true;
+                                SmtpServer.UseDefaultCredentials = false;
+                                SmtpServer.Credentials = new NetworkCredential(CredentialEmail, CredentialPassword);
+                                //Se envia el correo 
+                                SmtpServer.Send(mail);
+                                mail.To.Clear();
+                                contadorVuelta += 1;
+                                //if (contadorRegistro == tamanio)
+                                //{
+                                    contadorRegistro = 0;
+                                //}
+                                if (contadorVuelta == numeroVuelta)
+                                {
+                                    if (residuo > 0)
+                                    {
+                                        tamanio = residuo;
+                                    }
+                                }
+
+                                if (contadorVuelta < numeroVuelta)
+                                {
+                                    contadorEmail += 1;
+                                    CredentialEmail = emails[contadorEmail].Email;
+                                    CredentialPassword = emails[contadorEmail].Pass;
+                                }
+                              
+                            }
+                            else
+                            {
+                                mail.To.Add(usuario.Email);
+                            }
                         }
                         catch (Exception)
                         {
@@ -563,6 +737,7 @@ namespace LoginBase.Services
                 {
                     foreach (var recibo in recibos)
                     {
+                        contadorRegistro += 1;
                         //Se busca la información del usuario en la tabla Users por medio del email
                         var usuario = await _db.Usuarios.
                            Where(u => u.EmpleadoNoEmp.ToLower() == recibo.UsuarioNoEmp.ToLower()).
@@ -588,20 +763,53 @@ namespace LoginBase.Services
 
                         try
                         {
-                            string to = usuario.Email;
-                            string from = CredentialEmail;
-                            string subject = parametroSubject.ParametroValorInicial;
-                            string body = parametroBody.ParametroValorInicial;
+                            if (contadorRegistro == tamanio)
+                            {
+                                //string to = usuario.Email;
+                            //string from = CredentialEmail;
+                            //string subject = parametroSubject.ParametroValorInicial;
+                            //string body = parametroBody.ParametroValorInicial;
 
-                            MailMessage message = new MailMessage(from, to, subject, body);
+                                mail.From = new MailAddress(CredentialEmail);
+                                mail.Subject = parametroSubject.ParametroValorInicial;
+                                mail.Body = parametroBody.ParametroValorInicial;
+                                mail.To.Add(usuario.Email);
+
+                                //MailMessage message = new MailMessage(from, to, subject, body);
                             SmtpClient client = new SmtpClient(smtpcl.ParametroValorInicial, Int32.Parse(SMPTPU.ParametroValorInicial));
 
                             //SmtpClient SmtpServer = new SmtpClient("SMTP.Office365.com");
                             SmtpClient SmtpServer = new SmtpClient(smtpcl.ParametroValorInicial);
                             
                             client.Credentials = CredentialCache.DefaultNetworkCredentials;
-                            client.Send(message);
+                                //client.Send(message);
+                                client.Send(mail);
+                                mail.To.Clear();
+                           contadorVuelta += 1;
+                            //if (contadorRegistro == tamanio)
+                            //{
+                            contadorRegistro = 0;
+                            //}
+                            if (contadorVuelta == numeroVuelta)
+                            {
+                                if (residuo > 0)
+                                {
+                                    tamanio = residuo;
+                                }
+                            }
+
+                                if (contadorVuelta < numeroVuelta)
+                                {
+                                    contadorEmail += 1;
+                                    CredentialEmail = emails[contadorEmail].Email;
+                                    CredentialPassword = emails[contadorEmail].Pass;
+                                }
                         }
+                            else
+                        {
+                            mail.To.Add(usuario.Email);
+                        }
+                    }
                         catch (Exception)
                         {
                             respuesta.Exito = 0;
@@ -628,8 +836,8 @@ namespace LoginBase.Services
                 //Se retorna una respuesta correcta
                 return new Respuesta
                 {
-                    Exito = 1,
-                    //Message = messageJs
+                    Exito = 1
+                    //Mensaje = recibos[0].ToString()//messageJs
                 };
             }
             catch (Exception ex)
