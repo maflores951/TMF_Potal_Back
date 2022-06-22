@@ -21,16 +21,10 @@ namespace LoginBase.Models
         [MaxLength(6, ErrorMessage = "El campo {0} debe tener máximo  {1} caracteres.")]
         public string ParametroClave { get; set; }
 
-        [Display(Name = "Descripción")]
-        [MaxLength(70, ErrorMessage = "El campo {0} debe tener máximo  {1} caracteres.")]
         public string ParametroDescripcion { get; set; }
 
-        [Display(Name = "Valor inicial")]
-        [MaxLength(50, ErrorMessage = "El campo {0} debe tener máximo  {1} caracteres.")]
         public string ParametroValorInicial { get; set; }
 
-        [Display(Name = "Valor final")]
-        [MaxLength(50, ErrorMessage = "El campo {0} debe tener máximo  {1} caracteres.")]
         public string ParametroValorFinal { get; set; }
 
         [Display(Name = "Borrado logico")]

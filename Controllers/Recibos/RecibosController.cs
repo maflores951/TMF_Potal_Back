@@ -194,6 +194,10 @@ namespace tmf_group.Controllers.Recibos
 
             List<Recibo> reciboList = new List<Recibo>();
 
+            var usuariosTotales = await _context.Usuarios.ToListAsync();
+
+            var recibosTotales = await _context.Recibos.ToListAsync();
+
             int contador = 0;
             string empleadosNoRegistrados = "";
             //Proceso para guardar el documento en el servidor, se convierte de base64 a archivo
@@ -312,11 +316,32 @@ namespace tmf_group.Controllers.Recibos
                             if (System.IO.File.Exists(pathEmpNumeroFullDom))
                             {
                                 System.IO.File.Delete(pathEmpNumeroFullDom);
+                                //Archivo final
                                 System.IO.File.Move(pathReciboFull, pathEmpNumeroFullDom);
+
+                                var recibo = new Recibo
+                                {
+                                    UsuarioNoEmp = empleadoNo,
+                                    ReciboPathPDF = pathEmpNumeroFullDom
+                                };
+                                if (!reciboList.Exists(r => r.UsuarioNoEmp == empleadoNo))
+                                {
+                                    reciboList.Add(recibo);
+                                }
                             }
                             else
                             {
+                                //Archivo final
                                 System.IO.File.Move(pathReciboFull, pathEmpNumeroFullDom);
+                                var recibo = new Recibo
+                                {
+                                    UsuarioNoEmp = empleadoNo,
+                                    ReciboPathPDF = pathEmpNumeroFullDom
+                                };
+                                if (!reciboList.Exists(r => r.UsuarioNoEmp == empleadoNo))
+                                {
+                                    reciboList.Add(recibo);
+                                }
                             }
                         }
                         else
@@ -343,11 +368,31 @@ namespace tmf_group.Controllers.Recibos
                                 if (System.IO.File.Exists(pathEmpNumeroFullDom))
                                 {
                                     System.IO.File.Delete(pathEmpNumeroFullDom);
+                                    //Archivo final
                                     System.IO.File.Move(pathReciboFull, pathEmpNumeroFullDom);
+                                    var recibo = new Recibo
+                                    {
+                                        UsuarioNoEmp = empleadoNo,
+                                        ReciboPathPDF = pathEmpNumeroFullDom
+                                    };
+                                    if (!reciboList.Exists(r => r.UsuarioNoEmp == empleadoNo))
+                                    {
+                                        reciboList.Add(recibo);
+                                    }
                                 }
                                 else
                                 {
+                                    //Archivo final
                                     System.IO.File.Move(pathReciboFull, pathEmpNumeroFullDom);
+                                    var recibo = new Recibo
+                                    {
+                                        UsuarioNoEmp = empleadoNo,
+                                        ReciboPathPDF = pathEmpNumeroFullDom
+                                    };
+                                    if (!reciboList.Exists(r => r.UsuarioNoEmp == empleadoNo))
+                                    {
+                                        reciboList.Add(recibo);
+                                    }
                                 }
                             }
                             catch (Exception)
@@ -360,7 +405,7 @@ namespace tmf_group.Controllers.Recibos
 
 
                         }
-                    }
+                    }//Fin del for
 
                     try
                     {
@@ -420,16 +465,22 @@ namespace tmf_group.Controllers.Recibos
                         tamanio = existePathZipFinal.GetDirectories().Length;
                     }
 
-                    foreach (var dir in existePathZipFinal.GetDirectories())
+                    //foreach (var dir in existePathZipFinal.GetDirectories()) 
+                    foreach (var dir in reciboList) 
                     {
                        
                         contadorRegistro += 1;
-                        carpetaZipFinal = dir.FullName;
+                        //carpetaZipFinal = dir.FullName;
+                        //Se recupera la url del archivo 
+                        carpetaZipFinal = dir.ReciboPathPDF;
                         //Se recupera el numero de empleado
-                        var empleadoNoFinal = dir.Name;
+                        //var empleadoNoFinal = dir.Name;
+                        //Se recupera el número de empleado
+                        var empleadoNoFinal = dir.UsuarioNoEmp;
 
                         //Se valida que el número de empleado exista 
-                        var usuario = await _context.Usuarios.Where(u => u.EmpleadoNoEmp.ToLower() == empleadoNoFinal).FirstOrDefaultAsync();
+                        //var usuario = await _context.Usuarios.Where(u => u.EmpleadoNoEmp.ToLower() == empleadoNoFinal).FirstOrDefaultAsync();
+                        var usuario = usuariosTotales.Find(u => u.EmpleadoNoEmp == empleadoNoFinal);
 
                         if (usuario == null)
                         {
@@ -490,7 +541,8 @@ namespace tmf_group.Controllers.Recibos
                             try
                             {
                                 //Se valida si existe algun registro relacionado al mismo empleado y al mismo periodo
-                                var reciboEmpleado = await _context.Recibos.Where(u => u.EmpresaId == model.EmpresaId && u.PeriodoTipoId == model.PeriodoTipoId && u.ReciboPeriodoA == model.ReciboPeriodoA && u.ReciboPeriodoM == model.ReciboPeriodoM && u.ReciboPeriodoNumero == model.ReciboPeriodoNumero && u.UsuarioNoEmp == usuario.EmpleadoNoEmp).FirstOrDefaultAsync();
+                                //var reciboEmpleado = await _context.Recibos.Where(u => u.EmpresaId == model.EmpresaId && u.PeriodoTipoId == model.PeriodoTipoId && u.ReciboPeriodoA == model.ReciboPeriodoA && u.ReciboPeriodoM == model.ReciboPeriodoM && u.ReciboPeriodoNumero == model.ReciboPeriodoNumero && u.UsuarioNoEmp == usuario.EmpleadoNoEmp).FirstOrDefaultAsync();
+                                var reciboEmpleado = recibosTotales.Find(u => u.EmpresaId == model.EmpresaId && u.PeriodoTipoId == model.PeriodoTipoId && u.ReciboPeriodoA == model.ReciboPeriodoA && u.ReciboPeriodoM == model.ReciboPeriodoM && u.ReciboPeriodoNumero == model.ReciboPeriodoNumero && u.UsuarioNoEmp == usuario.EmpleadoNoEmp);
 
                                 if (reciboEmpleado == null)
                                 {
@@ -512,9 +564,9 @@ namespace tmf_group.Controllers.Recibos
                                     //Se crea el registro del recibo
                                     _context.Recibos.Add(recibo);
 
-                                    reciboList.Add(recibo);
-                                    if (contadorRegistro == tamanio )
-                                    { 
+                                    //reciboList.Add(recibo);
+                                    //if (contadorRegistro == tamanio )
+                                    //{ 
                                         //try
                                         //{
                                         //    await _context.SaveChangesAsync();
@@ -539,7 +591,7 @@ namespace tmf_group.Controllers.Recibos
 
                                         //    return Ok(respuesta);
                                         //}
-                                    }
+                                    //}
                                 }
                                 else
                                 {
@@ -1233,11 +1285,11 @@ namespace tmf_group.Controllers.Recibos
 
             var folder = "uploads\\Masivo";
 
-            var filePdf = "P_SLE_ADM_20220101_20220131_00_V2_0000_00000_FILE_1.pdf";
+            var filePdf = "ANE140618P37_Q10_6_1.pdf";
 
-            var fileXml = "P_SLE_ADM_20220101_20220131_00_V2_0000_00000_FILE_1.xml";
+            var fileXml = "ANE140618P37_Q10_6_1.xml";
 
-            var fileBase = "P_SLE_ADM_20220101_20220131_00_V2_0000_00000_FILE_";
+            var fileBase = "ANE140618P37_Q10_6_";
 
             var pathPdf = Path.Combine(_enviroment.ContentRootPath, folder, filePdf);
             var pathXml = Path.Combine(_enviroment.ContentRootPath, folder, fileXml);

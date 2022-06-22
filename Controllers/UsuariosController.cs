@@ -443,7 +443,7 @@ namespace LoginBase.Controllers
 
             //Se actualizan los datos del Usuario asignando el codigo de seguridad
             usuario.UsuarioEstatusSesion = false;
-            usuario.UsuarioFechaLimite = DateTime.Now.AddMonths(1);
+            usuario.UsuarioFechaLimite = DateTime.Now.AddMinutes(10);
             usuario.UsuarioNumConfirmacion = numConfirmacion;
 
             
@@ -527,10 +527,12 @@ namespace LoginBase.Controllers
             string email = "";
             string noEmpSinRegistro = "";
 
+            var empleados = await _context.Usuarios.ToListAsync();
+            var empleadosEmail = new List<Usuario>();
+
             foreach (var usuario in usuarios)
             {
-                 var EmpleadoNoEmp = await _context.Usuarios.Where(u => u.EmpleadoNoEmp == usuario.EmpleadoNoEmp && u.EmpresaId == usuario.EmpresaId && u.UsuarioEstatusSesion == false).
-                 FirstOrDefaultAsync();
+                var EmpleadoNoEmp = empleados.Find(u => u.EmpleadoNoEmp == usuario.EmpleadoNoEmp && u.EmpresaId == usuario.EmpresaId && u.UsuarioEstatusSesion == false);//await _context.Usuarios.Where(u => u.EmpleadoNoEmp == usuario.EmpleadoNoEmp && u.EmpresaId == usuario.EmpresaId && u.UsuarioEstatusSesion == false).FirstOrDefaultAsync();
                     respuesta.Exito = 1;
                     if (EmpleadoNoEmp != null)
                     {
@@ -541,18 +543,17 @@ namespace LoginBase.Controllers
                         //return Ok(respuesta);
                     }
 
-                    var usuarioEmail = await _context.Usuarios.
-                        Where(u => u.Email.ToLower() == usuario.Email.ToLower() && u.UsuarioEstatusSesion == false).
-                        FirstOrDefaultAsync();
+                var usuarioEmail = empleados.Find(u => u.Email.ToLower() == usuario.Email.ToLower() && u.UsuarioEstatusSesion == false);//await _context.Usuarios.Where(u => u.Email.ToLower() == usuario.Email.ToLower() && u.UsuarioEstatusSesion == false).FirstOrDefaultAsync();
 
-                    if (usuarioEmail != null)
-                    {
-                        //respuesta.Mensaje = "La cuenta de email que ingreso ya está registrada.";
-                        respuesta.Exito = 0;
-                        contadorEmail += 1;
-                        email += usuarioEmail.Email + ", ";
-                        //return Ok(respuesta);
-                    }
+                //SE COMENTA PARA QA
+                    //if (usuarioEmail != null)
+                    //{
+                    //    //respuesta.Mensaje = "La cuenta de email que ingreso ya está registrada.";
+                    //    respuesta.Exito = 0;
+                    //    contadorEmail += 1;
+                    //    email += usuarioEmail.Email + ", ";
+                    //    //return Ok(respuesta);
+                    //}
 
                 if (respuesta.Exito == 1)
                     {
@@ -568,12 +569,13 @@ namespace LoginBase.Controllers
                     usuario.Password = cifradoHelper.EncryptStringAES("UsuarioTmF28");
 
                     _context.Usuarios.Add(usuario);
+                    empleadosEmail.Add(usuario);
                     //await _context.SaveChangesAsync();
 
 
                     try
                     {
-                        await _context.SaveChangesAsync();
+                        _context.Usuarios.Add(usuario);
                     }
                     catch (Exception es)
                     {
@@ -599,7 +601,35 @@ namespace LoginBase.Controllers
                 //respuesta.Mensaje = "Registro exitoso.";
                 //respuesta.Exito = 1;
             }
-            respuesta.Exito = 1;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception es)
+            {
+                //respuesta.Mensaje = "El número de empleado ya esta registrado, actualicelo desde el sistema o asigne un nuevo número de empleado.";
+                respuesta.Exito = 0;
+                respuesta.Mensaje = "Error al guardar la información, intente de nuevo o contacte al administrador del sistema.";
+                return Ok(respuesta);
+            }
+
+            //Envio de correo
+            //Se envia el email si todo es correcto
+            EnvioEmailService enviarEmail = new EnvioEmailService(_context, _enviroment);
+            var emailResponse = await enviarEmail.EnivarEmailNuevaCuentaMasivo(empleadosEmail);
+
+
+
+            if (emailResponse.Exito == 1)
+            {
+                respuesta.Exito = 1;
+            }
+            else
+            {
+                respuesta.Exito = 0;
+                respuesta.Mensaje += emailResponse.Mensaje;
+            }
             //int contadorNoEmp = 0;
             //int contadorEmail = 0;
             //int contadorNoEmpSinRegistro = 0;
@@ -607,21 +637,21 @@ namespace LoginBase.Controllers
             if (contadorNoEmp > 0)
             {
                 var quitarComaNoEmp = noEmp.Substring(0, noEmp.Length - 2);
-                respuesta.Mensaje += "Los siguientes números de empleado ya están registrados, debe actualizarlos: " + quitarComaNoEmp + ". ";
+                respuesta.Mensaje += " Los siguientes números de empleado ya están registrados, debe actualizarlos: " + quitarComaNoEmp + ". ";
                 respuesta.Exito = 0;
             }
 
             if (contadorEmail > 0)
             {
                 var quitarComaEmail = email.Substring(0, email.Length - 2);
-                respuesta.Mensaje += "Los siguientes email ya están registrados, debe actualizarlos: " + quitarComaEmail + ". ";
+                respuesta.Mensaje += " Los siguientes email ya están registrados, debe actualizarlos: " + quitarComaEmail + ". ";
                 respuesta.Exito = 0;
             }
 
             if (contadorNoEmpSinRegistro > 0)
             {
                 var quitarComanoEmpSinRegistro = noEmpSinRegistro.Substring(0, noEmpSinRegistro.Length - 2);
-                respuesta.Mensaje += "Los siguientes números de empleado no se pudieron registrar, contacte al administrador: " + quitarComanoEmpSinRegistro + ". ";
+                respuesta.Mensaje += " Los siguientes números de empleado no se pudieron registrar, contacte al administrador: " + quitarComanoEmpSinRegistro + ". ";
                 respuesta.Exito = 0;
             }
 
