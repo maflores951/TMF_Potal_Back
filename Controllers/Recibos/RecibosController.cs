@@ -98,6 +98,48 @@ namespace tmf_group.Controllers.Recibos
             return Ok(responses);
         }
 
+        // Recuperar recibos por usuario
+        [HttpPost("GetRecibosFiltro")]
+        public async Task<IActionResult> GetRecibosFiltroAsync(Recibo reciboModel)
+        {
+            var responses = new List<Recibo>();
+            //var recibos = await _context.Recibos.ToListAsync();
+
+            var recibos = await _context.Recibos.Where(u => u.ReciboEstatus == true && u.EmpresaId == reciboModel.EmpresaId && u.PeriodoTipoId == reciboModel.PeriodoTipoId && u.ReciboPeriodoA == reciboModel.ReciboPeriodoA && u.ReciboPeriodoM == reciboModel.ReciboPeriodoM && u.ReciboPeriodoNumero == reciboModel.ReciboPeriodoNumero).ToListAsync();
+
+            var usuario = await _context.Usuarios.ToListAsync();
+
+            var empresa = await _context.Empresas.ToListAsync();
+
+            var periodoTipo = await _context.PeriodoTipos.ToListAsync();
+
+
+            foreach (var recibo in recibos)
+            {
+                responses.Add(new Recibo
+                {
+                    ReciboId = recibo.ReciboId,
+                    ReciboPeriodoA = recibo.ReciboPeriodoA,
+                    ReciboPeriodoM = recibo.ReciboPeriodoM,
+                    ReciboPeriodoD = recibo.ReciboPeriodoD,
+                    ReciboEstatus = recibo.ReciboEstatus,
+                    PeriodoTipoId = recibo.PeriodoTipoId,
+                    ReciboPeriodoNumero = recibo.ReciboPeriodoNumero,
+                    ReciboPathPDF = recibo.ReciboPathPDF,
+                    ReciboPathXML = recibo.ReciboPathXML,
+                    UsuarioNoEmp = recibo.UsuarioNoEmp,
+                    EmpresaId = recibo.EmpresaId,
+                    Usuario = usuario.Find(u => u.EmpleadoNoEmp == recibo.UsuarioNoEmp),
+                    Empresa = empresa.Find(u => u.EmpresaId == recibo.EmpresaId),
+                    PeriodoTipo = periodoTipo.Find(u => u.PeriodoTipoId == recibo.PeriodoTipoId)
+                });
+
+            }
+
+            return Ok(responses);
+        }
+
+
         // GET: api/Recibos/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Recibo>> GetRecibo(string id)
@@ -480,7 +522,7 @@ namespace tmf_group.Controllers.Recibos
 
                         //Se valida que el número de empleado exista 
                         //var usuario = await _context.Usuarios.Where(u => u.EmpleadoNoEmp.ToLower() == empleadoNoFinal).FirstOrDefaultAsync();
-                        var usuario = usuariosTotales.Find(u => u.EmpleadoNoEmp == empleadoNoFinal);
+                        var usuario = usuariosTotales.Find(u => u.EmpleadoNoEmp == empleadoNoFinal && u.EmpresaId == model.EmpresaId);
 
                         if (usuario == null)
                         {

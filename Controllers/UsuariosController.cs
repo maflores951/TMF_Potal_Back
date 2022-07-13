@@ -37,7 +37,7 @@ namespace LoginBase.Controllers
         {
             //return await _context.Usuarios.ToListAsync();
             var responses = new List<Usuario>();
-            var usuarios = await _context.Usuarios.Where(u => u.UsuarioEstatusSesion == false).ToListAsync();
+            var usuarios = await _context.Usuarios.Where(u => u.UsuarioEstatusSesion == false && u.RolId != 2).ToListAsync();
             var rol = await _context.Roles.ToListAsync();
             var empresa = await _context.Empresas.ToListAsync();
 
@@ -73,6 +73,89 @@ namespace LoginBase.Controllers
                     Empresa = empresa.Find(e => e.EmpresaId == usuario.EmpresaId),
                         EmpleadoRFC = usuario.EmpleadoRFC
                     });
+            }
+
+            return Ok(responses);
+        }
+
+        // Recuperar recibos por usuario
+        [HttpPost("GetEmpleadosFiltro")]
+        public async Task<IActionResult> GetEmpleadosFiltro(Usuario usuarioModel)
+        {
+            var tieneEmpleadoNoEmp = false;
+
+            var tieneEmail = false;
+            //return await _context.Usuarios.ToListAsync();
+            var responses = new List<Usuario>();
+
+            var usuariosFiltro = new List<Usuario>();
+            if (usuarioModel.EmpleadoNoEmp != ""){
+                tieneEmpleadoNoEmp = true;
+            }
+
+            if (usuarioModel.Email != "")
+            {
+                tieneEmail = true;
+            }
+
+            if (tieneEmpleadoNoEmp && tieneEmail)
+            {
+                usuariosFiltro = await _context.Usuarios.Where(u => u.UsuarioEstatusSesion == false && u.EmpresaId == usuarioModel.EmpresaId && u.EmpleadoNoEmp == usuarioModel.EmpleadoNoEmp && u.Email == usuarioModel.Email && u.EmpleadoNoEmp != null).ToListAsync();
+            }
+
+            if (tieneEmpleadoNoEmp && tieneEmail == false)
+            {
+                 usuariosFiltro = await _context.Usuarios.Where(u => u.UsuarioEstatusSesion == false && u.EmpresaId == usuarioModel.EmpresaId && u.EmpleadoNoEmp == usuarioModel.EmpleadoNoEmp && u.EmpleadoNoEmp != null).ToListAsync();
+            }
+
+            if (tieneEmpleadoNoEmp == false && tieneEmail)
+            {
+                 usuariosFiltro = await _context.Usuarios.Where(u => u.UsuarioEstatusSesion == false && u.EmpresaId == usuarioModel.EmpresaId && u.Email == usuarioModel.Email && u.EmpleadoNoEmp != null).ToListAsync();
+            }
+
+            if (tieneEmpleadoNoEmp == false && tieneEmail == false)
+            {
+                usuariosFiltro = await _context.Usuarios.Where(u => u.UsuarioEstatusSesion == false && u.EmpresaId == usuarioModel.EmpresaId && u.EmpleadoNoEmp != null).ToListAsync();
+            }
+
+
+            var rol = await _context.Roles.ToListAsync();
+            var empresa = await _context.Empresas.ToListAsync();
+
+            //Se crea una variable del tipo de servicio para poder decifrar la contraseña
+            CifradoHelper cifradoHelper = new CifradoHelper();
+
+            foreach (var usuario in usuariosFiltro)
+            {
+                var password = "";
+                if (usuario.Password == null)
+                {
+                    password = usuario.Password;
+                }
+                else
+                {
+                    password = cifradoHelper.DecryptStringAES(usuario.Password);
+                }
+                responses.Add(new Usuario
+                {
+                    UsuarioId = usuario.UsuarioId,
+                    UsuarioNombre = usuario.UsuarioNombre,
+                    UsuarioApellidoP = usuario.UsuarioApellidoP,
+                    UsuarioApellidoM = usuario.UsuarioApellidoM,
+                    UsuarioNumConfirmacion = usuario.UsuarioNumConfirmacion,
+                    UsuarioFechaLimite = usuario.UsuarioFechaLimite,
+                    UsuarioEstatusSesion = usuario.UsuarioEstatusSesion,
+                    Password = password,
+                    Email = usuario.Email,
+                    UsuarioClave = usuario.UsuarioClave,
+                    ImagePath = usuario.ImagePath,
+                    RolId = usuario.RolId,
+                    Rol = rol.Find(r => r.RolId == usuario.RolId),
+                    EmpleadoNoEmp = usuario.EmpleadoNoEmp,
+                    EmpresaId = usuario.EmpresaId,
+                    Empresa = empresa.Find(e => e.EmpresaId == usuario.EmpresaId),
+                    EmpleadoRFC = usuario.EmpleadoRFC
+                });
             }
 
             return Ok(responses);
@@ -392,7 +475,18 @@ namespace LoginBase.Controllers
                 return Ok(respuesta);
             }
 
-           
+            var usuarioNumero = await _context.Usuarios.
+                Where(u => u.EmpleadoNoEmp.ToLower() == usuario.EmpleadoNoEmp.ToLower() && u.EmpresaId == usuario.EmpresaId).FirstOrDefaultAsync();
+
+            if (usuarioNumero != null)
+            {
+                respuesta.Mensaje = "El número de empleado ya esta registrado en está empresa.";
+                respuesta.Exito = 0;
+                return Ok(respuesta);
+            }
+
+
+
 
             //if (usuarioEmail == null)
             //{
@@ -521,6 +615,7 @@ namespace LoginBase.Controllers
             Respuesta respuesta = new Respuesta();
             int contadorNoEmp = 0;
             int contadorEmail= 0;
+            int contadorNoEmpleado = 0;
             int contadorNoEmpSinRegistro = 0;
 
             string noEmp = "";
@@ -546,14 +641,16 @@ namespace LoginBase.Controllers
                 var usuarioEmail = empleados.Find(u => u.Email.ToLower() == usuario.Email.ToLower() && u.UsuarioEstatusSesion == false);//await _context.Usuarios.Where(u => u.Email.ToLower() == usuario.Email.ToLower() && u.UsuarioEstatusSesion == false).FirstOrDefaultAsync();
 
                 //SE COMENTA PARA QA
-                    //if (usuarioEmail != null)
-                    //{
-                    //    //respuesta.Mensaje = "La cuenta de email que ingreso ya está registrada.";
-                    //    respuesta.Exito = 0;
-                    //    contadorEmail += 1;
-                    //    email += usuarioEmail.Email + ", ";
-                    //    //return Ok(respuesta);
-                    //}
+                if (usuarioEmail != null)
+                {
+                    //respuesta.Mensaje = "La cuenta de email que ingreso ya está registrada.";
+                    respuesta.Exito = 0;
+                    contadorEmail += 1;
+                    email += usuarioEmail.Email + ", ";
+                    //return Ok(respuesta);
+                }
+
+              
 
                 if (respuesta.Exito == 1)
                     {
@@ -647,6 +744,8 @@ namespace LoginBase.Controllers
                 respuesta.Mensaje += " Los siguientes email ya están registrados, debe actualizarlos: " + quitarComaEmail + ". ";
                 respuesta.Exito = 0;
             }
+
+
 
             if (contadorNoEmpSinRegistro > 0)
             {
