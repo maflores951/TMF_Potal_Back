@@ -25,6 +25,8 @@ namespace tmf_group.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PeriodoTipo>>> GetPeriodoTipos()
         {
+            
+
             return await _context.PeriodoTipos.ToListAsync();
         }
 

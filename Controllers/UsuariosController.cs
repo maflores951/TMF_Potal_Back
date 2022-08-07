@@ -13,6 +13,7 @@ using LoginBase.Models.Response;
 using Microsoft.AspNetCore.Hosting;
 using Fintech.API.Helpers;
 using LoginBase.Services;
+using tmf_group.Services.Empleados;
 
 namespace LoginBase.Controllers
 {
@@ -35,7 +36,35 @@ namespace LoginBase.Controllers
         [Authorize]
         public async Task<ActionResult<IEnumerable<Usuario>>> GetUsuarios()
         {
-            //return await _context.Usuarios.ToListAsync();
+            //IEnumerable<Usuario> listaPeriodosTipo = await _context.Usuarios.ToListAsync();
+            ////return await _context.Usuarios.ToListAsync();
+            //var primerTipoPeriodo = listaPeriodosTipo.First();
+
+            //var ultimoTipoPeriodo = listaPeriodosTipo.Last();
+
+            //IEnumerable<Usuario> unoTipoPeriodo =  listaPeriodosTipo.Where(l => l.UsuarioId == 1).ToList();
+
+            //var ordenPEriodos = listaPeriodosTipo.OrderBy(l => l.RolId);
+
+            //var soloPeriodoUno = listaPeriodosTipo.OrderBy(l => l.RolId).GroupBy(u => u.EmpresaId);
+
+            //var grupoUsuarios = listaPeriodosTipo.Select(u => u);
+
+            //var usuarioPorEstatus = from u in listaPeriodosTipo
+            //                        orderby u.EmpleadoNoEmp
+            //                        group u by u.UsuarioEstatusSesion;
+
+            //var usariosPorEstatusCompleto = from u in listaPeriodosTipo
+            //                        group u by u.UsuarioEstatusSesion
+            //                        into usuariosGurdados
+            //                        select new { 
+            //                        key = usuariosGurdados.Key,
+            //                        data = usuariosGurdados
+            //                        };
+
+
+            //var unirUsuariosRoles = listaPeriodosTipo.Join();
+
             var responses = new List<Usuario>();
             var usuarios = await _context.Usuarios.Where(u => u.UsuarioEstatusSesion == false && u.RolId != 2).ToListAsync();
             var rol = await _context.Roles.ToListAsync();
@@ -51,7 +80,15 @@ namespace LoginBase.Controllers
                             password = usuario.Password;
                     }
                     else{
-                            password = cifradoHelper.DecryptStringAES(usuario.Password);
+                    try
+                    {
+                        password = cifradoHelper.DecryptStringAES(usuario.Password);
+                    }
+                    catch (Exception)
+                    {
+                        password = usuario.Password;
+                    }
+                            
                     }
                     responses.Add(new Usuario
                 {
@@ -71,7 +108,7 @@ namespace LoginBase.Controllers
                     EmpleadoNoEmp = usuario.EmpleadoNoEmp,
                     EmpresaId = usuario.EmpresaId,
                     Empresa = empresa.Find(e => e.EmpresaId == usuario.EmpresaId),
-                        EmpleadoRFC = usuario.EmpleadoRFC
+                        //EmpleadoRFC = usuario.EmpleadoRFC
                     });
             }
 
@@ -154,7 +191,7 @@ namespace LoginBase.Controllers
                     EmpleadoNoEmp = usuario.EmpleadoNoEmp,
                     EmpresaId = usuario.EmpresaId,
                     Empresa = empresa.Find(e => e.EmpresaId == usuario.EmpresaId),
-                    EmpleadoRFC = usuario.EmpleadoRFC
+                    //EmpleadoRFC = usuario.EmpleadoRFC
                 });
             }
 
@@ -205,7 +242,7 @@ namespace LoginBase.Controllers
                     EmpleadoNoEmp = usuario.EmpleadoNoEmp,
                     EmpresaId = usuario.EmpresaId,
                     Empresa = empresa.Find(e => e.EmpresaId == usuario.EmpresaId),
-                    EmpleadoRFC = usuario.EmpleadoRFC
+                    //EmpleadoRFC = usuario.EmpleadoRFC
                 });
             }
 
@@ -281,10 +318,10 @@ namespace LoginBase.Controllers
         public async Task<IActionResult> PutUsuario(int id, Usuario usuario)
         {
             Respuesta respuesta = new Respuesta();
-            //if (id != usuario.UsuarioId)
-            //{
-            //    return BadRequest();
-            //}
+            if (id != usuario.UsuarioId)
+            {
+                return BadRequest();
+            }
 
             //_context.Entry(usuario).State = EntityState.Modified;
 
@@ -313,14 +350,16 @@ namespace LoginBase.Controllers
             //    usuario.Password = usuarioBefore.Password;
             //}
 
-            //var usuarioEmail = await _context.Usuarios.
-            //  Where(u => u.Email.ToLower() == usuario.Email.ToLower()).
-            //  FirstOrDefaultAsync();
+            var usuarioEmail = await _context.Usuarios.
+              Where(u => u.Email.ToLower() == usuario.Email.ToLower() && u.UsuarioId != usuario.UsuarioId).
+              FirstOrDefaultAsync();
 
-            //if (usuarioEmail != null)
-            //{
-            //    return BadRequest("La cuenta de email que ingreso ya está registrada");
-            //}
+            if (usuarioEmail != null)
+            {
+                respuesta.Exito = 0;
+                respuesta.Mensaje = "La cuenta de email que ingreso ya está registrada.";
+                return Ok(respuesta);
+            }
 
             if (usuario.ImageArray != null && usuario.ImageArray.Length > 0)
             {
@@ -380,8 +419,9 @@ namespace LoginBase.Controllers
                 }
             }
 
-            
 
+            respuesta.Exito = 1;
+            respuesta.Mensaje = "Actualización exitosa";
             return Ok(respuesta);
         }
 
@@ -475,15 +515,16 @@ namespace LoginBase.Controllers
                 return Ok(respuesta);
             }
 
-            var usuarioNumero = await _context.Usuarios.
-                Where(u => u.EmpleadoNoEmp.ToLower() == usuario.EmpleadoNoEmp.ToLower() && u.EmpresaId == usuario.EmpresaId).FirstOrDefaultAsync();
 
-            if (usuarioNumero != null)
-            {
-                respuesta.Mensaje = "El número de empleado ya esta registrado en está empresa.";
-                respuesta.Exito = 0;
-                return Ok(respuesta);
-            }
+            //var usuarioNumero = await _context.Usuarios.
+            //    Where(u => u.EmpleadoNoEmp.ToLower() == usuario.EmpleadoNoEmp.ToLower() && u.EmpresaId == usuario.EmpresaId).FirstOrDefaultAsync();
+
+            //if (usuarioNumero != null)
+            //{
+            //    respuesta.Mensaje = "El número de empleado ya esta registrado en está empresa.";
+            //    respuesta.Exito = 0;
+            //    return Ok(respuesta);
+            //}
 
 
 
@@ -570,7 +611,9 @@ namespace LoginBase.Controllers
             {
                 Email = usuario.Email,
                 UsuarioFechaLimite = DateTime.Now.AddMinutes(10),
-                UsuarioId = usuario.UsuarioId
+                UsuarioId = usuario.UsuarioId,
+                UsuarioClave = usuario.UsuarioClave
+                
             };
 
             //Se envia el email si todo es correcto
@@ -605,6 +648,29 @@ namespace LoginBase.Controllers
 
             return Ok(respuesta);
         }
+
+        [HttpPost("ActualizarEmpMasivo")]
+
+        public async Task<ActionResult<Respuesta>> ActualizarEmpMasivo(IEnumerable<Usuario> usuarios)
+        {
+            Respuesta respuesta = new();
+
+            respuesta = await ActualizarEmailMasivo.ActualizarEmail(usuarios, _context);
+
+            return Ok(respuesta);
+        }
+
+        [HttpPost("EliminarEmpMasivo")]
+
+        public async Task<ActionResult<Respuesta>> EliminarEmpMasivo(IEnumerable<Usuario> usuarios)
+        {
+            Respuesta respuesta = new();
+
+            respuesta = await EliminarEmailMasivo.EliminarEmail(usuarios, _context);
+
+            return Ok(respuesta);
+        }
+
 
         [HttpPost("EmpledosMasivo")]
         public async Task<ActionResult<Usuario>> EmpledosMasivoAsync(List<Usuario> usuarios)

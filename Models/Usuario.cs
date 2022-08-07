@@ -60,7 +60,7 @@ namespace LoginBase.Models
 
         public string EmpleadoNoEmp { get; set; }
 
-        public string EmpleadoRFC { get; set; }
+        //public string EmpleadoRFC { get; set; }
 
         public int? EmpresaId { get; set; }
 

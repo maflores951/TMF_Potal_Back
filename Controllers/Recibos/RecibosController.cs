@@ -58,7 +58,7 @@ namespace tmf_group.Controllers.Recibos
                         ReciboPathXML = recibo.ReciboPathXML,
                         UsuarioNoEmp = recibo.UsuarioNoEmp,
                         EmpresaId = recibo.EmpresaId,
-                        Usuario = usuario.Find(u => u.EmpleadoNoEmp == recibo.UsuarioNoEmp),
+                        Usuario = usuario.Find(u => u.EmpleadoNoEmp == recibo.UsuarioNoEmp && u.EmpresaId == recibo.EmpresaId),
                         Empresa = empresa.Find(u => u.EmpresaId == recibo.EmpresaId),
                         PeriodoTipo = periodoTipo.Find(u => u.PeriodoTipoId == recibo.PeriodoTipoId)
                     });
@@ -129,7 +129,7 @@ namespace tmf_group.Controllers.Recibos
                     ReciboPathXML = recibo.ReciboPathXML,
                     UsuarioNoEmp = recibo.UsuarioNoEmp,
                     EmpresaId = recibo.EmpresaId,
-                    Usuario = usuario.Find(u => u.EmpleadoNoEmp == recibo.UsuarioNoEmp),
+                    Usuario = usuario.Find(u => u.EmpleadoNoEmp == recibo.UsuarioNoEmp && u.EmpresaId == recibo.EmpresaId),
                     Empresa = empresa.Find(u => u.EmpresaId == recibo.EmpresaId),
                     PeriodoTipo = periodoTipo.Find(u => u.PeriodoTipoId == recibo.PeriodoTipoId)
                 });
@@ -1289,7 +1289,7 @@ namespace tmf_group.Controllers.Recibos
             foreach (var recibo in recibos)
             {
 
-                var usuario = await _context.Usuarios.Where(r => r.EmpleadoNoEmp == recibo.UsuarioNoEmp).FirstOrDefaultAsync();
+                var usuario = await _context.Usuarios.Where(r => r.EmpleadoNoEmp == recibo.UsuarioNoEmp && r.EmpresaId == recibo.EmpresaId).FirstOrDefaultAsync();
 
                 //var empresa = await _context.Empresas.FindAsync(recibo.EmpresaId);
 

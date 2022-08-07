@@ -88,11 +88,20 @@ namespace LoginBase.Controllers
                 //return BadRequest("Incorrect call");
             }
 
-
-            //Se busca la información del usuario en la tabla Users por medio del email
-            var usuario =  await _context.Usuarios.
+            var usuario = new Usuario();
+            try
+            {
+                 usuario = await _context.Usuarios.
                Where(u => u.Email.ToLower() == email.ToLower()).
                FirstOrDefaultAsync();
+            }
+            catch (Exception es)
+            {
+
+                var mensaje = es.Message;
+            }
+            //Se busca la información del usuario en la tabla Users por medio del email
+            
 
             //Se valida si existe el usuario
             if (usuario == null)

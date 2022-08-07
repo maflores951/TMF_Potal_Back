@@ -196,7 +196,8 @@ namespace LoginBase.Services
                     mail.From = new MailAddress(CredentialEmail);
                     mail.To.Add(userEmail.Email);
                     mail.Subject = parametroSubject.ParametroValorInicial;
-                    mail.Body = parametroBody.ParametroValorInicial; //+ EmailCifrado.Trim().Replace("/", "$").Replace("+", "&");
+                    mail.IsBodyHtml = true;
+                    mail.Body = parametroBody.ParametroValorInicial + "<p>Su usuario es: <b>" + userEmail.UsuarioClave + "</b></p>"; //+ EmailCifrado.Trim().Replace("/", "$").Replace("+", "&");
 
                     SmtpServer.Port = Int32.Parse(SMPTPU.ParametroValorInicial);//587;
                     SmtpServer.Host = smtpcl.ParametroValorInicial;// "SMTP.Office365.com";
@@ -1018,7 +1019,8 @@ namespace LoginBase.Services
 
 
                                 mail.Subject = parametroSubject.ParametroValorInicial;
-                                mail.Body = parametroBody.ParametroValorInicial;
+                                mail.IsBodyHtml = true;
+                                mail.Body = parametroBody.ParametroValorInicial + "<p>Su usuario es: <b>" + nuevaCuenta.UsuarioClave + "</b></p>"; 
                                 mail.Bcc.Add(nuevaCuenta.Email);
 
                                 SmtpServer.Port = Int32.Parse(SMPTPU.ParametroValorInicial);//587;
@@ -1104,7 +1106,8 @@ namespace LoginBase.Services
 
                                 mail.From = new MailAddress(CredentialEmail);
                                 mail.Subject = parametroSubject.ParametroValorInicial;
-                                mail.Body = parametroBody.ParametroValorInicial;
+                                mail.IsBodyHtml = true;
+                                mail.Body = parametroBody.ParametroValorInicial + "<p>Su usuario es: <b>" + nuevaCuenta.UsuarioClave + "</b></p>";
                                 mail.Bcc.Add(nuevaCuenta.Email);
 
                                 //MailMessage message = new MailMessage(from, to, subject, body);
