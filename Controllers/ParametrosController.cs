@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using LoginBase.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Identity.Web.Resource;
 
 namespace LoginBase.Controllers
 {
@@ -15,6 +16,10 @@ namespace LoginBase.Controllers
     [Authorize]
     public class ParametrosController : ControllerBase
     {
+        // The Web API will only accept tokens 1) for users, and 
+        // 2) having the access_as_user scope for this API
+        //static readonly string[] scopeRequiredByApi = new string[] { "access_as_user" };
+
         private readonly DataContext _context;
 
         public ParametrosController(DataContext context)
@@ -26,6 +31,7 @@ namespace LoginBase.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Parametro>>> GetParametros()
         {
+            //HttpContext.VerifyUserHasAnyAcceptedScope(scopeRequiredByApi);
             var responses = new List<Parametro>();
 
             var parametros = await _context.Parametros.ToListAsync();

@@ -89,6 +89,60 @@ namespace LoginBase.Services
             return usuarioM;
         }
 
+        //Se valida la contraseña y usario para el login
+        public Usuario AuthSaml(string email)
+        {
+            //UserResponse userResponse = new UserResponse();
+            //Se crea una variable del tipo de servicio para poder cifrar información
+            CifradoHelper cifradoHelper = new CifradoHelper();
+
+            //Se crea la variable para recuperar el usuario
+            Usuario usuarioM = new Usuario();
+            using (var db = _db)
+            {
+                //Se recupera el usuario con respecto al email
+                var usuario = _db.Usuarios.Where(d => d.Email == email).FirstOrDefault();
+
+                //Si no existe el usuario retorna un null
+                if (usuario == null)
+                {
+                    return null;
+                }
+
+                ////Si existe el usuario se comparan las contraseñas decifradas
+                //if (cifradoHelper.DecryptStringAES(usuario.Password) != sPassword)
+                //{
+                //    return null;
+                //}
+
+
+
+                //Se crea y se recupera el token de seguridad 
+                usuario.UsuarioToken = GetToken(usuario);
+                //_db.Entry(usuario).State = EntityState.Modified;
+
+
+                //_db.SaveChangesAsync();
+
+                //userResponse.Password = usuario.Password;
+                //userResponse.Email = usuario.Email;
+                //userResponse.Token = GetToken(usuario);
+
+                //Se asigna el usuario 
+
+                var empresa = _db.Empresas.Where(d => d.EmpresaId == usuario.EmpresaId).FirstOrDefault();
+
+                usuario.Empresa = empresa;
+
+                usuarioM = usuario;
+
+
+            }
+            //return userResponse;
+            //Se recupera el usuario
+            return usuarioM;
+        }
+
         private string GetToken(Usuario usuario)
         {
             //Se utiliza Jwt para crear un token de seguridad

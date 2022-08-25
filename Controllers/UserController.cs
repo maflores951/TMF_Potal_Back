@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Google.Apis.Auth;
 using LoginBase.Models;
 using LoginBase.Models.Request;
 using LoginBase.Models.Response;
@@ -64,6 +65,13 @@ namespace LoginBase.Controllers
             return Ok(respuesta);
         }
 
+        [HttpGet]
+        [Route("LoginGoogle")]
+        public async Task<IActionResult> LoginGoogle()
+        {
+            var validPayload = await GoogleJsonWebSignature.ValidateAsync("ya29.A0AVA9y1sYyqAlJ2nXASyosUSKSzwEzoxb2BXjYbzxxO_Ri3dLMLTHIs7iIvEcCtZpSwUecqDgOkxYG29hWSQmLf-bseqjS5mryXqiFwVPKT9nq7Pkx2eDwUwqltIfjzZ0D7NzQXX-EyNX0ulS3u_PNAR-38j9aCgYKATASATASFQE65dr8rWx31O-FCaUSrsxEL6-Zhw0163");
+            return Ok();
+        }
 
         // POST: api/Users/EnviarEmail
         [HttpPost]
@@ -172,6 +180,8 @@ namespace LoginBase.Controllers
             //return (IActionResult)emailResponse;
             return Ok(respuesta);
         }
+
+
 
         private bool UsuarioExists(int id)
         {

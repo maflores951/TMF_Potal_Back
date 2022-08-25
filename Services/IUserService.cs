@@ -11,5 +11,7 @@ namespace LoginBase.Services
     public interface IUserService
     {
         Usuario Auth(AuthRequest model);
+
+        Usuario AuthSaml(string email);
     }
 }

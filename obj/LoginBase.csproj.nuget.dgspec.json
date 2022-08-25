@@ -44,13 +44,33 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
+            "Google.Apis.Auth": {
+              "target": "Package",
+              "version": "[1.57.0, )"
+            },
+            "ITfoxtec.Identity.Saml2": {
+              "target": "Package",
+              "version": "[4.8.2, )"
+            },
+            "ITfoxtec.Identity.Saml2.MvcCore": {
+              "target": "Package",
+              "version": "[4.8.2, )"
+            },
             "Ionic.Zip-1.9.1.8": {
               "target": "Package",
               "version": "[1.9.1.8, )"
             },
+            "Microsoft.AspNetCore.Authentication.AzureAD.UI": {
+              "target": "Package",
+              "version": "[5.0.17, )"
+            },
+            "Microsoft.AspNetCore.Authentication.Google": {
+              "target": "Package",
+              "version": "[5.0.17, )"
+            },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
-              "version": "[5.0.3, )"
+              "version": "[5.0.17, )"
             },
             "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
               "target": "Package",
@@ -74,6 +94,10 @@
               "target": "Package",
               "version": "[5.0.16, )"
             },
+            "Microsoft.Identity.Web": {
+              "target": "Package",
+              "version": "[1.25.1, )"
+            },
             "Microsoft.TypeScript.MSBuild": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
@@ -86,11 +110,11 @@
             },
             "Newtonsoft.Json": {
               "target": "Package",
-              "version": "[12.0.3, )"
+              "version": "[13.0.1, )"
             },
             "System.IdentityModel.Tokens.Jwt": {
               "target": "Package",
-              "version": "[6.8.0, )"
+              "version": "[6.20.0, )"
             }
           },
           "imports": [
