@@ -41,6 +41,9 @@ namespace LoginBase.Models
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
+        [DataType(DataType.EmailAddress)]
+        public string EmailSSO { get; set; }
+
         public string UsuarioClave { get; set; }
 
         public string UsuarioToken { get; set; }

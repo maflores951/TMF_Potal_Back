@@ -141,7 +141,7 @@ namespace LoginBase.Services
             {
                 CifradoHelper cifradoHelper = new CifradoHelper();
 
-
+                
                 ////Se busca la información del parametro en la tabla Parametros por medio de la clave
                 var parametroEmail = await ParametroHelper.RecuperaParametro("smptem", _db);
 
@@ -187,6 +187,8 @@ namespace LoginBase.Services
                 var SMPTPU = await ParametroHelper.RecuperaParametro("SMPTPU", _db);
 
                 var SMPTAU = await ParametroHelper.RecuperaParametro("SMPTAU", _db);
+
+                
 
                 if (SMPTAU.ParametroValorInicial.Equals("1"))
                 {
@@ -511,6 +513,7 @@ namespace LoginBase.Services
                 //CifradoHelper cifradoHelper = new CifradoHelper();
                 //Se crea la respuesta para el front
                 Respuesta respuesta = new Respuesta();
+                string emailFinal;
                 //Variable para enviar el email
                 var email = string.Empty;
                 //EnviarRecibo userEmail;
@@ -535,6 +538,9 @@ namespace LoginBase.Services
                     respuesta.Exito = 0;
                     return respuesta;
                 }
+
+                var usuarioList = await _db.Usuarios.
+                           Where(u => u.UsuarioEstatusSesion == false).ToListAsync();
 
                 ////Se busca la información del parametro en la tabla Parametros por medio de la clave
                 var parametroEmail = await ParametroHelper.RecuperaParametro("smptae", _db);
@@ -648,15 +654,19 @@ namespace LoginBase.Services
                     return respuesta;
                 }
 
+                ////Se busca la información del parametro en la tabla Parametros por medio de la clave
+                var parametroSSO = await ParametroHelper.RecuperaParametro("SSOEMA", _db);
+
+               
+
                 if (SMPTAU.ParametroValorInicial.Equals("1"))
                 {
                     foreach (var recibo in recibos)
                     {
                         contadorRegistro += 1;
                         //Se busca la información del usuario en la tabla Users por medio del email
-                        var usuario = await _db.Usuarios.
-                           Where(u => u.EmpleadoNoEmp.ToLower() == recibo.UsuarioNoEmp.ToLower()).
-                           FirstOrDefaultAsync();
+                        var usuario = usuarioList.
+                           Find(u => u.EmpleadoNoEmp.ToLower() == recibo.UsuarioNoEmp.ToLower() && u.EmpresaId == recibo.EmpresaId);
 
                         if (usuario == null)
                         {
@@ -665,7 +675,22 @@ namespace LoginBase.Services
                             return respuesta;
                         }
 
-
+                        //Se valida si existe el parametro
+                        if (parametroSSO == null)
+                        {
+                            emailFinal = usuario.Email;
+                        }
+                        else
+                        {
+                            if (parametroSSO.ParametroValorInicial == "0")
+                            {
+                                emailFinal = usuario.Email;
+                            }
+                            else
+                            {
+                                emailFinal = usuario.EmailSSO;
+                            }
+                        }
                         //userEmail = new EnviarRecibo
                         //{
                         //    Email = usuario.Email,
@@ -688,7 +713,8 @@ namespace LoginBase.Services
 
                                 mail.Subject = parametroSubject.ParametroValorInicial;
                                 mail.Body = parametroBody.ParametroValorInicial;
-                                mail.Bcc.Add(usuario.Email);
+                                //mail.Bcc.Add(usuario.Email);
+                                mail.Bcc.Add(emailFinal);
 
                                 SmtpServer.Port = Int32.Parse(SMPTPU.ParametroValorInicial);//587;
                                 SmtpServer.Host = smtpcl.ParametroValorInicial;// "SMTP.Office365.com";
@@ -740,15 +766,31 @@ namespace LoginBase.Services
                     {
                         contadorRegistro += 1;
                         //Se busca la información del usuario en la tabla Users por medio del email
-                        var usuario = await _db.Usuarios.
-                           Where(u => u.EmpleadoNoEmp.ToLower() == recibo.UsuarioNoEmp.ToLower()).
-                           FirstOrDefaultAsync();
+                        var usuario = usuarioList.
+                           Find(u => u.EmpleadoNoEmp.ToLower() == recibo.UsuarioNoEmp.ToLower());
 
                         if (usuario == null)
                         {
                             respuesta.Mensaje = "Error #1, contacte al administrador del sistema.";
                             respuesta.Exito = 0;
                             return respuesta;
+                        }
+
+                        //Se valida si existe el parametro
+                        if (parametroSSO == null)
+                        {
+                            emailFinal = usuario.Email;
+                        }
+                        else
+                        {
+                            if (parametroSSO.ParametroValorInicial == "0")
+                            {
+                                emailFinal = usuario.Email;
+                            }
+                            else
+                            {
+                                emailFinal = usuario.EmailSSO;
+                            }
                         }
 
 
@@ -774,10 +816,11 @@ namespace LoginBase.Services
                                 mail.From = new MailAddress(CredentialEmail);
                                 mail.Subject = parametroSubject.ParametroValorInicial;
                                 mail.Body = parametroBody.ParametroValorInicial;
-                                mail.Bcc.Add(usuario.Email);
+                                //mail.Bcc.Add(usuario.Email);
+                                mail.Bcc.Add(emailFinal);
 
                                 //MailMessage message = new MailMessage(from, to, subject, body);
-                            SmtpClient client = new SmtpClient(smtpcl.ParametroValorInicial, Int32.Parse(SMPTPU.ParametroValorInicial));
+                                SmtpClient client = new SmtpClient(smtpcl.ParametroValorInicial, Int32.Parse(SMPTPU.ParametroValorInicial));
 
                             //SmtpClient SmtpServer = new SmtpClient("SMTP.Office365.com");
                             SmtpClient SmtpServer = new SmtpClient(smtpcl.ParametroValorInicial);
@@ -808,8 +851,9 @@ namespace LoginBase.Services
                         }
                             else
                         {
-                            mail.Bcc.Add(usuario.Email);
-                        }
+                                //mail.Bcc.Add(usuario.Email);
+                                mail.Bcc.Add(emailFinal);
+                            }
                     }
                         catch (Exception)
                         {
@@ -861,6 +905,7 @@ namespace LoginBase.Services
                 Respuesta respuesta = new Respuesta();
                 //Variable para enviar el email
                 var email = string.Empty;
+                string emailFinal;
                 //EnviarRecibo userEmail;
 
                 //var folder = "uploads\\Nomina";
@@ -1008,6 +1053,26 @@ namespace LoginBase.Services
                         //EnvioEmailService enviarEmail = new(_context);
                         //var emailResponse = await enviarEmail.EnivarRecibo(usuarioEmail);
 
+                        ////Se busca la información del parametro en la tabla Parametros por medio de la clave
+                        var parametroSSO = await ParametroHelper.RecuperaParametro("SSOEMA", _db);
+
+                        //Se valida si existe el parametro
+                        if (parametroSSO == null)
+                        {
+                            emailFinal = nuevaCuenta.Email;
+                        }
+                        else
+                        {
+                            if (parametroSSO.ParametroValorInicial == "0")
+                            {
+                                emailFinal = nuevaCuenta.Email;
+                            }
+                            else
+                            {
+                                emailFinal = nuevaCuenta.EmailSSO;
+                            }
+                        }
+
                         try
                         {
                             if (contadorRegistro == tamanio)
@@ -1020,8 +1085,9 @@ namespace LoginBase.Services
 
                                 mail.Subject = parametroSubject.ParametroValorInicial;
                                 mail.IsBodyHtml = true;
-                                mail.Body = parametroBody.ParametroValorInicial + "<p>Su usuario es: <b>" + nuevaCuenta.UsuarioClave + "</b></p>"; 
-                                mail.Bcc.Add(nuevaCuenta.Email);
+                                mail.Body = parametroBody.ParametroValorInicial + "<p>Su usuario es: <b>" + nuevaCuenta.UsuarioClave + "</b></p>";
+                                //mail.Bcc.Add(nuevaCuenta.Email);
+                                mail.Bcc.Add(emailFinal);
 
                                 SmtpServer.Port = Int32.Parse(SMPTPU.ParametroValorInicial);//587;
                                 SmtpServer.Host = smtpcl.ParametroValorInicial;// "SMTP.Office365.com";
@@ -1054,7 +1120,8 @@ namespace LoginBase.Services
                             }
                             else
                             {
-                                mail.Bcc.Add(nuevaCuenta.Email);
+                                //mail.Bcc.Add(nuevaCuenta.Email);
+                                mail.Bcc.Add(emailFinal);
                             }
                         }
                         catch (Exception)
@@ -1094,6 +1161,25 @@ namespace LoginBase.Services
                         ////Se envia el email si todo es correcto
                         //EnvioEmailService enviarEmail = new(_context);
                         //var emailResponse = await enviarEmail.EnivarRecibo(usuarioEmail);
+                        ////Se busca la información del parametro en la tabla Parametros por medio de la clave
+                        var parametroSSO = await ParametroHelper.RecuperaParametro("SSOEMA", _db);
+
+                        //Se valida si existe el parametro
+                        if (parametroSSO == null)
+                        {
+                            emailFinal = nuevaCuenta.Email;
+                        }
+                        else
+                        {
+                            if (parametroSSO.ParametroValorInicial == "0")
+                            {
+                                emailFinal = nuevaCuenta.Email;
+                            }
+                            else
+                            {
+                                emailFinal = nuevaCuenta.EmailSSO;
+                            }
+                        }
 
                         try
                         {
@@ -1108,7 +1194,8 @@ namespace LoginBase.Services
                                 mail.Subject = parametroSubject.ParametroValorInicial;
                                 mail.IsBodyHtml = true;
                                 mail.Body = parametroBody.ParametroValorInicial + "<p>Su usuario es: <b>" + nuevaCuenta.UsuarioClave + "</b></p>";
-                                mail.Bcc.Add(nuevaCuenta.Email);
+                                //mail.Bcc.Add(nuevaCuenta.Email);
+                                mail.Bcc.Add(emailFinal);
 
                                 //MailMessage message = new MailMessage(from, to, subject, body);
                                 SmtpClient client = new SmtpClient(smtpcl.ParametroValorInicial, Int32.Parse(SMPTPU.ParametroValorInicial));
@@ -1142,7 +1229,8 @@ namespace LoginBase.Services
                             }
                             else
                             {
-                                mail.Bcc.Add(nuevaCuenta.Email);
+                                //mail.Bcc.Add(nuevaCuenta.Email);
+                                mail.Bcc.Add(emailFinal);
                             }
                         }
                         catch (Exception)

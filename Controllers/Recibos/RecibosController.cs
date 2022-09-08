@@ -851,6 +851,7 @@ namespace tmf_group.Controllers.Recibos
             //Variable para enviar el email
             var email = string.Empty;
             EnviarRecibo usuarioEmail;
+            string emailFinal;
 
             //var folder = "uploads\\Nomina";
 
@@ -871,9 +872,9 @@ namespace tmf_group.Controllers.Recibos
                 return Ok(respuesta);
             }
 
-            //Se busca la información del usuario en la tabla Users por medio del email
+            //Se busca la información del usuario en la tabla Users por medio del número de empleado
             var usuario = await _context.Usuarios.
-               Where(u => u.EmpleadoNoEmp.ToLower() == model.UsuarioNoEmp.ToLower()).
+               Where(u => u.EmpleadoNoEmp.ToLower() == model.UsuarioNoEmp.ToLower() && u.EmpresaId == model.EmpresaId).
                FirstOrDefaultAsync();
 
             if (usuario == null)
@@ -883,9 +884,29 @@ namespace tmf_group.Controllers.Recibos
                 return Ok(respuesta);
             }
 
+            ////Se busca la información del parametro en la tabla Parametros por medio de la clave
+            var parametroSSO = await ParametroHelper.RecuperaParametro("SSOEMA", _context);
+
+            //Se valida si existe el parametro
+            if (parametroSSO == null)
+            {
+                emailFinal = usuario.Email;
+            }
+            else
+            {
+                if (parametroSSO.ParametroValorInicial == "0")
+                {
+                    emailFinal = usuario.Email;
+                }
+                else
+                {
+                    emailFinal = usuario.EmailSSO;
+                }
+            }
+
             usuarioEmail = new EnviarRecibo
             {
-                Email = usuario.Email,
+                Email = emailFinal//usuario.Email,
                 //PathRecibo = Path.Combine(_enviroment.ContentRootPath, folder, recibo.ReciboPathPDF)
             };
 
@@ -1004,6 +1025,7 @@ namespace tmf_group.Controllers.Recibos
         {
             //Se crea la respuesta para el front
             Respuesta respuesta = new Respuesta();
+            string emailFinal;
             //Variable para enviar el email
             //var email = string.Empty;
             //EnviarRecibo usuarioEmail;

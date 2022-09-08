@@ -62,6 +62,16 @@ namespace tmf_group.Services.Empleados
                         contarEmailExiste++;
                     }
 
+                    //Se valida que el correo institucional no exista 
+                    var existeEmailSSO = recibosTotales.Find(u => u.EmailSSO == usuario.EmailSSO && u.UsuarioEstatusSesion == usuario.UsuarioEstatusSesion && u.EmpleadoNoEmp != usuario.EmpleadoNoEmp && u.EmpresaId != usuario.EmpresaId);
+
+                    if (existeEmailSSO != null)
+                    {
+                        respuesta.Exito = 0;
+                        empleadosEmailExiste += $"{usuario.EmpleadoNoEmp} de la empresa {usuario.EmpresaId} , ";
+                        contarEmailExiste++;
+                    }
+
                     usuarioUpdate.Email = usuario.Email;
 
                     db.Entry(usuarioUpdate).State = EntityState.Modified;

@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Hosting;
 using Fintech.API.Helpers;
 using LoginBase.Services;
 using tmf_group.Services.Empleados;
+using tmf_group.Models.Request;
 
 namespace LoginBase.Controllers
 {
@@ -101,7 +102,8 @@ namespace LoginBase.Controllers
                     UsuarioEstatusSesion = usuario.UsuarioEstatusSesion,
                     Password = password,
                     Email = usuario.Email,
-                    UsuarioClave = usuario.UsuarioClave,
+                    EmailSSO = usuario.EmailSSO,
+                        UsuarioClave = usuario.UsuarioClave,
                     ImagePath = usuario.ImagePath,
                     RolId = usuario.RolId,
                     Rol = rol.Find(r => r.RolId == usuario.RolId),
@@ -184,6 +186,7 @@ namespace LoginBase.Controllers
                     UsuarioEstatusSesion = usuario.UsuarioEstatusSesion,
                     Password = password,
                     Email = usuario.Email,
+                    EmailSSO = usuario.EmailSSO,
                     UsuarioClave = usuario.UsuarioClave,
                     ImagePath = usuario.ImagePath,
                     RolId = usuario.RolId,
@@ -235,6 +238,7 @@ namespace LoginBase.Controllers
                     UsuarioEstatusSesion = usuario.UsuarioEstatusSesion,
                     Password = password,
                     Email = usuario.Email,
+                    EmailSSO = usuario.EmailSSO,
                     UsuarioClave = usuario.UsuarioClave,
                     ImagePath = usuario.ImagePath,
                     RolId = usuario.RolId,
@@ -358,6 +362,17 @@ namespace LoginBase.Controllers
             {
                 respuesta.Exito = 0;
                 respuesta.Mensaje = "La cuenta de email que ingreso ya está registrada.";
+                return Ok(respuesta);
+            }
+
+            var usuarioEmailSSO = await _context.Usuarios.
+              Where(u => u.EmailSSO.ToLower() == usuario.EmailSSO.ToLower() && u.UsuarioId != usuario.UsuarioId).
+              FirstOrDefaultAsync();
+
+            if (usuarioEmailSSO != null)
+            {
+                respuesta.Exito = 0;
+                respuesta.Mensaje = "La cuenta de email institucional que ingreso ya está registrada.";
                 return Ok(respuesta);
             }
 
@@ -486,6 +501,7 @@ namespace LoginBase.Controllers
         public async Task<ActionResult<Usuario>> PostUsuario(Usuario usuario)
         {
             RecuperaPassParametro usuarioEmailModel;
+            string emailFinal;
 
             Respuesta respuesta = new Respuesta();
             if (!ModelState.IsValid)
@@ -511,6 +527,17 @@ namespace LoginBase.Controllers
             if (usuarioEmail != null)
             {
                 respuesta.Mensaje = "La cuenta de email que ingreso ya está registrada.";
+                respuesta.Exito = 0;
+                return Ok(respuesta);
+            }
+
+            var usuarioEmailSSO = await _context.Usuarios.
+               Where(u => u.EmailSSO.ToLower() == usuario.EmailSSO.ToLower()).
+               FirstOrDefaultAsync();
+
+            if (usuarioEmailSSO != null)
+            {
+                respuesta.Mensaje = "La cuenta de email institucional que ingreso ya está registrada.";
                 respuesta.Exito = 0;
                 return Ok(respuesta);
             }
@@ -607,13 +634,32 @@ namespace LoginBase.Controllers
 
             respuesta.Mensaje = "Registro exitoso.";
             respuesta.Exito = 1;
+            ////Se busca la información del parametro en la tabla Parametros por medio de la clave
+            var parametroSSO = await ParametroHelper.RecuperaParametro("SSOEMA", _context);
+
+            //Se valida si existe el parametro
+            if (parametroSSO == null)
+            {
+                emailFinal = usuario.Email;
+            }
+            else
+            {
+                if (parametroSSO.ParametroValorInicial == "0")
+                {
+                    emailFinal = usuario.Email;
+                }
+                else
+                {
+                    emailFinal = usuario.EmailSSO;
+                }
+            }
+
             usuarioEmailModel = new RecuperaPassParametro
             {
-                Email = usuario.Email,
+                Email = emailFinal,//usuario.Email,
                 UsuarioFechaLimite = DateTime.Now.AddMinutes(10),
                 UsuarioId = usuario.UsuarioId,
                 UsuarioClave = usuario.UsuarioClave
-                
             };
 
             //Se envia el email si todo es correcto
@@ -649,13 +695,24 @@ namespace LoginBase.Controllers
             return Ok(respuesta);
         }
 
-        [HttpPost("ActualizarEmpMasivo")]
+        [HttpPost("ActualizarEmpEmailMasivo")]
 
-        public async Task<ActionResult<Respuesta>> ActualizarEmpMasivo(IEnumerable<Usuario> usuarios)
+        public async Task<ActionResult<Respuesta>> ActualizarEmpEmailMasivo(IEnumerable<Usuario> usuarios)
         {
             Respuesta respuesta = new();
 
             respuesta = await ActualizarEmailMasivo.ActualizarEmail(usuarios, _context);
+
+            return Ok(respuesta);
+        }
+
+        [HttpPost("ActualizarEmpEmpresaMasivo")]
+
+        public async Task<ActionResult<Respuesta>> ActualizarEmpEmpresaMasivo(IEnumerable<UpdateEmpresaUsuario> usuarios)
+        {
+            Respuesta respuesta = new();
+
+            respuesta = await ActualizarEmpresaMasivo.ActualizarEmpresa(usuarios, _context);
 
             return Ok(respuesta);
         }
@@ -681,11 +738,13 @@ namespace LoginBase.Controllers
             Respuesta respuesta = new Respuesta();
             int contadorNoEmp = 0;
             int contadorEmail= 0;
-            int contadorNoEmpleado = 0;
+            int contadorEmailSSO = 0;
+            //int contadorNoEmpleado = 0;
             int contadorNoEmpSinRegistro = 0;
 
             string noEmp = "";
             string email = "";
+            string emailSSO = "";
             string noEmpSinRegistro = "";
 
             var empleados = await _context.Usuarios.ToListAsync();
@@ -716,7 +775,17 @@ namespace LoginBase.Controllers
                     //return Ok(respuesta);
                 }
 
-              
+                var usuarioEmailSSO = empleados.Find(u => u.EmailSSO.ToLower() == usuario.EmailSSO.ToLower() && u.UsuarioEstatusSesion == false);//await _context.Usuarios.Where(u => u.Email.ToLower() == usuario.Email.ToLower() && u.UsuarioEstatusSesion == false).FirstOrDefaultAsync();
+
+                //SE COMENTA PARA QA
+                if (usuarioEmailSSO != null)
+                {
+                    //respuesta.Mensaje = "La cuenta de email que ingreso ya está registrada.";
+                    respuesta.Exito = 0;
+                    contadorEmailSSO += 1;
+                    emailSSO += usuarioEmail.EmailSSO + ", ";
+                    //return Ok(respuesta);
+                }
 
                 if (respuesta.Exito == 1)
                     {
@@ -811,6 +880,12 @@ namespace LoginBase.Controllers
                 respuesta.Exito = 0;
             }
 
+            if (contadorEmailSSO > 0)
+            {
+                var quitarComaEmailSSO = emailSSO.Substring(0, emailSSO.Length - 2);
+                respuesta.Mensaje += " Los siguientes email institucionales ya están registrados, debe actualizarlos: " + quitarComaEmailSSO + ". ";
+                respuesta.Exito = 0;
+            }
 
 
             if (contadorNoEmpSinRegistro > 0)

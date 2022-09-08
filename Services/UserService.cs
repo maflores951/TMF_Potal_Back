@@ -47,7 +47,7 @@ namespace LoginBase.Services
                 //var usuario = _db.Usuarios.Where(d => d.Email == model.Email && cifradoHelper.DecryptStringAES(d.Password) == sPassword).FirstOrDefault();
 
                 //Se recupera el usuario con respecto al email
-                var usuario = _db.Usuarios.Where(d => d.UsuarioClave == model.Email).FirstOrDefault();
+                var usuario = _db.Usuarios.Where(d => d.UsuarioClave == model.Email && d.UsuarioEstatusSesion == false).FirstOrDefault();
 
                 //Si no existe el usuario retorna un null
                 if (usuario == null)
@@ -101,7 +101,7 @@ namespace LoginBase.Services
             using (var db = _db)
             {
                 //Se recupera el usuario con respecto al email
-                var usuario = _db.Usuarios.Where(d => d.Email == email).FirstOrDefault();
+                var usuario = _db.Usuarios.Where(d => d.EmailSSO == email && d.UsuarioEstatusSesion == false).FirstOrDefault();
 
                 //Si no existe el usuario retorna un null
                 if (usuario == null)
