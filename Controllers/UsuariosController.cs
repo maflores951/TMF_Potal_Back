@@ -353,6 +353,10 @@ namespace LoginBase.Controllers
             //{
             //    usuario.Password = usuarioBefore.Password;
             //}
+            var usuarioPreUpdate = await _context.Usuarios.
+              Where(u => u.UsuarioId == usuario.UsuarioId).
+              FirstOrDefaultAsync();
+
 
             var usuarioEmail = await _context.Usuarios.
               Where(u => u.Email.ToLower() == usuario.Email.ToLower() && u.UsuarioId != usuario.UsuarioId).
@@ -415,7 +419,17 @@ namespace LoginBase.Controllers
             usuario.UsuarioFechaLimite = today.AddDays(Int32.Parse(diasPass.ParametroValorInicial));
             _context.Entry(usuario).State = EntityState.Modified;
 
-           
+            //Si la empresa es diferente se actualizan los recibos del empleado
+            if (usuarioPreUpdate.EmpresaId != usuario.EmpresaId && usuario.EmpresaId != null)
+            {
+                var recibosUpdate = _context.Recibos.Where(u => u.UsuarioNoEmp == usuario.EmpleadoNoEmp && u.EmpresaId == usuario.EmpresaId).ToList();
+
+                foreach (var recibo in recibosUpdate)
+                {
+                    recibo.EmpresaId = (int)usuario.EmpresaId;
+                    _context.Entry(recibo).State = EntityState.Modified;
+                }
+            }
 
             try
             {
