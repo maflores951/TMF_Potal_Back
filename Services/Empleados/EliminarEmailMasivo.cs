@@ -1,8 +1,10 @@
 ﻿using LoginBase.Models;
 using LoginBase.Models.Response;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,7 +12,7 @@ namespace tmf_group.Services.Empleados
 {
     public class EliminarEmailMasivo
     {
-        public async static Task<Respuesta> EliminarEmail(IEnumerable<Usuario> usuarios, DataContext context)
+        public async static Task<Respuesta> EliminarEmail(IEnumerable<Usuario> usuarios, DataContext context, IWebHostEnvironment enviroment)
         {
             Respuesta respuesta = new()
             {
@@ -44,6 +46,52 @@ namespace tmf_group.Services.Empleados
                     usuarioUpdate.UsuarioEstatusSesion = true;
 
                     db.Entry(usuarioUpdate).State = EntityState.Modified;
+
+                    //Eliminar recibos
+                    var folder = "uploads\\Nomina";
+
+                    //Se valida que el número de empleado exista 
+                    var recibos = await context.Recibos.Where(u =>
+                    u.EmpresaId == usuarioUpdate.EmpresaId &&
+                    u.UsuarioNoEmp == usuarioUpdate.EmpleadoNoEmp).ToListAsync();
+
+                    foreach (var recibo in recibos)
+                    {
+                        var pathReciboPDF = Path.Combine(enviroment.ContentRootPath, folder, recibo.ReciboPathPDF);
+
+                        var pathReciboXML = Path.Combine(enviroment.ContentRootPath, folder, recibo.ReciboPathXML);
+
+                        if (System.IO.File.Exists(pathReciboPDF))
+                        {
+                            //Se elimina el archivo
+                            try
+                            {
+                                System.IO.File.Delete(pathReciboPDF);
+                            }
+                            catch (Exception)
+                            {
+                                respuesta.Mensaje = "Error al eliminar el archivo, intente de nuevo o contacte al administrador del sistema.";
+                                respuesta.Exito = 0;
+                                //return Ok(respuesta);
+                            }
+                        }
+
+                        if (System.IO.File.Exists(pathReciboXML))
+                        {
+                            //Se elimina el archivo
+                            try
+                            {
+                                System.IO.File.Delete(pathReciboXML);
+                            }
+                            catch (Exception)
+                            {
+                                respuesta.Mensaje = "Error al eliminar el archivo, intente de nuevo o contacte al administrador del sistema.";
+                                respuesta.Exito = 0;
+                                //return Ok(respuesta);
+                            }
+                        }
+                        context.Recibos.Remove(recibo);
+                    }
                 }
 
                 try

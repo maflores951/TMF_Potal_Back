@@ -124,6 +124,8 @@ namespace LoginBase.Controllers
             var tieneEmpleadoNoEmp = false;
 
             var tieneEmail = false;
+
+            var tieneEmailSSO = false;
             //return await _context.Usuarios.ToListAsync();
             var responses = new List<Usuario>();
 
@@ -135,6 +137,11 @@ namespace LoginBase.Controllers
             if (usuarioModel.Email != "")
             {
                 tieneEmail = true;
+            }
+
+            if (usuarioModel.EmailSSO != "")
+            {
+                tieneEmailSSO = true;
             }
 
             if (tieneEmpleadoNoEmp && tieneEmail)
@@ -153,6 +160,27 @@ namespace LoginBase.Controllers
             }
 
             if (tieneEmpleadoNoEmp == false && tieneEmail == false)
+            {
+                usuariosFiltro = await _context.Usuarios.Where(u => u.UsuarioEstatusSesion == false && u.EmpresaId == usuarioModel.EmpresaId && u.EmpleadoNoEmp != null).ToListAsync();
+            }
+
+            //SSO
+            if (tieneEmpleadoNoEmp && tieneEmailSSO)
+            {
+                usuariosFiltro = await _context.Usuarios.Where(u => u.UsuarioEstatusSesion == false && u.EmpresaId == usuarioModel.EmpresaId && u.EmpleadoNoEmp == usuarioModel.EmpleadoNoEmp && u.EmailSSO == usuarioModel.EmailSSO && u.EmpleadoNoEmp != null).ToListAsync();
+            }
+
+            if (tieneEmpleadoNoEmp && tieneEmailSSO == false)
+            {
+                usuariosFiltro = await _context.Usuarios.Where(u => u.UsuarioEstatusSesion == false && u.EmpresaId == usuarioModel.EmpresaId && u.EmpleadoNoEmp == usuarioModel.EmpleadoNoEmp && u.EmpleadoNoEmp != null).ToListAsync();
+            }
+
+            if (tieneEmpleadoNoEmp == false && tieneEmailSSO)
+            {
+                usuariosFiltro = await _context.Usuarios.Where(u => u.UsuarioEstatusSesion == false && u.EmpresaId == usuarioModel.EmpresaId && u.EmailSSO == usuarioModel.EmailSSO && u.EmpleadoNoEmp != null).ToListAsync();
+            }
+
+            if (tieneEmpleadoNoEmp == false && tieneEmailSSO == false)
             {
                 usuariosFiltro = await _context.Usuarios.Where(u => u.UsuarioEstatusSesion == false && u.EmpresaId == usuarioModel.EmpresaId && u.EmpleadoNoEmp != null).ToListAsync();
             }
@@ -737,7 +765,7 @@ namespace LoginBase.Controllers
         {
             Respuesta respuesta = new();
 
-            respuesta = await EliminarEmailMasivo.EliminarEmail(usuarios, _context);
+            respuesta = await EliminarEmailMasivo.EliminarEmail(usuarios, _context, _enviroment);
 
             return Ok(respuesta);
         }

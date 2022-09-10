@@ -1025,6 +1025,9 @@ namespace LoginBase.Services
                     return respuesta;
                 }
 
+                ////Se busca la información del parametro en la tabla Parametros por medio de la clave
+                var parametroSSO = await ParametroHelper.RecuperaParametro("SSOEMA", _db);
+
                 if (SMPTAU.ParametroValorInicial.Equals("1"))
                 {
                     foreach (var nuevaCuenta in empleadosEmail)
@@ -1053,8 +1056,7 @@ namespace LoginBase.Services
                         //EnvioEmailService enviarEmail = new(_context);
                         //var emailResponse = await enviarEmail.EnivarRecibo(usuarioEmail);
 
-                        ////Se busca la información del parametro en la tabla Parametros por medio de la clave
-                        var parametroSSO = await ParametroHelper.RecuperaParametro("SSOEMA", _db);
+                       
 
                         //Se valida si existe el parametro
                         if (parametroSSO == null)
@@ -1162,7 +1164,7 @@ namespace LoginBase.Services
                         //EnvioEmailService enviarEmail = new(_context);
                         //var emailResponse = await enviarEmail.EnivarRecibo(usuarioEmail);
                         ////Se busca la información del parametro en la tabla Parametros por medio de la clave
-                        var parametroSSO = await ParametroHelper.RecuperaParametro("SSOEMA", _db);
+                        //var parametroSSO = await ParametroHelper.RecuperaParametro("SSOEMA", _db);
 
                         //Se valida si existe el parametro
                         if (parametroSSO == null)
