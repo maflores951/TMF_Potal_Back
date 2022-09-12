@@ -90,6 +90,7 @@ namespace tmf_group.Services.Empleados
                     foreach (var recibo in recibosUpdate)
                     {
                         recibo.EmpresaId = usuario.EmpresaIdNew;
+                        //recibo.UsuarioNoEmp = usuario.EmpleadoNoEmp;
                         db.Entry(recibo).State = EntityState.Modified;
                     }
 
@@ -130,5 +131,7 @@ namespace tmf_group.Services.Empleados
 
             return respuesta;
         }
+
+      
     }
 }

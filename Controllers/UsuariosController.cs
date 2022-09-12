@@ -375,19 +375,25 @@ namespace LoginBase.Controllers
 
             //return NoContent();
 
-            //var usuarioBefore = await _context.Usuarios.FindAsync(id);
+            var usuarioBefore = await _context.Usuarios.FindAsync(id);
+            var empresaIdPreUpdate = usuarioBefore.EmpresaId;
+            var usuarioNoPreUpdate = usuarioBefore.EmpleadoNoEmp;
 
             //if (String.IsNullOrEmpty(usuario.Password))
             //{
             //    usuario.Password = usuarioBefore.Password;
             //}
-            var usuarioPreUpdate = await _context.Usuarios.
-              Where(u => u.UsuarioId == usuario.UsuarioId).
-              FirstOrDefaultAsync();
+
+
+
+
+            //var empresaIdPreUpdate = ActualizarEmpresaMasivo.RecuperaEmpresa(usuario.UsuarioId, _context);
+
+
 
 
             var usuarioEmail = await _context.Usuarios.
-              Where(u => u.Email.ToLower() == usuario.Email.ToLower() && u.UsuarioId != usuario.UsuarioId).
+              Where(u => u.Email.ToLower() == usuario.Email.ToLower() && u.UsuarioId != usuario.UsuarioId & u.UsuarioEstatusSesion == false).
               FirstOrDefaultAsync();
 
             if (usuarioEmail != null)
@@ -397,16 +403,20 @@ namespace LoginBase.Controllers
                 return Ok(respuesta);
             }
 
-            var usuarioEmailSSO = await _context.Usuarios.
-              Where(u => u.EmailSSO.ToLower() == usuario.EmailSSO.ToLower() && u.UsuarioId != usuario.UsuarioId).
+            if (usuario.EmailSSO != null)
+            {
+                var usuarioEmailSSO = await _context.Usuarios.
+              Where(u => u.EmailSSO.ToLower() == usuario.EmailSSO.ToLower() && u.UsuarioId != usuario.UsuarioId & u.UsuarioEstatusSesion == false).
               FirstOrDefaultAsync();
 
-            if (usuarioEmailSSO != null)
-            {
-                respuesta.Exito = 0;
-                respuesta.Mensaje = "La cuenta de email institucional que ingreso ya está registrada.";
-                return Ok(respuesta);
+                if (usuarioEmailSSO != null)
+                {
+                    respuesta.Exito = 0;
+                    respuesta.Mensaje = "La cuenta de email institucional que ingreso ya está registrada.";
+                    return Ok(respuesta);
+                }
             }
+            
 
             if (usuario.ImageArray != null && usuario.ImageArray.Length > 0)
             {
@@ -444,21 +454,101 @@ namespace LoginBase.Controllers
              Where(u => u.ParametroClave.ToLower() == "SETEXP").
              FirstOrDefaultAsync();
 
+
             usuario.UsuarioFechaLimite = today.AddDays(Int32.Parse(diasPass.ParametroValorInicial));
-            _context.Entry(usuario).State = EntityState.Modified;
+
+            usuarioBefore.UsuarioId = usuario.UsuarioId;
+            usuarioBefore.UsuarioEstatusSesion = usuario.UsuarioEstatusSesion;
+            usuarioBefore.Email = usuario.Email;
+            usuarioBefore.EmpleadoNoEmp = usuario.EmpleadoNoEmp;
+            usuarioBefore.EmpresaId = usuario.EmpresaId;
+            usuarioBefore.ImageArray = usuario.ImageArray;
+            usuarioBefore.ImageBase64 = usuario.ImageBase64;
+            usuarioBefore.ImagePath = usuario.ImagePath;
+            usuarioBefore.Password = usuario.Password;
+            usuarioBefore.RolId = usuario.RolId;
+            usuarioBefore.UsuarioApellidoM = usuario.UsuarioApellidoM;
+            usuarioBefore.UsuarioApellidoP = usuario.UsuarioApellidoP;
+            usuarioBefore.UsuarioClave = usuario.UsuarioClave;
+            usuarioBefore.UsuarioFechaLimite = usuario.UsuarioFechaLimite;
+            usuarioBefore.UsuarioNombre = usuario.UsuarioNombre;
+            usuarioBefore.UsuarioNumConfirmacion = usuario.UsuarioNumConfirmacion;
+            usuarioBefore.UsuarioToken = usuario.UsuarioToken;
+            usuarioBefore.EmailSSO = usuario.EmailSSO;
+
+            try
+            {
+                _context.Entry(usuarioBefore).State = EntityState.Modified;
+            }
+            catch (Exception es)
+            {          
+                respuesta.Mensaje = es.Message;
+                respuesta.Exito = 0;
+            }
+
 
             //Si la empresa es diferente se actualizan los recibos del empleado
-            if (usuarioPreUpdate.EmpresaId != usuario.EmpresaId && usuario.EmpresaId != null)
+            if (empresaIdPreUpdate != usuario.EmpresaId && usuario.EmpresaId != null)
             {
-                var recibosUpdate = _context.Recibos.Where(u => u.UsuarioNoEmp == usuario.EmpleadoNoEmp && u.EmpresaId == usuario.EmpresaId).ToList();
+                var recibosUpdate = _context.Recibos.Where(u => u.UsuarioNoEmp == usuario.EmpleadoNoEmp && u.EmpresaId == empresaIdPreUpdate).ToList();
 
                 foreach (var recibo in recibosUpdate)
                 {
                     recibo.EmpresaId = (int)usuario.EmpresaId;
+                    recibo.UsuarioNoEmp = usuario.EmpleadoNoEmp;
                     _context.Entry(recibo).State = EntityState.Modified;
                 }
             }
 
+            if (usuario.UsuarioEstatusSesion == true)
+            {
+                //Eliminar recibos
+                var folderRecibos = "uploads\\Nomina";
+
+                //Se valida que el número de empleado exista 
+                var recibos = await _context.Recibos.Where(u =>
+                u.EmpresaId == usuario.EmpresaId &&
+                u.UsuarioNoEmp == usuario.EmpleadoNoEmp).ToListAsync();
+
+                foreach (var recibo in recibos)
+                {
+                    var pathReciboPDF = Path.Combine(_enviroment.ContentRootPath, folderRecibos, recibo.ReciboPathPDF);
+
+                    var pathReciboXML = Path.Combine(_enviroment.ContentRootPath, folderRecibos, recibo.ReciboPathXML);
+
+                    if (System.IO.File.Exists(pathReciboPDF))
+                    {
+                        //Se elimina el archivo
+                        try
+                        {
+                            System.IO.File.Delete(pathReciboPDF);
+                        }
+                        catch (Exception)
+                        {
+                            respuesta.Mensaje = "Error al eliminar el archivo, intente de nuevo o contacte al administrador del sistema.";
+                            respuesta.Exito = 0;
+                            //return Ok(respuesta);
+                        }
+                    }
+
+                    if (System.IO.File.Exists(pathReciboXML))
+                    {
+                        //Se elimina el archivo
+                        try
+                        {
+                            System.IO.File.Delete(pathReciboXML);
+                        }
+                        catch (Exception)
+                        {
+                            respuesta.Mensaje = "Error al eliminar el archivo, intente de nuevo o contacte al administrador del sistema.";
+                            respuesta.Exito = 0;
+                            //return Ok(respuesta);
+                        }
+                    }
+                    _context.Recibos.Remove(recibo);
+                }
+            }
+            
             try
             {
                 await _context.SaveChangesAsync();
@@ -552,7 +642,7 @@ namespace LoginBase.Controllers
             }
 
             var usuarioClave = await _context.Usuarios.
-             Where(u => u.UsuarioClave.ToLower() == usuario.UsuarioClave.ToLower()).
+             Where(u => u.UsuarioClave.ToLower() == usuario.UsuarioClave.ToLower() && u.UsuarioEstatusSesion == false).
              FirstOrDefaultAsync();
 
             if (usuarioClave != null)
@@ -563,7 +653,7 @@ namespace LoginBase.Controllers
             }
 
             var usuarioEmail = await _context.Usuarios.
-               Where(u => u.Email.ToLower() == usuario.Email.ToLower()).
+               Where(u => u.Email.ToLower() == usuario.Email.ToLower() && u.UsuarioEstatusSesion == false).
                FirstOrDefaultAsync();
 
             if (usuarioEmail != null)
@@ -573,17 +663,19 @@ namespace LoginBase.Controllers
                 return Ok(respuesta);
             }
 
-            var usuarioEmailSSO = await _context.Usuarios.
-               Where(u => u.EmailSSO.ToLower() == usuario.EmailSSO.ToLower()).
+            if (usuario.EmailSSO != null)
+            {
+                var usuarioEmailSSO = await _context.Usuarios.
+               Where(u => u.EmailSSO.ToLower() == usuario.EmailSSO.ToLower() && u.UsuarioEstatusSesion == false).
                FirstOrDefaultAsync();
 
-            if (usuarioEmailSSO != null)
-            {
-                respuesta.Mensaje = "La cuenta de email institucional que ingreso ya está registrada.";
-                respuesta.Exito = 0;
-                return Ok(respuesta);
+                if (usuarioEmailSSO != null)
+                {
+                    respuesta.Mensaje = "La cuenta de email institucional que ingreso ya está registrada.";
+                    respuesta.Exito = 0;
+                    return Ok(respuesta);
+                }
             }
-
 
             //var usuarioNumero = await _context.Usuarios.
             //    Where(u => u.EmpleadoNoEmp.ToLower() == usuario.EmpleadoNoEmp.ToLower() && u.EmpresaId == usuario.EmpresaId).FirstOrDefaultAsync();
