@@ -43,7 +43,7 @@ namespace tmf_group.Services.Empleados
                 foreach (var usuario in usuarios)
                 {
                     //Se valida que existe el usuario
-                    var usuarioUpdate = recibosTotales.Find(u => u.EmpleadoNoEmp == usuario.EmpleadoNoEmp && u.EmpresaId == usuario.EmpresaId && u.UsuarioEstatusSesion == usuario.UsuarioEstatusSesion);
+                    var usuarioUpdate = recibosTotales.Find(u => u.EmpleadoNoEmp == usuario.EmpleadoNoEmp && u.EmpresaId == usuario.EmpresaId && u.UsuarioEstatusSesion == false);
 
                     if (usuarioUpdate == null)
                     {
@@ -53,7 +53,7 @@ namespace tmf_group.Services.Empleados
                     }
                         
                     //Se valida que el correo no exista 
-                    var existeEmail = recibosTotales.Find(u => u.Email == usuario.Email && u.UsuarioEstatusSesion == usuario.UsuarioEstatusSesion && u.EmpleadoNoEmp != usuario.EmpleadoNoEmp && u.EmpresaId != usuario.EmpresaId);
+                    var existeEmail = recibosTotales.Find(u => u.Email == usuario.Email && u.UsuarioEstatusSesion == false && u.EmpleadoNoEmp != usuario.EmpleadoNoEmp && u.EmpresaId != usuario.EmpresaId);
 
                     if (existeEmail != null)
                     {
@@ -62,16 +62,17 @@ namespace tmf_group.Services.Empleados
                         contarEmailExiste++;
                     }
 
-                    //Se valida que el correo institucional no exista 
-                    var existeEmailSSO = recibosTotales.Find(u => u.EmailSSO == usuario.EmailSSO && u.UsuarioEstatusSesion == usuario.UsuarioEstatusSesion && u.EmpleadoNoEmp != usuario.EmpleadoNoEmp && u.EmpresaId != usuario.EmpresaId);
+                    ////Se valida que el correo institucional no exista 
+                    //var existeEmailSSO = recibosTotales.Find(u => u.EmailSSO == usuario.EmailSSO && u.UsuarioEstatusSesion == usuario.UsuarioEstatusSesion && u.EmpleadoNoEmp != usuario.EmpleadoNoEmp && u.EmpresaId != usuario.EmpresaId);
 
-                    if (existeEmailSSO != null)
-                    {
-                        respuesta.Exito = 0;
-                        empleadosEmailExiste += $"{usuario.EmpleadoNoEmp} de la empresa {usuario.EmpresaId} , ";
-                        contarEmailExiste++;
-                    }
+                    //if (existeEmailSSO != null)
+                    //{
+                    //    respuesta.Exito = 0;
+                    //    empleadosEmailExiste += $"{usuario.EmpleadoNoEmp} de la empresa {usuario.EmpresaId} , ";
+                    //    contarEmailExiste++;
+                    //}
 
+                    //var addr = new System.Net.Mail.MailAddress(usuario.Email);
                     usuarioUpdate.Email = usuario.Email;
 
                     db.Entry(usuarioUpdate).State = EntityState.Modified;

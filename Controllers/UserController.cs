@@ -43,15 +43,24 @@ namespace LoginBase.Controllers
             Usuario usuario = new Usuario();
 
             //Se valida el login y se crea el token
-            var userResponse = _userService.Auth(model);
+            var response = _userService.Auth(model);
 
-            //Si no existe se asigna un mensaje de que el usuario es incorrecto y se retorna la respuesta
-            if (userResponse == null)
+            if (response.Exito == 0)
             {
                 respuesta.Exito = 0;
-                respuesta.Mensaje = "Usuario o contraseña incorrecta";
+                respuesta.Mensaje = response.Mensaje;
                 return Ok(respuesta);
             }
+
+            var userResponse = (Usuario)response.Data;
+
+            ////Si no existe se asigna un mensaje de que el usuario es incorrecto y se retorna la respuesta
+            //if (userResponse == null)
+            //{
+            //    respuesta.Exito = 0;
+            //    respuesta.Mensaje = "Usuario o contraseña incorrecta.";
+            //    return Ok(respuesta);
+            //}
 
             if (userResponse.UsuarioFechaLimite < DateTime.Now)
             {

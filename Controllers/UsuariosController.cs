@@ -15,6 +15,7 @@ using Fintech.API.Helpers;
 using LoginBase.Services;
 using tmf_group.Services.Empleados;
 using tmf_group.Models.Request;
+using Microsoft.IdentityModel.Tokens;
 
 namespace LoginBase.Controllers
 {
@@ -403,7 +404,7 @@ namespace LoginBase.Controllers
                 return Ok(respuesta);
             }
 
-            if (usuario.EmailSSO != null)
+            if (!usuario.EmailSSO.IsNullOrEmpty())
             {
                 var usuarioEmailSSO = await _context.Usuarios.
               Where(u => u.EmailSSO.ToLower() == usuario.EmailSSO.ToLower() && u.UsuarioId != usuario.UsuarioId & u.UsuarioEstatusSesion == false).
@@ -663,7 +664,7 @@ namespace LoginBase.Controllers
                 return Ok(respuesta);
             }
 
-            if (usuario.EmailSSO != null)
+            if (!usuario.EmailSSO.IsNullOrEmpty())
             {
                 var usuarioEmailSSO = await _context.Usuarios.
                Where(u => u.EmailSSO.ToLower() == usuario.EmailSSO.ToLower() && u.UsuarioEstatusSesion == false).
@@ -830,8 +831,7 @@ namespace LoginBase.Controllers
         }
 
         [HttpPost("ActualizarEmpEmailMasivo")]
-
-        public async Task<ActionResult<Respuesta>> ActualizarEmpEmailMasivo(IEnumerable<Usuario> usuarios)
+        public async Task<ActionResult<Respuesta>> ActualizarEmpEmailMasivo(List<Usuario> usuarios)
         {
             Respuesta respuesta = new();
 
@@ -842,7 +842,7 @@ namespace LoginBase.Controllers
 
         [HttpPost("ActualizarEmpEmpresaMasivo")]
 
-        public async Task<ActionResult<Respuesta>> ActualizarEmpEmpresaMasivo(IEnumerable<UpdateEmpresaUsuario> usuarios)
+        public async Task<ActionResult<Respuesta>> ActualizarEmpEmpresaMasivo(List<UpdateEmpresaUsuario> usuarios)
         {
             Respuesta respuesta = new();
 
@@ -897,7 +897,7 @@ namespace LoginBase.Controllers
                         //return Ok(respuesta);
                     }
 
-                var usuarioEmail = empleados.Find(u => u.Email.ToLower() == usuario.Email.ToLower() && u.UsuarioEstatusSesion == false);//await _context.Usuarios.Where(u => u.Email.ToLower() == usuario.Email.ToLower() && u.UsuarioEstatusSesion == false).FirstOrDefaultAsync();
+                var usuarioEmail = empleados.Find(u => u.Email == usuario.Email && u.UsuarioEstatusSesion == false);//await _context.Usuarios.Where(u => u.Email.ToLower() == usuario.Email.ToLower() && u.UsuarioEstatusSesion == false).FirstOrDefaultAsync();
 
                 //SE COMENTA PARA QA
                 if (usuarioEmail != null)
@@ -909,17 +909,21 @@ namespace LoginBase.Controllers
                     //return Ok(respuesta);
                 }
 
-                var usuarioEmailSSO = empleados.Find(u => u.EmailSSO.ToLower() == usuario.EmailSSO.ToLower() && u.UsuarioEstatusSesion == false);//await _context.Usuarios.Where(u => u.Email.ToLower() == usuario.Email.ToLower() && u.UsuarioEstatusSesion == false).FirstOrDefaultAsync();
-
-                //SE COMENTA PARA QA
-                if (usuarioEmailSSO != null)
+                if (!usuario.EmailSSO.IsNullOrEmpty())
                 {
-                    //respuesta.Mensaje = "La cuenta de email que ingreso ya está registrada.";
-                    respuesta.Exito = 0;
-                    contadorEmailSSO += 1;
-                    emailSSO += usuarioEmail.EmailSSO + ", ";
-                    //return Ok(respuesta);
+                    var usuarioEmailSSO = empleados.Find(u => u.EmailSSO == usuario.EmailSSO && u.UsuarioEstatusSesion == false);//await _context.Usuarios.Where(u => u.Email.ToLower() == usuario.Email.ToLower() && u.UsuarioEstatusSesion == false).FirstOrDefaultAsync();
+
+                    //SE COMENTA PARA QA
+                    if (usuarioEmailSSO != null)
+                    {
+                        //respuesta.Mensaje = "La cuenta de email que ingreso ya está registrada.";
+                        respuesta.Exito = 0;
+                        contadorEmailSSO += 1;
+                        emailSSO += usuarioEmail.EmailSSO + ", ";
+                        //return Ok(respuesta);
+                    }
                 }
+               
 
                 if (respuesta.Exito == 1)
                     {
@@ -932,6 +936,7 @@ namespace LoginBase.Controllers
                     usuario.UsuarioFechaLimite = today.AddDays(Int32.Parse(diasPass.ParametroValorInicial));
                     //usuarioEmail.Password = usuario.Password;
 
+                    //Password default
                     usuario.Password = cifradoHelper.EncryptStringAES("UsuarioTmF28");
 
                     _context.Usuarios.Add(usuario);

@@ -33,8 +33,9 @@ namespace tmf_group.Services.Empleados
 
                 foreach (var usuario in usuarios)
                 {
+                    respuesta.Exito = 1;
                     //Se valida que existe el usuario
-                    var usuarioUpdate = recibosTotales.Find(u => u.EmpleadoNoEmp == usuario.EmpleadoNoEmp && u.EmpresaId == usuario.EmpresaId && u.UsuarioEstatusSesion == usuario.UsuarioEstatusSesion);
+                    var usuarioUpdate = recibosTotales.Find(u => u.EmpleadoNoEmp == usuario.EmpleadoNoEmp && u.EmpresaId == usuario.EmpresaId && u.UsuarioEstatusSesion == false);
 
                     if (usuarioUpdate == null)
                     {
@@ -43,55 +44,59 @@ namespace tmf_group.Services.Empleados
                         contarNoExiste++;
                     }
 
-                    usuarioUpdate.UsuarioEstatusSesion = true;
-
-                    db.Entry(usuarioUpdate).State = EntityState.Modified;
-
-                    //Eliminar recibos
-                    var folder = "uploads\\Nomina";
-
-                    //Se valida que el número de empleado exista 
-                    var recibos = await context.Recibos.Where(u =>
-                    u.EmpresaId == usuarioUpdate.EmpresaId &&
-                    u.UsuarioNoEmp == usuarioUpdate.EmpleadoNoEmp).ToListAsync();
-
-                    foreach (var recibo in recibos)
+                    if (respuesta.Exito == 1)
                     {
-                        var pathReciboPDF = Path.Combine(enviroment.ContentRootPath, folder, recibo.ReciboPathPDF);
+                        usuarioUpdate.UsuarioEstatusSesion = true;
 
-                        var pathReciboXML = Path.Combine(enviroment.ContentRootPath, folder, recibo.ReciboPathXML);
+                        db.Entry(usuarioUpdate).State = EntityState.Modified;
 
-                        if (System.IO.File.Exists(pathReciboPDF))
+                        //Eliminar recibos
+                        var folder = "uploads\\Nomina";
+
+                        //Se valida que el número de empleado exista 
+                        var recibos = await context.Recibos.Where(u =>
+                        u.EmpresaId == usuarioUpdate.EmpresaId &&
+                        u.UsuarioNoEmp == usuarioUpdate.EmpleadoNoEmp).ToListAsync();
+
+                        foreach (var recibo in recibos)
                         {
-                            //Se elimina el archivo
-                            try
-                            {
-                                System.IO.File.Delete(pathReciboPDF);
-                            }
-                            catch (Exception)
-                            {
-                                respuesta.Mensaje = "Error al eliminar el archivo, intente de nuevo o contacte al administrador del sistema.";
-                                respuesta.Exito = 0;
-                                //return Ok(respuesta);
-                            }
-                        }
+                            var pathReciboPDF = Path.Combine(enviroment.ContentRootPath, folder, recibo.ReciboPathPDF);
 
-                        if (System.IO.File.Exists(pathReciboXML))
-                        {
-                            //Se elimina el archivo
-                            try
+                            var pathReciboXML = Path.Combine(enviroment.ContentRootPath, folder, recibo.ReciboPathXML);
+
+                            if (System.IO.File.Exists(pathReciboPDF))
                             {
-                                System.IO.File.Delete(pathReciboXML);
+                                //Se elimina el archivo
+                                try
+                                {
+                                    System.IO.File.Delete(pathReciboPDF);
+                                }
+                                catch (Exception)
+                                {
+                                    respuesta.Mensaje = "Error al eliminar el archivo, intente de nuevo o contacte al administrador del sistema.";
+                                    respuesta.Exito = 0;
+                                    //return Ok(respuesta);
+                                }
                             }
-                            catch (Exception)
+
+                            if (System.IO.File.Exists(pathReciboXML))
                             {
-                                respuesta.Mensaje = "Error al eliminar el archivo, intente de nuevo o contacte al administrador del sistema.";
-                                respuesta.Exito = 0;
-                                //return Ok(respuesta);
+                                //Se elimina el archivo
+                                try
+                                {
+                                    System.IO.File.Delete(pathReciboXML);
+                                }
+                                catch (Exception)
+                                {
+                                    respuesta.Mensaje = "Error al eliminar el archivo, intente de nuevo o contacte al administrador del sistema.";
+                                    respuesta.Exito = 0;
+                                    //return Ok(respuesta);
+                                }
                             }
+                            context.Recibos.Remove(recibo);
                         }
-                        context.Recibos.Remove(recibo);
                     }
+                    
                 }
 
                 try
@@ -107,7 +112,12 @@ namespace tmf_group.Services.Empleados
 
                 if (contarNoExiste > 0)
                 {
+                    respuesta.Exito = 0;
                     empleadosNoExisten = empleadosNoExisten.Substring(empleadosNoExisten.Length - 2) + ".";
+                }
+                else
+                {
+                    respuesta.Exito = 1;
                 }
 
                 respuesta.Mensaje = empleadosNoExisten;

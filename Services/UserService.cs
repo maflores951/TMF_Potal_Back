@@ -30,11 +30,12 @@ namespace LoginBase.Services
         }
 
         //Se valida la contraseña y usario para el login
-        public Usuario Auth(AuthRequest model)
+        public Respuesta Auth(AuthRequest model)
         {
             //UserResponse userResponse = new UserResponse();
             //Se crea una variable del tipo de servicio para poder cifrar información
             CifradoHelper cifradoHelper = new CifradoHelper();
+            Respuesta respuesta = new();
 
             //Se crea la variable para recuperar el usuario
             Usuario usuarioM = new Usuario();
@@ -52,13 +53,35 @@ namespace LoginBase.Services
                 //Si no existe el usuario retorna un null
                 if (usuario == null)
                 {
-                    return null;
+                    respuesta.Mensaje = "Usuario o contraseña incorrecta.";
+                    respuesta.Exito = 0;
+                    return respuesta;
                 }
+
+                //Se valida si el usuario tiene un correo institucional relacionado
+                if (!usuario.EmailSSO.IsNullOrEmpty())
+                {
+                    respuesta.Mensaje = "Usuario o contraseña incorrecta, ingrese con su cuenta institucional.";
+                    respuesta.Exito = 0;
+                    respuesta.Data = null;
+                    return respuesta;
+                }
+               
+
+                ////Se valida si el usuario tiene un correo institucional relacionado
+                //if (usuario.EmailSSO != string.Empty)
+                //{
+                //    respuesta.Mensaje = "Usuario o contraseña incorrecta, ingrese con su cuenta institucional.";
+                //    respuesta.Exito = 0;
+                //    respuesta.Data = null;
+                //    return respuesta;
+                //}
 
                 //Si existe el usuario se comparan las contraseñas decifradas
                 if (cifradoHelper.DecryptStringAES(usuario.Password) != sPassword)
                 {
-                    return null;
+                    respuesta.Mensaje = "Usuario o contraseña incorrecta.";
+                    respuesta.Exito = 0;
                 }
 
 
@@ -86,7 +109,9 @@ namespace LoginBase.Services
             }
             //return userResponse;
             //Se recupera el usuario
-            return usuarioM;
+            respuesta.Exito = 1;
+            respuesta.Data = usuarioM;
+            return respuesta;
         }
 
         //Se valida la contraseña y usario para el login

@@ -33,10 +33,22 @@ namespace tmf_group.Controllers
         [Route("Login")]
         public IActionResult Login(string returnUrl = null)
         {
-            var binding = new Saml2RedirectBinding();
-            binding.SetRelayStateQuery(new Dictionary<string, string> { { relayStateReturnUrl, returnUrl ?? Url.Content("~/") } });
+            try
+            {
+                var binding = new Saml2RedirectBinding();
+                binding.SetRelayStateQuery(new Dictionary<string, string> { { relayStateReturnUrl, returnUrl ?? Url.Content("~/") } });
 
-            return binding.Bind(new Saml2AuthnRequest(config)).ToActionResult();
+                var respuesta =  binding.Bind(new Saml2AuthnRequest(config)).ToActionResult();
+
+                return Ok(respuesta);
+            }
+            catch (System.Exception es)
+            {
+                var respuestaMensaje = es.Message;
+                var respuesta = 0;
+                return Ok(respuestaMensaje);
+            }
+            
         }
 
         //Esta api se debe de poner en el redireccinamiento del SAML de amazon para validar que el logeo sea correcto
