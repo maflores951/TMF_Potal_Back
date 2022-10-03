@@ -17,7 +17,7 @@ namespace tmf_group.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class EmpresasController : ControllerBase
     {
         private readonly DataContext _context;
@@ -33,6 +33,7 @@ namespace tmf_group.Controllers
 
         // GET: api/Empresas
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<Empresa>>> GetEmpresas()
         {
             //return await _context.Empresas.ToListAsync();
@@ -61,6 +62,7 @@ namespace tmf_group.Controllers
 
         // GET: api/Empresas/5
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<ActionResult<Empresa>> GetEmpresa(int id)
         {
             var empresa = await _context.Empresas.FindAsync(id);
@@ -76,6 +78,7 @@ namespace tmf_group.Controllers
         // PUT: api/Empresas/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> PutEmpresa(int id, Empresa empresa)
         {
             if (id != empresa.EmpresaId)
@@ -95,6 +98,19 @@ namespace tmf_group.Controllers
                 if (response)
                 {
                     empresa.EmpresaLogo = fullPath;
+                }
+            }
+
+            //var validarUsuarios = false;
+            //TODO validar que no existan usuarios registrados activos
+            if  (empresa.EmpresaEstatus == true)
+            {
+                var existenUsusarios = await _context.Usuarios.Where(u => u.UsuarioEstatusSesion == false && u.EmpresaId == empresa.EmpresaId).FirstOrDefaultAsync();
+
+                if (existenUsusarios != null)
+                {
+                    empresa.EmpresaEstatus = false;
+                    return Ok(empresa);
                 }
             }
 
@@ -123,6 +139,7 @@ namespace tmf_group.Controllers
         // POST: api/Empresas
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<Empresa>> PostEmpresa(Empresa empresa)
         {
             Respuesta respuesta = new Respuesta();

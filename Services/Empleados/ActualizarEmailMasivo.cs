@@ -38,12 +38,13 @@ namespace tmf_group.Services.Empleados
             using (DataContext db = context)
             {
 
-                var recibosTotales = await db.Usuarios.Where(u => u.UsuarioEstatusSesion == false).ToListAsync();
+                //var recibosTotales = await db.Usuarios.Where(u => u.UsuarioEstatusSesion == false).ToListAsync();
 
                 foreach (var usuario in usuarios)
                 {
+                    respuesta.Exito = 1;
                     //Se valida que existe el usuario
-                    var usuarioUpdate = recibosTotales.Find(u => u.EmpleadoNoEmp == usuario.EmpleadoNoEmp && u.EmpresaId == usuario.EmpresaId && u.UsuarioEstatusSesion == false);
+                    var usuarioUpdate = await db.Usuarios.Where(u => u.EmpleadoNoEmp == usuario.EmpleadoNoEmp && u.EmpresaId == usuario.EmpresaId && u.UsuarioEstatusSesion == false).FirstOrDefaultAsync(); //recibosTotales.Find(u => u.EmpleadoNoEmp == usuario.EmpleadoNoEmp && u.EmpresaId == usuario.EmpresaId && u.UsuarioEstatusSesion == false);
 
                     if (usuarioUpdate == null)
                     {
@@ -53,7 +54,7 @@ namespace tmf_group.Services.Empleados
                     }
                         
                     //Se valida que el correo no exista 
-                    var existeEmail = recibosTotales.Find(u => u.Email == usuario.Email && u.UsuarioEstatusSesion == false && u.EmpleadoNoEmp != usuario.EmpleadoNoEmp && u.EmpresaId != usuario.EmpresaId);
+                    var existeEmail = await db.Usuarios.Where(u => u.Email == usuario.Email && u.UsuarioEstatusSesion == false && u.EmpleadoNoEmp != usuario.EmpleadoNoEmp && u.EmpresaId != usuario.EmpresaId).FirstOrDefaultAsync();  //recibosTotales.Find(u => u.Email == usuario.Email && u.UsuarioEstatusSesion == false && u.EmpleadoNoEmp != usuario.EmpleadoNoEmp && u.EmpresaId != usuario.EmpresaId);
 
                     if (existeEmail != null)
                     {
@@ -73,29 +74,42 @@ namespace tmf_group.Services.Empleados
                     //}
 
                     //var addr = new System.Net.Mail.MailAddress(usuario.Email);
-                    usuarioUpdate.Email = usuario.Email;
+                    if (respuesta.Exito == 1)
+                    {
+                        usuarioUpdate.Email = usuario.Email;
 
-                    db.Entry(usuarioUpdate).State = EntityState.Modified;
+                        db.Entry(usuarioUpdate).State = EntityState.Modified;
+                    }
+
+                    try
+                    {
+                        db.SaveChanges();
+                    }
+                    catch (Exception es)
+                    {
+                        respuesta.Mensaje = es.Message;
+                        respuesta.Exito = 0;
+                        return respuesta;
+                    }
                 }
 
-                try
-                {
-                    db.SaveChanges();
-                }
-                catch (Exception es)
-                {
-                    respuesta.Mensaje = es.Message;
-                    respuesta.Exito = 0;
-                    return respuesta;
-                }
+               
 
                 if(contarNoExiste > 0){
-                    empleadosNoExisten = empleadosNoExisten.Substring(empleadosNoExisten.Length - 2) + ". ";
+                    empleadosNoExisten = empleadosNoExisten.Substring(0,empleadosNoExisten.Length - 2) + ". ";
+                }
+                else
+                {
+                    empleadosNoExisten = string.Empty;
                 }
 
                 if (contarEmailExiste > 0)
                 {
-                    empleadosEmailExiste = empleadosEmailExiste.Substring(empleadosEmailExiste.Length - 2) + ".";
+                    empleadosEmailExiste = empleadosEmailExiste.Substring(0,empleadosEmailExiste.Length - 2) + ".";
+                }
+                else
+                {
+                    empleadosEmailExiste = string.Empty;
                 }
 
                 respuesta.Mensaje = empleadosNoExisten + empleadosEmailExiste;

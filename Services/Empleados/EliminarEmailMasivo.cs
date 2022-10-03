@@ -29,13 +29,13 @@ namespace tmf_group.Services.Empleados
             using (DataContext db = context)
             {
 
-                var recibosTotales = await db.Usuarios.Where(u => u.UsuarioEstatusSesion == false).ToListAsync();
+                //var recibosTotales = await db.Usuarios.Where(u => u.UsuarioEstatusSesion == false).ToListAsync();
 
                 foreach (var usuario in usuarios)
                 {
                     respuesta.Exito = 1;
                     //Se valida que existe el usuario
-                    var usuarioUpdate = recibosTotales.Find(u => u.EmpleadoNoEmp == usuario.EmpleadoNoEmp && u.EmpresaId == usuario.EmpresaId && u.UsuarioEstatusSesion == false);
+                    var usuarioUpdate = await db.Usuarios.Where(u => u.EmpleadoNoEmp == usuario.EmpleadoNoEmp && u.EmpresaId == usuario.EmpresaId && u.UsuarioEstatusSesion == false).FirstOrDefaultAsync(); //recibosTotales.Find(u => u.EmpleadoNoEmp == usuario.EmpleadoNoEmp && u.EmpresaId == usuario.EmpresaId && u.UsuarioEstatusSesion == false);
 
                     if (usuarioUpdate == null)
                     {
@@ -96,24 +96,24 @@ namespace tmf_group.Services.Empleados
                             context.Recibos.Remove(recibo);
                         }
                     }
-                    
+                    try
+                    {
+                        db.SaveChanges();
+                    }
+                    catch (Exception es)
+                    {
+                        respuesta.Mensaje = es.Message;
+                        respuesta.Exito = 0;
+                        return respuesta;
+                    }
                 }
 
-                try
-                {
-                    db.SaveChanges();
-                }
-                catch (Exception es)
-                {
-                    respuesta.Mensaje = es.Message;
-                    respuesta.Exito = 0;
-                    return respuesta;
-                }
+                
 
                 if (contarNoExiste > 0)
                 {
                     respuesta.Exito = 0;
-                    empleadosNoExisten = empleadosNoExisten.Substring(empleadosNoExisten.Length - 2) + ".";
+                    empleadosNoExisten = empleadosNoExisten.Substring(0, empleadosNoExisten.Length - 2) + ".";
                 }
                 else
                 {

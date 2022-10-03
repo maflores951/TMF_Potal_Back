@@ -82,6 +82,7 @@ namespace LoginBase.Services
                 {
                     respuesta.Mensaje = "Usuario o contraseña incorrecta.";
                     respuesta.Exito = 0;
+                    return respuesta;
                 }
 
 
@@ -155,11 +156,18 @@ namespace LoginBase.Services
 
                 //Se asigna el usuario 
 
-                var empresa = _db.Empresas.Where(d => d.EmpresaId == usuario.EmpresaId).FirstOrDefault();
+                //var empresa = _db.Empresas.Where(d => d.EmpresaId == usuario.EmpresaId).FirstOrDefault();
 
-                usuario.Empresa = empresa;
-
-                usuarioM = usuario;
+                //usuario.Empresa = empresa;
+                usuarioM.UsuarioId = usuario.UsuarioId;
+                usuarioM.Email = usuario.Email;
+                usuarioM.UsuarioFechaLimite = DateTime.Now.AddMinutes(10);
+                //usuarioM.UsuarioClave = usuario.UsuarioClave;
+                usuarioM.UsuarioToken = usuario.UsuarioToken;
+                usuarioM.ImagePath = usuario.ImagePath;
+                usuarioM.RolId = usuario.RolId;
+                usuarioM.EmpleadoNoEmp = usuario.EmpleadoNoEmp;
+                usuarioM.EmpresaId = usuario.EmpresaId;
 
 
             }

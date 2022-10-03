@@ -111,13 +111,15 @@ namespace LoginBase
             services.Configure<Saml2Configuration>(saml2Configuration =>
             {
                 saml2Configuration.AllowedAudienceUris.Add(saml2Configuration.Issuer);
-
                 var entityDescriptor = new EntityDescriptor();
                 entityDescriptor.ReadIdPSsoDescriptorFromUrl(new Uri(Configuration["Saml2:IdPMetadata"]));
+
                 if (entityDescriptor.IdPSsoDescriptor != null)
                 {
                     saml2Configuration.SingleSignOnDestination = entityDescriptor.IdPSsoDescriptor.SingleSignOnServices.First().Location;
                     saml2Configuration.SignatureValidationCertificates.AddRange(entityDescriptor.IdPSsoDescriptor.SigningCertificates);
+
+
                 }
                 else
                 {
@@ -136,7 +138,7 @@ namespace LoginBase
                 app.UseDeveloperExceptionPage();
             }
 
-            //app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
 
             app.UseRouting();
 

@@ -489,16 +489,19 @@ namespace LoginBase.Controllers
 
 
             //Si la empresa es diferente se actualizan los recibos del empleado
-            if (empresaIdPreUpdate != usuario.EmpresaId && usuario.EmpresaId != null)
+            if ((empresaIdPreUpdate != usuario.EmpresaId && usuario.EmpresaId != null) || (usuarioNoPreUpdate != usuario.EmpleadoNoEmp && usuario.EmpleadoNoEmp != null))
             {
-                var recibosUpdate = _context.Recibos.Where(u => u.UsuarioNoEmp == usuario.EmpleadoNoEmp && u.EmpresaId == empresaIdPreUpdate).ToList();
+                var recibosUpdate = _context.Recibos.Where(u => u.UsuarioNoEmp == usuarioNoPreUpdate && u.EmpresaId == empresaIdPreUpdate).ToList();
 
-                foreach (var recibo in recibosUpdate)
-                {
-                    recibo.EmpresaId = (int)usuario.EmpresaId;
-                    recibo.UsuarioNoEmp = usuario.EmpleadoNoEmp;
-                    _context.Entry(recibo).State = EntityState.Modified;
+                if (recibosUpdate != null){
+                    foreach (var recibo in recibosUpdate)
+                    {
+                        recibo.EmpresaId = (int)usuario.EmpresaId;
+                        recibo.UsuarioNoEmp = usuario.EmpleadoNoEmp;
+                        _context.Entry(recibo).State = EntityState.Modified;
+                    }
                 }
+               
             }
 
             if (usuario.UsuarioEstatusSesion == true)
@@ -873,6 +876,7 @@ namespace LoginBase.Controllers
             int contadorNoEmp = 0;
             int contadorEmail= 0;
             int contadorEmailSSO = 0;
+            int contadorUsuarioClave = 0;
             //int contadorNoEmpleado = 0;
             int contadorNoEmpSinRegistro = 0;
 
@@ -880,13 +884,14 @@ namespace LoginBase.Controllers
             string email = "";
             string emailSSO = "";
             string noEmpSinRegistro = "";
+            string usuarioClaveRepetido = "";
 
-            var empleados = await _context.Usuarios.ToListAsync();
+            //var empleados = await _context.Usuarios.ToListAsync();
             var empleadosEmail = new List<Usuario>();
 
             foreach (var usuario in usuarios)
             {
-                var EmpleadoNoEmp = empleados.Find(u => u.EmpleadoNoEmp == usuario.EmpleadoNoEmp && u.EmpresaId == usuario.EmpresaId && u.UsuarioEstatusSesion == false);//await _context.Usuarios.Where(u => u.EmpleadoNoEmp == usuario.EmpleadoNoEmp && u.EmpresaId == usuario.EmpresaId && u.UsuarioEstatusSesion == false).FirstOrDefaultAsync();
+                var EmpleadoNoEmp = await _context.Usuarios.Where(u => u.EmpleadoNoEmp == usuario.EmpleadoNoEmp && u.EmpresaId == usuario.EmpresaId && u.UsuarioEstatusSesion == false).FirstOrDefaultAsync(); //empleados.Find(u => u.EmpleadoNoEmp == usuario.EmpleadoNoEmp && u.EmpresaId == usuario.EmpresaId && u.UsuarioEstatusSesion == false);
                     respuesta.Exito = 1;
                     if (EmpleadoNoEmp != null)
                     {
@@ -897,7 +902,7 @@ namespace LoginBase.Controllers
                         //return Ok(respuesta);
                     }
 
-                var usuarioEmail = empleados.Find(u => u.Email == usuario.Email && u.UsuarioEstatusSesion == false);//await _context.Usuarios.Where(u => u.Email.ToLower() == usuario.Email.ToLower() && u.UsuarioEstatusSesion == false).FirstOrDefaultAsync();
+                var usuarioEmail = await _context.Usuarios.Where(u => u.Email == usuario.Email && u.UsuarioEstatusSesion == false).FirstOrDefaultAsync(); //empleados.Find(u => u.Email == usuario.Email && u.UsuarioEstatusSesion == false);
 
                 //SE COMENTA PARA QA
                 if (usuarioEmail != null)
@@ -909,9 +914,21 @@ namespace LoginBase.Controllers
                     //return Ok(respuesta);
                 }
 
+                var usuarioClave = await _context.Usuarios.Where(u => u.UsuarioClave == usuario.UsuarioClave && u.UsuarioEstatusSesion == false).FirstOrDefaultAsync(); //empleados.Find(u => u.Email == usuario.Email && u.UsuarioEstatusSesion == false);
+
+                //SE COMENTA PARA QA
+                if (usuarioClave != null)
+                {
+                    //respuesta.Mensaje = "La cuenta de email que ingreso ya está registrada.";
+                    respuesta.Exito = 0;
+                    contadorUsuarioClave += 1;
+                    usuarioClaveRepetido += usuarioClave.UsuarioClave + ", ";
+                    //return Ok(respuesta);
+                }
+
                 if (!usuario.EmailSSO.IsNullOrEmpty())
                 {
-                    var usuarioEmailSSO = empleados.Find(u => u.EmailSSO == usuario.EmailSSO && u.UsuarioEstatusSesion == false);//await _context.Usuarios.Where(u => u.Email.ToLower() == usuario.Email.ToLower() && u.UsuarioEstatusSesion == false).FirstOrDefaultAsync();
+                    var usuarioEmailSSO = await _context.Usuarios.Where(u => u.Email.ToLower() == usuario.Email.ToLower() && u.UsuarioEstatusSesion == false).FirstOrDefaultAsync(); //empleados.Find(u => u.EmailSSO == usuario.EmailSSO && u.UsuarioEstatusSesion == false);
 
                     //SE COMENTA PARA QA
                     if (usuarioEmailSSO != null)
@@ -971,19 +988,20 @@ namespace LoginBase.Controllers
 
                 //respuesta.Mensaje = "Registro exitoso.";
                 //respuesta.Exito = 1;
+                try
+                {
+                    await _context.SaveChangesAsync();
+                }
+                catch (Exception es)
+                {
+                    //respuesta.Mensaje = "El número de empleado ya esta registrado, actualicelo desde el sistema o asigne un nuevo número de empleado.";
+                    respuesta.Exito = 0;
+                    respuesta.Mensaje = "Error al guardar la información, intente de nuevo o contacte al administrador del sistema.";
+                    return Ok(respuesta);
+                }
             }
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (Exception es)
-            {
-                //respuesta.Mensaje = "El número de empleado ya esta registrado, actualicelo desde el sistema o asigne un nuevo número de empleado.";
-                respuesta.Exito = 0;
-                respuesta.Mensaje = "Error al guardar la información, intente de nuevo o contacte al administrador del sistema.";
-                return Ok(respuesta);
-            }
+            
 
             //Envio de correo
             //Se envia el email si todo es correcto
@@ -1023,6 +1041,13 @@ namespace LoginBase.Controllers
             {
                 var quitarComaEmailSSO = emailSSO.Substring(0, emailSSO.Length - 2);
                 respuesta.Mensaje += " Los siguientes email institucionales ya están registrados, debe actualizarlos: " + quitarComaEmailSSO + ". ";
+                respuesta.Exito = 0;
+            }
+
+            if (contadorUsuarioClave > 0)
+            {
+                var quitarComaUsuarioClave = usuarioClaveRepetido.Substring(0, usuarioClaveRepetido.Length - 2);
+                respuesta.Mensaje += " Los siguientes usuarios ya están registrados, debe actualizarlos: " + quitarComaUsuarioClave + ". ";
                 respuesta.Exito = 0;
             }
 

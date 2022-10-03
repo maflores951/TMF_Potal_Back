@@ -33,7 +33,7 @@ namespace tmf_group.Services.Empleados
             using (DataContext db = context)
             {
 
-                var usuariosTotales = await db.Usuarios.Where(u => u.UsuarioEstatusSesion == false).ToListAsync();
+                //var usuariosTotales = await db.Usuarios.Where(u => u.UsuarioEstatusSesion == false).ToListAsync();
 
                 var recibosTotales = await db.Recibos.ToListAsync();
 
@@ -41,8 +41,9 @@ namespace tmf_group.Services.Empleados
 
                 foreach (var usuario in usuarios)
                 {
+                    respuesta.Exito = 1;
                     //Se valida que existe el usuario
-                    var usuarioUpdate = usuariosTotales.Find(u => u.EmpleadoNoEmp == usuario.EmpleadoNoEmp && u.EmpresaId == usuario.EmpresaIdOld);
+                    var usuarioUpdate = await db.Usuarios.Where(u => u.EmpleadoNoEmp == usuario.EmpleadoNoEmp && u.EmpresaId == usuario.EmpresaIdOld).FirstOrDefaultAsync(); //usuariosTotales.Find(u => u.EmpleadoNoEmp == usuario.EmpleadoNoEmp && u.EmpresaId == usuario.EmpresaIdOld);
 
                     if (usuarioUpdate == null)
                     {
@@ -52,7 +53,7 @@ namespace tmf_group.Services.Empleados
                     }
 
                     //Se valida que exista la empresa
-                    var existeEmpresa = empresasTotales.Find(u =>  u.EmpresaId == usuario.EmpresaIdNew);
+                    var existeEmpresa = empresasTotales.Find(u =>  u.EmpresaId == usuario.EmpresaIdNew && u.EmpresaEstatus == false);
 
                     if (existeEmpresa == null)
                     {
@@ -62,7 +63,7 @@ namespace tmf_group.Services.Empleados
                     }
 
                     //Se valida que no exista ese usaurio para esa empresa
-                    var existeUsuarioEmpresa = usuariosTotales.Find(u => u.EmpleadoNoEmp == usuario.EmpleadoNoEmp && u.EmpresaId == usuario.EmpresaIdNew);
+                    var existeUsuarioEmpresa = await db.Usuarios.Where(u => u.EmpleadoNoEmp == usuario.EmpleadoNoEmp && u.EmpresaId == usuario.EmpresaIdNew && u.UsuarioEstatusSesion == false).FirstOrDefaultAsync(); //usuariosTotales.Find(u => u.EmpleadoNoEmp == usuario.EmpleadoNoEmp && u.EmpresaId == usuario.EmpresaIdNew);
 
                     if (existeUsuarioEmpresa != null)
                     {
@@ -80,49 +81,66 @@ namespace tmf_group.Services.Empleados
                     //    empleadosEmailExiste += $"{usuario.EmpleadoNoEmp} de la empresa {usuario.EmpresaId} , ";
                     //    contarEmailExiste++;
                     //}
-                    usuarioUpdate.EmpresaId = usuario.EmpresaIdNew;
 
-                    db.Entry(usuarioUpdate).State = EntityState.Modified;
-
-                    
-                    var recibosUpdate = recibosTotales.Where(u => u.UsuarioNoEmp == usuario.EmpleadoNoEmp && u.EmpresaId == usuario.EmpresaIdOld).ToList();
-
-                    foreach (var recibo in recibosUpdate)
+                    if (respuesta.Exito == 1)
                     {
-                        recibo.EmpresaId = usuario.EmpresaIdNew;
-                        //recibo.UsuarioNoEmp = usuario.EmpleadoNoEmp;
-                        db.Entry(recibo).State = EntityState.Modified;
+                        usuarioUpdate.EmpresaId = usuario.EmpresaIdNew;
+
+                        db.Entry(usuarioUpdate).State = EntityState.Modified;
+
+
+                        var recibosUpdate = recibosTotales.Where(u => u.UsuarioNoEmp == usuario.EmpleadoNoEmp && u.EmpresaId == usuario.EmpresaIdOld).ToList();
+
+                        foreach (var recibo in recibosUpdate)
+                        {
+                            recibo.EmpresaId = usuario.EmpresaIdNew;
+                            //recibo.UsuarioNoEmp = usuario.EmpleadoNoEmp;
+                            db.Entry(recibo).State = EntityState.Modified;
+                        }
                     }
 
+                    try
+                    {
+                        db.SaveChanges();
+                    }
+                    catch (Exception es)
+                    {
+                        respuesta.Mensaje = es.Message;
+                        respuesta.Exito = 0;
+                        return respuesta;
+                    }
                 }
 
-                try
-                {
-                    db.SaveChanges();
-                }
-                catch (Exception es)
-                {
-                    respuesta.Mensaje = es.Message;
-                    respuesta.Exito = 0;
-                    return respuesta;
-                }
+               
 
                 if (contarNoExiste > 0)
                 {
-                    empleadosNoExisten = empleadosNoExisten.Substring(empleadosNoExisten.Length - 2) + ".  ";
+                    empleadosNoExisten = empleadosNoExisten.Substring(0, empleadosNoExisten.Length - 2) + ".  ";
+                }
+                else
+                {
+                    empleadosNoExisten = string.Empty;
                 }
 
                 if (contarEmpresaExiste > 0)
                 {
-                    empleadosEmpresaExiste = empleadosEmpresaExiste.Substring(empleadosEmpresaExiste.Length - 2) + ". ";
+                    empleadosEmpresaExiste = empleadosEmpresaExiste.Substring(0, empleadosEmpresaExiste.Length - 2) + ". ";
+                }
+                else
+                {
+                    empleadosEmpresaExiste = string.Empty;
                 }
 
                 if (contarEmpresaNoExiste > 0)
                 {
-                    empresaExiste = empresaExiste.Substring(empresaExiste.Length - 2) + ". ";
+                    empresaExiste = empresaExiste.Substring(0, empresaExiste.Length - 2) + ". ";
+                }
+                else
+                {
+                    empresaExiste = string.Empty;
                 }
 
-                respuesta.Mensaje = empleadosNoExisten + empleadosEmpresaExiste + empresaExiste;
+                respuesta.Mensaje += empleadosNoExisten + empleadosEmpresaExiste + empresaExiste;
 
             }
             //timeMeasure.Stop();

@@ -1,0 +1,164 @@
+27/09/2022 09:46:36 a. m. - LoginSAML_Inicia_True
+27/09/2022 09:46:43 a. m. -  _Inicia_True
+27/09/2022 09:47:22 a. m. - http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier: maflores951@legvit.com emailSAML_JsonSerializer
+27/09/2022 09:48:59 a. m. -  _Inicia_True
+27/09/2022 09:48:59 a. m. - http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier: maflores951@legvit.com emailSAML_JsonSerializer
+27/09/2022 09:48:59 a. m. - http://schemas.microsoft.com/ws/2008/06/identity/claims/authenticationmethod: urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport emailSAML_JsonSerializer
+27/09/2022 09:48:59 a. m. - http://schemas.microsoft.com/ws/2008/06/identity/claims/authenticationinstant: 2022-09-27T14:48:52.878Z emailSAML_JsonSerializer
+27/09/2022 09:48:59 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2nameid: maflores951@legvit.com emailSAML_JsonSerializer
+27/09/2022 09:48:59 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2nameidformat: urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified emailSAML_JsonSerializer
+27/09/2022 09:48:59 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2sessionindex: _5101d265-f1a5-48bf-9e6c-86adcc8497b8 emailSAML_JsonSerializer
+27/09/2022 09:49:01 a. m. - maflores951@legvit.com _emailSAML_Name
+27/09/2022 09:49:01 a. m. - _usuarioLogin_True
+27/09/2022 09:49:01 a. m. - _usuarioToken_True
+27/09/2022 09:49:01 a. m. - / _returnUrl_true
+27/09/2022 09:49:36 a. m. - LoginSAML_Inicia_True
+27/09/2022 09:49:36 a. m. -  _Inicia_True
+27/09/2022 09:49:36 a. m. - http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier: maflores951@legvit.com emailSAML_JsonSerializer
+27/09/2022 09:49:36 a. m. - http://schemas.microsoft.com/ws/2008/06/identity/claims/authenticationmethod: urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport emailSAML_JsonSerializer
+27/09/2022 09:49:36 a. m. - http://schemas.microsoft.com/ws/2008/06/identity/claims/authenticationinstant: 2022-09-27T14:49:31.656Z emailSAML_JsonSerializer
+27/09/2022 09:49:36 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2nameid: maflores951@legvit.com emailSAML_JsonSerializer
+27/09/2022 09:49:36 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2nameidformat: urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified emailSAML_JsonSerializer
+27/09/2022 09:49:36 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2sessionindex: _15859c2f-33af-4bb8-b182-ebdd21331df6 emailSAML_JsonSerializer
+27/09/2022 09:49:36 a. m. - maflores951@legvit.com _emailSAML_Name
+27/09/2022 09:49:36 a. m. - _usuarioLogin_True
+27/09/2022 09:49:36 a. m. - _usuarioToken_True
+27/09/2022 09:49:36 a. m. - / _returnUrl_true
+27/09/2022 09:50:20 a. m. - LoginSAML_Inicia_True
+27/09/2022 09:50:43 a. m. -  _Inicia_True
+27/09/2022 09:50:43 a. m. - http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier: maflores951@legvit.com emailSAML_JsonSerializer
+27/09/2022 09:50:43 a. m. - http://schemas.microsoft.com/ws/2008/06/identity/claims/authenticationmethod: urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport emailSAML_JsonSerializer
+27/09/2022 09:50:43 a. m. - http://schemas.microsoft.com/ws/2008/06/identity/claims/authenticationinstant: 2022-09-27T14:50:37.981Z emailSAML_JsonSerializer
+27/09/2022 09:50:43 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2nameid: maflores951@legvit.com emailSAML_JsonSerializer
+27/09/2022 09:50:43 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2nameidformat: urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified emailSAML_JsonSerializer
+27/09/2022 09:50:43 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2sessionindex: _38e98917-6022-47cd-a02c-cf6308f17267 emailSAML_JsonSerializer
+27/09/2022 09:50:43 a. m. - maflores951@legvit.com _emailSAML_Name
+27/09/2022 09:50:43 a. m. - _usuarioLogin_True
+27/09/2022 09:50:43 a. m. - _usuarioToken_True
+27/09/2022 09:50:43 a. m. - / _returnUrl_true
+27/09/2022 09:51:18 a. m. -  _Inicia_True
+27/09/2022 09:51:33 a. m. - http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier: maflores951@legvit.com emailSAML_JsonSerializer
+27/09/2022 09:54:37 a. m. - LoginSAML_Inicia_True
+27/09/2022 09:54:38 a. m. -  _Inicia_True
+27/09/2022 09:54:43 a. m. - maflores951@legvit.com emailSAML_JsonSerializer
+27/09/2022 09:54:43 a. m. - System.Collections.Generic.Dictionary`2[System.String,System.String] emailSAML_JsonSerializer2
+27/09/2022 09:56:14 a. m. - urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport emailSAML_JsonSerializer
+27/09/2022 09:56:14 a. m. - System.Collections.Generic.Dictionary`2[System.String,System.String] emailSAML_JsonSerializer2
+27/09/2022 10:01:05 a. m. - LoginSAML_Inicia_True
+27/09/2022 10:01:06 a. m. -  _Inicia_True
+27/09/2022 10:01:11 a. m. - maflores951@legvit.com emailSAML_JsonSerializer
+27/09/2022 10:01:11 a. m. - LOCAL AUTHORITY emailSAML_JsonSerializer2
+27/09/2022 10:01:11 a. m. - System.Security.Claims.ClaimsIdentity emailSAML_JsonSerializer2
+27/09/2022 10:02:08 a. m. - urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport emailSAML_JsonSerializer
+27/09/2022 10:02:08 a. m. - LOCAL AUTHORITY emailSAML_JsonSerializer2
+27/09/2022 10:02:08 a. m. - System.Security.Claims.ClaimsIdentity emailSAML_JsonSerializer2
+27/09/2022 10:06:25 a. m. - LoginSAML_Inicia_True
+27/09/2022 10:06:26 a. m. -  _Inicia_True
+27/09/2022 10:06:26 a. m. - System.Collections.Generic.List`1[System.Security.Claims.ClaimsIdentity] emailSAML_JsonSerializer0
+27/09/2022 10:06:46 a. m. - maflores951@legvit.com emailSAML_JsonSerializer
+27/09/2022 10:06:46 a. m. - LOCAL AUTHORITY emailSAML_JsonSerializer2
+27/09/2022 10:06:46 a. m. - http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier emailSAML_JsonSerializer3
+27/09/2022 10:06:46 a. m. - http://www.w3.org/2001/XMLSchema#string emailSAML_JsonSerializer4
+27/09/2022 10:06:46 a. m. - System.Collections.Generic.Dictionary`2[System.String,System.String] emailSAML_JsonSerializer5
+27/09/2022 10:06:46 a. m. - http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier: maflores951@legvit.com emailSAML_JsonSerializer6
+27/09/2022 10:13:49 a. m. - LoginSAML_Inicia_True
+27/09/2022 10:13:50 a. m. -  _Inicia_True
+27/09/2022 10:13:50 a. m. - maflores951@legvit.com emailSAML_JsonSerializer1
+27/09/2022 10:13:50 a. m. - http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier emailSAML_JsonSerializer2
+27/09/2022 10:13:50 a. m. - urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport emailSAML_JsonSerializer1
+27/09/2022 10:13:50 a. m. - http://schemas.microsoft.com/ws/2008/06/identity/claims/authenticationmethod emailSAML_JsonSerializer2
+27/09/2022 10:13:50 a. m. - 2022-09-27T15:13:45.571Z emailSAML_JsonSerializer1
+27/09/2022 10:13:50 a. m. - http://schemas.microsoft.com/ws/2008/06/identity/claims/authenticationinstant emailSAML_JsonSerializer2
+27/09/2022 10:13:50 a. m. - maflores951@legvit.com emailSAML_JsonSerializer1
+27/09/2022 10:13:50 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2nameid emailSAML_JsonSerializer2
+27/09/2022 10:13:50 a. m. - urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified emailSAML_JsonSerializer1
+27/09/2022 10:13:50 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2nameidformat emailSAML_JsonSerializer2
+27/09/2022 10:13:50 a. m. - _7b53028d-0c4d-4244-9db9-3c6e524e9901 emailSAML_JsonSerializer1
+27/09/2022 10:13:50 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2sessionindex emailSAML_JsonSerializer2
+27/09/2022 10:16:19 a. m. - maflores951@legvit.com _emailSAML_Name
+27/09/2022 10:16:19 a. m. - _usuarioLogin_True
+27/09/2022 10:16:19 a. m. - _usuarioToken_True
+27/09/2022 10:16:19 a. m. - / _returnUrl_true
+27/09/2022 10:20:40 a. m. - LoginSAML_Inicia_True
+27/09/2022 10:25:19 a. m. - LoginSAML_Inicia_True
+27/09/2022 10:25:20 a. m. -  _Inicia_True
+27/09/2022 10:25:20 a. m. - maflores951@legvit.com emailSAML_JsonSerializer1
+27/09/2022 10:25:20 a. m. - http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier emailSAML_JsonSerializer2
+27/09/2022 10:25:20 a. m. - urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport emailSAML_JsonSerializer1
+27/09/2022 10:25:20 a. m. - http://schemas.microsoft.com/ws/2008/06/identity/claims/authenticationmethod emailSAML_JsonSerializer2
+27/09/2022 10:25:20 a. m. - 2022-09-27T15:25:14.943Z emailSAML_JsonSerializer1
+27/09/2022 10:25:20 a. m. - http://schemas.microsoft.com/ws/2008/06/identity/claims/authenticationinstant emailSAML_JsonSerializer2
+27/09/2022 10:25:20 a. m. - maflores951@legvit.com emailSAML_JsonSerializer1
+27/09/2022 10:25:20 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2nameid emailSAML_JsonSerializer2
+27/09/2022 10:25:20 a. m. - urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified emailSAML_JsonSerializer1
+27/09/2022 10:25:20 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2nameidformat emailSAML_JsonSerializer2
+27/09/2022 10:25:20 a. m. - _684fa1d2-5007-46bc-a643-23f6fb7e4a3f emailSAML_JsonSerializer1
+27/09/2022 10:25:20 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2sessionindex emailSAML_JsonSerializer2
+27/09/2022 10:25:21 a. m. - maflores951@legvit.com _emailSAML_Name
+27/09/2022 10:25:21 a. m. - _usuarioLogin_True
+27/09/2022 10:25:21 a. m. - _usuarioToken_True
+27/09/2022 10:25:21 a. m. - / _returnUrl_true
+27/09/2022 10:26:09 a. m. - LoginSAML_Inicia_True
+27/09/2022 10:26:09 a. m. -  _Inicia_True
+27/09/2022 10:26:09 a. m. - maflores951@legvit.com emailSAML_JsonSerializer1
+27/09/2022 10:26:09 a. m. - http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier emailSAML_JsonSerializer2
+27/09/2022 10:26:09 a. m. - urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport emailSAML_JsonSerializer1
+27/09/2022 10:26:09 a. m. - http://schemas.microsoft.com/ws/2008/06/identity/claims/authenticationmethod emailSAML_JsonSerializer2
+27/09/2022 10:26:09 a. m. - 2022-09-27T15:26:04.712Z emailSAML_JsonSerializer1
+27/09/2022 10:26:09 a. m. - http://schemas.microsoft.com/ws/2008/06/identity/claims/authenticationinstant emailSAML_JsonSerializer2
+27/09/2022 10:26:09 a. m. - maflores951@legvit.com emailSAML_JsonSerializer1
+27/09/2022 10:26:09 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2nameid emailSAML_JsonSerializer2
+27/09/2022 10:26:09 a. m. - urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified emailSAML_JsonSerializer1
+27/09/2022 10:26:09 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2nameidformat emailSAML_JsonSerializer2
+27/09/2022 10:26:09 a. m. - _5409c7e7-9d32-4ae0-a167-b8b53288c38c emailSAML_JsonSerializer1
+27/09/2022 10:26:09 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2sessionindex emailSAML_JsonSerializer2
+27/09/2022 10:26:09 a. m. - maflores951@legvit.com _emailSAML_Name
+27/09/2022 10:26:09 a. m. - _usuarioLogin_True
+27/09/2022 10:26:09 a. m. - _usuarioToken_True
+27/09/2022 10:26:09 a. m. - / _returnUrl_true
+27/09/2022 10:26:41 a. m. - LoginSAML_Inicia_True
+27/09/2022 10:26:47 a. m. -  _Inicia_True
+27/09/2022 10:26:49 a. m. - maflores951@legvit.com emailSAML_JsonSerializer1
+27/09/2022 10:26:49 a. m. - http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier emailSAML_JsonSerializer2
+27/09/2022 10:26:50 a. m. - urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport emailSAML_JsonSerializer1
+27/09/2022 10:26:50 a. m. - http://schemas.microsoft.com/ws/2008/06/identity/claims/authenticationmethod emailSAML_JsonSerializer2
+27/09/2022 10:26:50 a. m. - 2022-09-27T15:26:41.949Z emailSAML_JsonSerializer1
+27/09/2022 10:26:50 a. m. - http://schemas.microsoft.com/ws/2008/06/identity/claims/authenticationinstant emailSAML_JsonSerializer2
+27/09/2022 10:26:51 a. m. - maflores951@legvit.com emailSAML_JsonSerializer1
+27/09/2022 10:26:51 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2nameid emailSAML_JsonSerializer2
+27/09/2022 10:26:52 a. m. - urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified emailSAML_JsonSerializer1
+27/09/2022 10:26:52 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2nameidformat emailSAML_JsonSerializer2
+27/09/2022 10:26:52 a. m. - _835cb94b-74bb-4062-9700-3c009ca3ef2d emailSAML_JsonSerializer1
+27/09/2022 10:26:52 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2sessionindex emailSAML_JsonSerializer2
+27/09/2022 10:26:57 a. m. - maflores951@legvit.com _emailSAML_Name
+27/09/2022 10:26:57 a. m. - _usuarioLogin_True
+27/09/2022 10:26:57 a. m. - _usuarioToken_True
+27/09/2022 10:26:57 a. m. - / _returnUrl_true
+27/09/2022 10:31:02 a. m. -  _Inicia_True
+27/09/2022 10:31:02 a. m. - maflores951@legvit.com emailSAML_JsonSerializer1
+27/09/2022 10:31:02 a. m. - http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier emailSAML_JsonSerializer2
+27/09/2022 10:31:02 a. m. - urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport emailSAML_JsonSerializer1
+27/09/2022 10:31:02 a. m. - http://schemas.microsoft.com/ws/2008/06/identity/claims/authenticationmethod emailSAML_JsonSerializer2
+27/09/2022 10:31:02 a. m. - 2022-09-27T15:30:56.309Z emailSAML_JsonSerializer1
+27/09/2022 10:31:02 a. m. - http://schemas.microsoft.com/ws/2008/06/identity/claims/authenticationinstant emailSAML_JsonSerializer2
+27/09/2022 10:31:02 a. m. - maflores951@legvit.com emailSAML_JsonSerializer1
+27/09/2022 10:31:02 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2nameid emailSAML_JsonSerializer2
+27/09/2022 10:31:02 a. m. - urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified emailSAML_JsonSerializer1
+27/09/2022 10:31:02 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2nameidformat emailSAML_JsonSerializer2
+27/09/2022 10:31:02 a. m. - _835cb94b-74bb-4062-9700-3c009ca3ef2d emailSAML_JsonSerializer1
+27/09/2022 10:31:02 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2sessionindex emailSAML_JsonSerializer2
+27/09/2022 10:31:06 a. m. - LoginSAML_Inicia_True
+27/09/2022 10:31:07 a. m. -  _Inicia_True
+27/09/2022 10:31:07 a. m. - maflores951@legvit.com emailSAML_JsonSerializer1
+27/09/2022 10:31:07 a. m. - http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier emailSAML_JsonSerializer2
+27/09/2022 10:31:07 a. m. - urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport emailSAML_JsonSerializer1
+27/09/2022 10:31:07 a. m. - http://schemas.microsoft.com/ws/2008/06/identity/claims/authenticationmethod emailSAML_JsonSerializer2
+27/09/2022 10:31:07 a. m. - 2022-09-27T15:31:02.295Z emailSAML_JsonSerializer1
+27/09/2022 10:31:07 a. m. - http://schemas.microsoft.com/ws/2008/06/identity/claims/authenticationinstant emailSAML_JsonSerializer2
+27/09/2022 10:31:07 a. m. - maflores951@legvit.com emailSAML_JsonSerializer1
+27/09/2022 10:31:07 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2nameid emailSAML_JsonSerializer2
+27/09/2022 10:31:07 a. m. - urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified emailSAML_JsonSerializer1
+27/09/2022 10:31:07 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2nameidformat emailSAML_JsonSerializer2
+27/09/2022 10:31:07 a. m. - _ff29cedd-dd6d-4f3f-a1c2-5326239c15ad emailSAML_JsonSerializer1
+27/09/2022 10:31:07 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2sessionindex emailSAML_JsonSerializer2
+27/09/2022 10:33:06 a. m. - LoginSAML_Inicia_True

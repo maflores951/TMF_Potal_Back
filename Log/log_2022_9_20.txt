@@ -1,0 +1,12 @@
+20/09/2022 12:59:45 p. m. -  _Inicia_True
+20/09/2022 12:59:45 p. m. - Assertion has expired. Assertion valid NotOnOrAfter 20/09/2022 05:59:33 p. m. +00:00. _Try_binding.ReadSamlResponse
+20/09/2022 12:59:45 p. m. - Value cannot be null. (Parameter 'identity') _saml2AuthnResponse
+20/09/2022 01:25:46 p. m. -  _Inicia_True
+20/09/2022 01:25:46 p. m. - Not HTTP POST Method. _Try_binding.ReadSamlResponse
+20/09/2022 01:25:46 p. m. - Value cannot be null. (Parameter 'identity') _saml2AuthnResponse
+20/09/2022 01:32:04 p. m. -  _Inicia_True
+20/09/2022 01:32:04 p. m. - Assertion has expired. Assertion valid NotOnOrAfter 20/09/2022 06:31:52 p. m. +00:00. _Try_binding.ReadSamlResponse
+20/09/2022 01:32:04 p. m. - Value cannot be null. (Parameter 'identity') _saml2AuthnResponse
+20/09/2022 01:40:46 p. m. -  _Inicia_True
+20/09/2022 01:40:46 p. m. - Assertion has expired. Assertion valid NotOnOrAfter 20/09/2022 06:40:34 p. m. +00:00. _Try_binding.ReadSamlResponse
+20/09/2022 01:40:46 p. m. - Value cannot be null. (Parameter 'identity') _saml2AuthnResponse
