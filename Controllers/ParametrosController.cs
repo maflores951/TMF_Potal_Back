@@ -13,7 +13,7 @@ namespace LoginBase.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class ParametrosController : ControllerBase
     {
         // The Web API will only accept tokens 1) for users, and 
