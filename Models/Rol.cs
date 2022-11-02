@@ -14,9 +14,6 @@ namespace LoginBase.Models
         [Key]
         public int RolId { get; set; }
 
-        [Required(ErrorMessage = "The field {0} is requiered.")]
-        [MaxLength(50, ErrorMessage = "The field {0} only can contains a maximum of {1} characters lenght.")]
-
         public string RolNombre { get; set; }
 
         [Display(Name = "Borrado logico")]

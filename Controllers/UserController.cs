@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Google.Apis.Auth;
 using LoginBase.Models;
 using LoginBase.Models.Request;
 using LoginBase.Models.Response;
 using LoginBase.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,12 +21,14 @@ namespace LoginBase.Controllers
     {
         private readonly DataContext _context;
         private IUserService _userService;
+        private readonly IWebHostEnvironment _enviroment;
 
         //Constructor para recuperar la interface del userService y el contexto de la base de datos
-        public UserController(IUserService userService, DataContext db)
+        public UserController(IUserService userService, DataContext db, IWebHostEnvironment env)
         {
             _userService = userService;
             _context = db;
+            _enviroment = env;
         }
 
         
@@ -39,15 +43,24 @@ namespace LoginBase.Controllers
             Usuario usuario = new Usuario();
 
             //Se valida el login y se crea el token
-            var userResponse = _userService.Auth(model);
+            var response = _userService.Auth(model);
 
-            //Si no existe se asigna un mensaje de que el usuario es incorrecto y se retorna la respuesta
-            if (userResponse == null)
+            if (response.Exito == 0)
             {
                 respuesta.Exito = 0;
-                respuesta.Mensaje = "Usuario o contraseña incorrecta";
+                respuesta.Mensaje = response.Mensaje;
                 return Ok(respuesta);
             }
+
+            var userResponse = (Usuario)response.Data;
+
+            ////Si no existe se asigna un mensaje de que el usuario es incorrecto y se retorna la respuesta
+            //if (userResponse == null)
+            //{
+            //    respuesta.Exito = 0;
+            //    respuesta.Mensaje = "Usuario o contraseña incorrecta.";
+            //    return Ok(respuesta);
+            //}
 
             if (userResponse.UsuarioFechaLimite < DateTime.Now)
             {
@@ -61,6 +74,13 @@ namespace LoginBase.Controllers
             return Ok(respuesta);
         }
 
+        [HttpGet]
+        [Route("LoginGoogle")]
+        public async Task<IActionResult> LoginGoogle()
+        {
+            var validPayload = await GoogleJsonWebSignature.ValidateAsync("ya29.A0AVA9y1sYyqAlJ2nXASyosUSKSzwEzoxb2BXjYbzxxO_Ri3dLMLTHIs7iIvEcCtZpSwUecqDgOkxYG29hWSQmLf-bseqjS5mryXqiFwVPKT9nq7Pkx2eDwUwqltIfjzZ0D7NzQXX-EyNX0ulS3u_PNAR-38j9aCgYKATASATASFQE65dr8rWx31O-FCaUSrsxEL6-Zhw0163");
+            return Ok();
+        }
 
         // POST: api/Users/EnviarEmail
         [HttpPost]
@@ -85,11 +105,20 @@ namespace LoginBase.Controllers
                 //return BadRequest("Incorrect call");
             }
 
-
-            //Se busca la información del usuario en la tabla Users por medio del email
-            var usuario =  await _context.Usuarios.
+            var usuario = new Usuario();
+            try
+            {
+                 usuario = await _context.Usuarios.
                Where(u => u.Email.ToLower() == email.ToLower()).
                FirstOrDefaultAsync();
+            }
+            catch (Exception es)
+            {
+
+                var mensaje = es.Message;
+            }
+            //Se busca la información del usuario en la tabla Users por medio del email
+            
 
             //Se valida si existe el usuario
             if (usuario == null)
@@ -141,7 +170,7 @@ namespace LoginBase.Controllers
             }
 
             //Se envia el email si todo es correcto
-            EnvioEmailService enviarEmail = new EnvioEmailService(_context);
+            EnvioEmailService enviarEmail = new EnvioEmailService(_context,_enviroment);
             var emailResponse = await enviarEmail.EnivarEmail(usuarioEmail);
 
 
@@ -160,6 +189,8 @@ namespace LoginBase.Controllers
             //return (IActionResult)emailResponse;
             return Ok(respuesta);
         }
+
+
 
         private bool UsuarioExists(int id)
         {

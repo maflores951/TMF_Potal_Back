@@ -13,5 +13,7 @@ namespace LoginBase.Models.Common
 
         public string UrlHost { get; set; }
 
+        public string UrlFront { get; set; }
+
     }
 }

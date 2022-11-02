@@ -1,0 +1,91 @@
+21/09/2022 10:20:51 a. m. - LoginSAML_Inicia_True
+21/09/2022 10:20:59 a. m. -  _Inicia_True
+21/09/2022 10:20:59 a. m. - Assertion has expired. Assertion valid NotOnOrAfter 21/09/2022 03:20:46 p. m. +00:00. _Try_binding.ReadSamlResponse
+21/09/2022 10:20:59 a. m. - Value cannot be null. (Parameter 'identity') _saml2AuthnResponse
+21/09/2022 10:22:13 a. m. -  _Inicia_True
+21/09/2022 10:22:13 a. m. - Assertion has expired. Assertion valid NotOnOrAfter 21/09/2022 03:22:01 p. m. +00:00. _Try_binding.ReadSamlResponse
+21/09/2022 10:22:13 a. m. - Value cannot be null. (Parameter 'identity') _saml2AuthnResponse
+21/09/2022 10:23:29 a. m. - LoginSAML_Inicia_True
+21/09/2022 10:23:30 a. m. -  _Inicia_True
+21/09/2022 10:43:17 a. m. - LoginSAML_Inicia_True
+21/09/2022 10:44:25 a. m. - LoginSAML_Inicia_True
+21/09/2022 10:44:26 a. m. -  _Inicia_True
+21/09/2022 11:20:55 a. m. - LoginSAML_Inicia_True
+21/09/2022 11:20:56 a. m. -  _Inicia_True
+21/09/2022 11:41:16 a. m. - LoginSAML_Inicia_True
+21/09/2022 11:41:17 a. m. -  _Inicia_True
+21/09/2022 11:55:33 a. m. - LoginSAML_Inicia_True
+21/09/2022 11:55:34 a. m. -  _Inicia_True
+21/09/2022 12:01:08 p. m. - LoginSAML_Inicia_True
+21/09/2022 12:07:28 p. m. - LoginSAML_Inicia_True
+21/09/2022 12:07:29 p. m. -  _Inicia_True
+21/09/2022 12:09:30 p. m. - LoginSAML_Inicia_True
+21/09/2022 12:09:31 p. m. -  _Inicia_True
+21/09/2022 12:29:45 p. m. - LoginSAML_Inicia_True
+21/09/2022 12:29:47 p. m. -  _Inicia_True
+21/09/2022 12:33:29 p. m. - LoginSAML_Inicia_True
+21/09/2022 12:33:30 p. m. -  _Inicia_True
+21/09/2022 12:36:16 p. m. - LoginSAML_Inicia_True
+21/09/2022 12:36:17 p. m. -  _Inicia_True
+21/09/2022 01:01:19 p. m. - LoginSAML_Inicia_True
+21/09/2022 01:01:30 p. m. -  _Inicia_True
+21/09/2022 01:02:37 p. m. - LoginSAML_Inicia_True
+21/09/2022 01:02:42 p. m. -  _Inicia_True
+21/09/2022 01:04:36 p. m. -  _Inicia_True
+21/09/2022 01:06:05 p. m. - Assertion has expired. Assertion valid NotOnOrAfter 21/09/2022 06:02:25 p. m. +00:00. _Try_binding.ReadSamlResponse 21/09/2022 06:06:05 p. m. +00:00 _ 21/09/2022 05:57:25 p. m. +00:00
+21/09/2022 01:06:05 p. m. - Value cannot be null. (Parameter 'identity') _saml2AuthnResponse
+21/09/2022 02:59:29 p. m. - LoginSAML_Inicia_True
+21/09/2022 02:59:46 p. m. -  _Inicia_True
+21/09/2022 02:59:48 p. m. - System.Security.Claims.ClaimsPrincipal _emailSAML
+21/09/2022 03:00:39 p. m. -  _Inicia_True
+21/09/2022 03:00:40 p. m. - System.Security.Claims.ClaimsPrincipal _emailSAML
+21/09/2022 03:00:44 p. m. - LoginSAML_Inicia_True
+21/09/2022 03:00:44 p. m. -  _Inicia_True
+21/09/2022 03:00:44 p. m. - System.Security.Claims.ClaimsPrincipal _emailSAML
+21/09/2022 03:03:37 p. m. - LoginSAML_Inicia_True
+21/09/2022 03:03:38 p. m. -  _Inicia_True
+21/09/2022 03:03:46 p. m. - System.Security.Claims.ClaimsPrincipal _emailSAML
+21/09/2022 03:05:51 p. m. - LoginSAML_Inicia_True
+21/09/2022 03:05:51 p. m. -  _Inicia_True
+21/09/2022 03:05:53 p. m. - System.Security.Claims.ClaimsPrincipal _emailSAML
+21/09/2022 03:05:58 p. m. - _usuarioLogin_True
+21/09/2022 03:05:58 p. m. - _usuarioToken_True
+21/09/2022 03:05:58 p. m. - / _returnUrl_true
+21/09/2022 03:11:02 p. m. - LoginSAML_Inicia_True
+21/09/2022 03:11:03 p. m. -  _Inicia_True
+21/09/2022 03:11:04 p. m. - maflores951@legvit.com _emailSAML_Name
+21/09/2022 03:11:04 p. m. - System.Security.Claims.ClaimsPrincipal+<get_Claims>d__22 _emailSAML_Name
+21/09/2022 03:14:06 p. m. - LoginSAML_Inicia_True
+21/09/2022 03:14:07 p. m. -  _Inicia_True
+21/09/2022 03:14:08 p. m. - maflores951@legvit.com _emailSAML_Name
+21/09/2022 03:14:09 p. m. - A possible object cycle was detected. This can either be due to a cycle or if the object depth is larger than the maximum allowed depth of 64. Consider using ReferenceHandler.Preserve on JsonSerializerOptions to support cycles. _saml2AuthnResponse
+21/09/2022 03:15:05 p. m. - LoginSAML_Inicia_True
+21/09/2022 03:15:06 p. m. -  _Inicia_True
+21/09/2022 03:15:07 p. m. - maflores951@legvit.com _emailSAML_Name
+21/09/2022 03:15:07 p. m. - A possible object cycle was detected. This can either be due to a cycle or if the object depth is larger than the maximum allowed depth of 64. Consider using ReferenceHandler.Preserve on JsonSerializerOptions to support cycles. _saml2AuthnResponse
+21/09/2022 03:15:48 p. m. - LoginSAML_Inicia_True
+21/09/2022 03:15:49 p. m. -  _Inicia_True
+21/09/2022 03:18:23 p. m. - LoginSAML_Inicia_True
+21/09/2022 03:18:23 p. m. -  _Inicia_True
+21/09/2022 03:18:25 p. m. - maflores951@legvit.com _emailSAML_Name
+21/09/2022 03:18:31 p. m. - http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier: maflores951@legvit.com emailSAML_JsonSerializer
+21/09/2022 03:18:49 p. m. - http://schemas.microsoft.com/ws/2008/06/identity/claims/authenticationmethod: urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport emailSAML_JsonSerializer
+21/09/2022 03:18:49 p. m. - http://schemas.microsoft.com/ws/2008/06/identity/claims/authenticationinstant: 2022-09-21T20:18:22.644Z emailSAML_JsonSerializer
+21/09/2022 03:18:49 p. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2nameid: maflores951@legvit.com emailSAML_JsonSerializer
+21/09/2022 03:18:49 p. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2nameidformat: urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified emailSAML_JsonSerializer
+21/09/2022 03:18:49 p. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2sessionindex: _b1d72000-6bd9-494b-afed-3aa7e251af04 emailSAML_JsonSerializer
+21/09/2022 03:18:49 p. m. - _usuarioLogin_True
+21/09/2022 03:18:49 p. m. - _usuarioToken_True
+21/09/2022 03:18:49 p. m. - / _returnUrl_true
+21/09/2022 03:19:42 p. m. - LoginSAML_Inicia_True
+21/09/2022 03:19:43 p. m. -  _Inicia_True
+21/09/2022 03:19:43 p. m. - http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier: maflores951@legvit.com emailSAML_JsonSerializer
+21/09/2022 03:19:43 p. m. - http://schemas.microsoft.com/ws/2008/06/identity/claims/authenticationmethod: urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport emailSAML_JsonSerializer
+21/09/2022 03:19:43 p. m. - http://schemas.microsoft.com/ws/2008/06/identity/claims/authenticationinstant: 2022-09-21T20:19:42.420Z emailSAML_JsonSerializer
+21/09/2022 03:19:43 p. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2nameid: maflores951@legvit.com emailSAML_JsonSerializer
+21/09/2022 03:19:43 p. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2nameidformat: urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified emailSAML_JsonSerializer
+21/09/2022 03:19:43 p. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2sessionindex: _067a6880-6c1d-4c9b-9600-1869ed07bb95 emailSAML_JsonSerializer
+21/09/2022 03:19:44 p. m. - maflores951@legvit.com _emailSAML_Name
+21/09/2022 03:19:44 p. m. - _usuarioLogin_True
+21/09/2022 03:19:44 p. m. - _usuarioToken_True
+21/09/2022 03:19:44 p. m. - / _returnUrl_true

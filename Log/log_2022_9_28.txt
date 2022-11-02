@@ -1,0 +1,407 @@
+28/09/2022 09:02:28 a. m. - LoginSAML_Inicia_True
+28/09/2022 09:02:38 a. m. -  _Inicia_True
+28/09/2022 09:02:39 a. m. - maflores951@legvit.com emailSAML_JsonSerializer1
+28/09/2022 09:02:39 a. m. - http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier emailSAML_JsonSerializer2
+28/09/2022 09:02:39 a. m. - urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport emailSAML_JsonSerializer1
+28/09/2022 09:02:39 a. m. - http://schemas.microsoft.com/ws/2008/06/identity/claims/authenticationmethod emailSAML_JsonSerializer2
+28/09/2022 09:02:39 a. m. - 2022-09-28T14:02:33.654Z emailSAML_JsonSerializer1
+28/09/2022 09:02:39 a. m. - http://schemas.microsoft.com/ws/2008/06/identity/claims/authenticationinstant emailSAML_JsonSerializer2
+28/09/2022 09:02:39 a. m. - maflores951@legvit.com emailSAML_JsonSerializer1
+28/09/2022 09:02:39 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2nameid emailSAML_JsonSerializer2
+28/09/2022 09:02:39 a. m. - urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified emailSAML_JsonSerializer1
+28/09/2022 09:02:39 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2nameidformat emailSAML_JsonSerializer2
+28/09/2022 09:02:39 a. m. - _f8ac62ca-8ab9-4d2e-9335-51d030d9d0be emailSAML_JsonSerializer1
+28/09/2022 09:02:39 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2sessionindex emailSAML_JsonSerializer2
+28/09/2022 09:02:40 a. m. - maflores951@legvit.com _emailSAML_Name
+28/09/2022 09:02:40 a. m. - _usuarioLogin_True
+28/09/2022 09:02:40 a. m. - _usuarioToken_True
+28/09/2022 09:02:40 a. m. - / _returnUrl_true
+28/09/2022 09:03:03 a. m. -  _Inicia_True
+28/09/2022 09:03:03 a. m. - maflores951@legvit.com emailSAML_JsonSerializer1
+28/09/2022 09:03:03 a. m. - http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier emailSAML_JsonSerializer2
+28/09/2022 09:03:03 a. m. - urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport emailSAML_JsonSerializer1
+28/09/2022 09:03:03 a. m. - http://schemas.microsoft.com/ws/2008/06/identity/claims/authenticationmethod emailSAML_JsonSerializer2
+28/09/2022 09:03:03 a. m. - 2022-09-28T14:02:57.852Z emailSAML_JsonSerializer1
+28/09/2022 09:03:03 a. m. - http://schemas.microsoft.com/ws/2008/06/identity/claims/authenticationinstant emailSAML_JsonSerializer2
+28/09/2022 09:03:03 a. m. - maflores951@legvit.com emailSAML_JsonSerializer1
+28/09/2022 09:03:03 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2nameid emailSAML_JsonSerializer2
+28/09/2022 09:03:03 a. m. - urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified emailSAML_JsonSerializer1
+28/09/2022 09:03:03 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2nameidformat emailSAML_JsonSerializer2
+28/09/2022 09:03:03 a. m. - _f8ac62ca-8ab9-4d2e-9335-51d030d9d0be emailSAML_JsonSerializer1
+28/09/2022 09:03:03 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2sessionindex emailSAML_JsonSerializer2
+28/09/2022 09:03:03 a. m. - maflores951@legvit.com _emailSAML_Name
+28/09/2022 09:03:03 a. m. - _usuarioLogin_True
+28/09/2022 09:03:03 a. m. - _usuarioToken_True
+28/09/2022 09:03:03 a. m. - / _returnUrl_true
+28/09/2022 09:03:13 a. m. - LoginSAML_Inicia_True
+28/09/2022 09:03:14 a. m. -  _Inicia_True
+28/09/2022 09:03:14 a. m. - maflores951@legvit.com emailSAML_JsonSerializer1
+28/09/2022 09:03:14 a. m. - http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier emailSAML_JsonSerializer2
+28/09/2022 09:03:14 a. m. - urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport emailSAML_JsonSerializer1
+28/09/2022 09:03:14 a. m. - http://schemas.microsoft.com/ws/2008/06/identity/claims/authenticationmethod emailSAML_JsonSerializer2
+28/09/2022 09:03:14 a. m. - 2022-09-28T14:03:09.365Z emailSAML_JsonSerializer1
+28/09/2022 09:03:14 a. m. - http://schemas.microsoft.com/ws/2008/06/identity/claims/authenticationinstant emailSAML_JsonSerializer2
+28/09/2022 09:03:14 a. m. - maflores951@legvit.com emailSAML_JsonSerializer1
+28/09/2022 09:03:14 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2nameid emailSAML_JsonSerializer2
+28/09/2022 09:03:14 a. m. - urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified emailSAML_JsonSerializer1
+28/09/2022 09:03:14 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2nameidformat emailSAML_JsonSerializer2
+28/09/2022 09:03:14 a. m. - _6f168a96-7c37-4617-96de-f966433e1a44 emailSAML_JsonSerializer1
+28/09/2022 09:03:14 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2sessionindex emailSAML_JsonSerializer2
+28/09/2022 09:03:14 a. m. - maflores951@legvit.com _emailSAML_Name
+28/09/2022 09:03:14 a. m. - _usuarioLogin_True
+28/09/2022 09:03:14 a. m. - _usuarioToken_True
+28/09/2022 09:03:14 a. m. - / _returnUrl_true
+28/09/2022 09:04:40 a. m. - LoginSAML_Inicia_True
+28/09/2022 09:04:41 a. m. -  _Inicia_True
+28/09/2022 09:04:41 a. m. - maflores951@legvit.com emailSAML_JsonSerializer1
+28/09/2022 09:04:41 a. m. - http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier emailSAML_JsonSerializer2
+28/09/2022 09:04:41 a. m. - urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport emailSAML_JsonSerializer1
+28/09/2022 09:04:41 a. m. - http://schemas.microsoft.com/ws/2008/06/identity/claims/authenticationmethod emailSAML_JsonSerializer2
+28/09/2022 09:04:41 a. m. - 2022-09-28T14:04:35.953Z emailSAML_JsonSerializer1
+28/09/2022 09:04:41 a. m. - http://schemas.microsoft.com/ws/2008/06/identity/claims/authenticationinstant emailSAML_JsonSerializer2
+28/09/2022 09:04:41 a. m. - maflores951@legvit.com emailSAML_JsonSerializer1
+28/09/2022 09:04:41 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2nameid emailSAML_JsonSerializer2
+28/09/2022 09:04:41 a. m. - urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified emailSAML_JsonSerializer1
+28/09/2022 09:04:41 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2nameidformat emailSAML_JsonSerializer2
+28/09/2022 09:04:41 a. m. - _69f016e7-55a1-43b7-9eaa-d9a51f00c6f1 emailSAML_JsonSerializer1
+28/09/2022 09:04:41 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2sessionindex emailSAML_JsonSerializer2
+28/09/2022 09:04:41 a. m. - maflores951@legvit.com _emailSAML_Name
+28/09/2022 09:04:41 a. m. - _usuarioLogin_True
+28/09/2022 09:04:41 a. m. - _usuarioToken_True
+28/09/2022 09:04:41 a. m. - / _returnUrl_true
+28/09/2022 09:06:29 a. m. - LoginSAML_Inicia_True
+28/09/2022 09:06:30 a. m. -  _Inicia_True
+28/09/2022 09:06:30 a. m. - maflores951@legvit.com emailSAML_JsonSerializer1
+28/09/2022 09:06:30 a. m. - http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier emailSAML_JsonSerializer2
+28/09/2022 09:06:30 a. m. - urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport emailSAML_JsonSerializer1
+28/09/2022 09:06:30 a. m. - http://schemas.microsoft.com/ws/2008/06/identity/claims/authenticationmethod emailSAML_JsonSerializer2
+28/09/2022 09:06:30 a. m. - 2022-09-28T14:06:25.557Z emailSAML_JsonSerializer1
+28/09/2022 09:06:30 a. m. - http://schemas.microsoft.com/ws/2008/06/identity/claims/authenticationinstant emailSAML_JsonSerializer2
+28/09/2022 09:06:30 a. m. - maflores951@legvit.com emailSAML_JsonSerializer1
+28/09/2022 09:06:30 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2nameid emailSAML_JsonSerializer2
+28/09/2022 09:06:30 a. m. - urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified emailSAML_JsonSerializer1
+28/09/2022 09:06:30 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2nameidformat emailSAML_JsonSerializer2
+28/09/2022 09:06:30 a. m. - _135fa585-1901-40c1-b02e-b21354c60304 emailSAML_JsonSerializer1
+28/09/2022 09:06:30 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2sessionindex emailSAML_JsonSerializer2
+28/09/2022 09:06:32 a. m. - maflores951@legvit.com _emailSAML_Name
+28/09/2022 09:06:32 a. m. - _usuarioLogin_True
+28/09/2022 09:06:32 a. m. - _usuarioToken_True
+28/09/2022 09:06:32 a. m. - / _returnUrl_true
+28/09/2022 09:33:23 a. m. - LoginSAML_Inicia_True
+28/09/2022 09:33:24 a. m. -  _Inicia_True
+28/09/2022 09:33:24 a. m. - maflores951@legvit.com emailSAML_JsonSerializer1
+28/09/2022 09:33:24 a. m. - http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier emailSAML_JsonSerializer2
+28/09/2022 09:33:24 a. m. - urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport emailSAML_JsonSerializer1
+28/09/2022 09:33:24 a. m. - http://schemas.microsoft.com/ws/2008/06/identity/claims/authenticationmethod emailSAML_JsonSerializer2
+28/09/2022 09:33:24 a. m. - 2022-09-28T14:33:19.072Z emailSAML_JsonSerializer1
+28/09/2022 09:33:24 a. m. - http://schemas.microsoft.com/ws/2008/06/identity/claims/authenticationinstant emailSAML_JsonSerializer2
+28/09/2022 09:33:24 a. m. - maflores951@legvit.com emailSAML_JsonSerializer1
+28/09/2022 09:33:24 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2nameid emailSAML_JsonSerializer2
+28/09/2022 09:33:24 a. m. - urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified emailSAML_JsonSerializer1
+28/09/2022 09:33:24 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2nameidformat emailSAML_JsonSerializer2
+28/09/2022 09:33:24 a. m. - _68e14d0f-34c1-46c4-a9d8-1bc712772372 emailSAML_JsonSerializer1
+28/09/2022 09:33:24 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2sessionindex emailSAML_JsonSerializer2
+28/09/2022 09:33:26 a. m. - maflores951@legvit.com _emailSAML_Name
+28/09/2022 09:33:52 a. m. - LoginSAML_Inicia_True
+28/09/2022 09:33:53 a. m. -  _Inicia_True
+28/09/2022 09:33:53 a. m. - maflores951@legvit.com emailSAML_JsonSerializer1
+28/09/2022 09:33:53 a. m. - http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier emailSAML_JsonSerializer2
+28/09/2022 09:33:53 a. m. - urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport emailSAML_JsonSerializer1
+28/09/2022 09:33:53 a. m. - http://schemas.microsoft.com/ws/2008/06/identity/claims/authenticationmethod emailSAML_JsonSerializer2
+28/09/2022 09:33:53 a. m. - 2022-09-28T14:33:48.400Z emailSAML_JsonSerializer1
+28/09/2022 09:33:53 a. m. - http://schemas.microsoft.com/ws/2008/06/identity/claims/authenticationinstant emailSAML_JsonSerializer2
+28/09/2022 09:33:53 a. m. - maflores951@legvit.com emailSAML_JsonSerializer1
+28/09/2022 09:33:53 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2nameid emailSAML_JsonSerializer2
+28/09/2022 09:33:53 a. m. - urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified emailSAML_JsonSerializer1
+28/09/2022 09:33:53 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2nameidformat emailSAML_JsonSerializer2
+28/09/2022 09:33:53 a. m. - _cdb12dfd-82b4-465e-8b0a-c318dc63bd52 emailSAML_JsonSerializer1
+28/09/2022 09:33:53 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2sessionindex emailSAML_JsonSerializer2
+28/09/2022 09:37:50 a. m. - LoginSAML_Inicia_True
+28/09/2022 09:37:51 a. m. -  _Inicia_True
+28/09/2022 09:37:51 a. m. - maflores951@legvit.com emailSAML_JsonSerializer1
+28/09/2022 09:37:51 a. m. - http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier emailSAML_JsonSerializer2
+28/09/2022 09:37:51 a. m. - urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport emailSAML_JsonSerializer1
+28/09/2022 09:37:51 a. m. - http://schemas.microsoft.com/ws/2008/06/identity/claims/authenticationmethod emailSAML_JsonSerializer2
+28/09/2022 09:37:51 a. m. - 2022-09-28T14:37:46.077Z emailSAML_JsonSerializer1
+28/09/2022 09:37:51 a. m. - http://schemas.microsoft.com/ws/2008/06/identity/claims/authenticationinstant emailSAML_JsonSerializer2
+28/09/2022 09:37:51 a. m. - maflores951@legvit.com emailSAML_JsonSerializer1
+28/09/2022 09:37:51 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2nameid emailSAML_JsonSerializer2
+28/09/2022 09:37:51 a. m. - urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified emailSAML_JsonSerializer1
+28/09/2022 09:37:51 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2nameidformat emailSAML_JsonSerializer2
+28/09/2022 09:37:51 a. m. - _957736ea-13a1-476f-927e-8a8edf81e7bd emailSAML_JsonSerializer1
+28/09/2022 09:37:51 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2sessionindex emailSAML_JsonSerializer2
+28/09/2022 09:38:07 a. m. - maflores951@legvit.com _emailSAML_Name
+28/09/2022 09:38:07 a. m. - _usuarioLogin_True
+28/09/2022 09:38:07 a. m. - _usuarioToken_True
+28/09/2022 09:38:16 a. m. - Microsoft.AspNetCore.Mvc.RedirectResult _returnUrl_true
+28/09/2022 09:48:10 a. m. - LoginSAML_Inicia_True
+28/09/2022 09:48:11 a. m. -  _Inicia_True
+28/09/2022 09:48:11 a. m. - maflores951@legvit.com emailSAML_JsonSerializer1
+28/09/2022 09:48:11 a. m. - http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier emailSAML_JsonSerializer2
+28/09/2022 09:48:11 a. m. - urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport emailSAML_JsonSerializer1
+28/09/2022 09:48:11 a. m. - http://schemas.microsoft.com/ws/2008/06/identity/claims/authenticationmethod emailSAML_JsonSerializer2
+28/09/2022 09:48:11 a. m. - 2022-09-28T14:48:06.324Z emailSAML_JsonSerializer1
+28/09/2022 09:48:11 a. m. - http://schemas.microsoft.com/ws/2008/06/identity/claims/authenticationinstant emailSAML_JsonSerializer2
+28/09/2022 09:48:11 a. m. - maflores951@legvit.com emailSAML_JsonSerializer1
+28/09/2022 09:48:11 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2nameid emailSAML_JsonSerializer2
+28/09/2022 09:48:11 a. m. - urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified emailSAML_JsonSerializer1
+28/09/2022 09:48:11 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2nameidformat emailSAML_JsonSerializer2
+28/09/2022 09:48:11 a. m. - _9e57457f-684c-4344-b8de-06c7f642989a emailSAML_JsonSerializer1
+28/09/2022 09:48:11 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2sessionindex emailSAML_JsonSerializer2
+28/09/2022 09:48:16 a. m. - maflores951@legvit.com _emailSAML_Name
+28/09/2022 09:48:16 a. m. - _usuarioLogin_True
+28/09/2022 09:48:16 a. m. - _usuarioToken_True
+28/09/2022 09:48:27 a. m. - http://localhost:4200//user/InicioSaml/66qmrnCgSHRuBph8CFdpj&jfXyYVHOu1TJ36eB57y37jeEjrcvxGuBF$NE3UfN3q&fbpZuO$AvMxSJ2xfLUeUciqbjTqEQB3V7muIstWlQ1mcWy1iA81YkzRgl77U6$azhHedhFtdr8dz5oda&aMrNhc0BGpkS$8fYpPFGYcY8a5xmypZjvtQs3INJNidV3Hd&qf8weKvpMfbM4wRaSHeXmsNao7yK0VlqpjjUNzGE4dMvVc9XM$lnfOSgImLiCI1EMfGLxaFPCRFupA7bwnXRVeKz3zdruT9fGzt9cDD6wNVlLdHBENUl8m4Gh$Ge85sy&cptANdh83LLr153XSz6ql3RZFT7tC6OKDFly7a2y5LXQBOZ&H4Qxv05EVm6mOgLgghuIWxjZewavUTkHJGukinACSIeLZV6fG9jCYc&$wEZXjCTUHlmsXu6&Yhlil0O&osKT02DphmVbalpoTfXsH06aTRxj7m$0ICjsn6AK5ZLUEbvzd9lQy1s8vnVDn$X5jsMbKOdA15$LwHf&UYpoHBjyRmQhwD8qMphiLhtNWaKRYXcB1Kvjisgi8ud1wpbDbZacJUtpCJO4W9BoX$bXIM8x$Jm8W4XG5ROniQkjLTgR3ChsKPkJgebjPFs&TPAv9YdnteGGfvOsFY0DAyS0PvCoG59NLkh7ZpeXv$TTWdZY2LHnhev6EBpSA58dHBEAhlHxmAUiOUAM8nYEIiJpU1bY1AP$8umMd0snM5O7Nn&maHnvTi5ZWE6VyoeJVuL9&tm6gnqUDgpSGB279Julwjah7kCuR64WPUXtca1KHgwXaxu8s7a6Nf1ecqXA21Mwbr9bSS$DTg8QfV0ZxUBswHBw3z7CLHXSz8bKo5ZUYjf0KqF&U&PCRiZFMlY8QIqqJ8iRGZ0MVC9jLkBYa87sU4eC$i9YByB45fAm2OuhNwIo3SAy2att&g4Fx1hVVRCknIuyixJqm4qxt1YJncfUPrCo8SKPrGp9gkInPUMPGLEE4A4$RehO8lwtD4tdrLwwF1V0RoBBmVM5eQEnPkrD9IxUoeFSuOidCZY$wBIQ7&sycfXltDQBIRgwI8LS$iI6prS8fMWMLtmKxKl3iNdcqWU07ILQjwE5e3zDWJcsJXF8oZPev1cmf1P1A$AHxf7nRo5UdFBf58zLQiui0CtdhKQa7DOZKs2x6lHjH&AJp1KzKnmRvL2LwhiHkIKZ$h52JRKl42uGuNiSUPJANDVj2iNc4ME2ALJOennbYs71ZW31PqjFZ1XBwH1hi83kBOd2Qin19wNN&IEhMxmFxvi18e76BCGKeVurGF1bwEpVc5sbSzNbGj4olz48iRFx&wFLlQLWC$RG9hXPzk314CrKokJ9dYcjt3ET2AlOxga7bKr3srnFcN8rv8bbN20vUYb$g8tceSGxjMGr&xSvTKtwcC&D1dE9VzugrfmaT7ll$r$fzNFjRN74CNQ8j6K7riKYkHIlU39Ve5Z3xsh8Igm5i3Py9NhE2pNKn07e$&7TqnqZahaD$jecTpvWZJ$O5l8T&CW7x80lIXYOdr2G&4bCCjL$EfVxXD679JoPavQl$SjDePEbUIRYFa8G7OmsJJcY1RqjhzGCFhcERPfIPTotpmajGNMFlyJ4X2z$qgm$NxunrIRLuAVCyHqw3wchXncCqJP$BjI&AkWaO0hb$99B&w484uVD1oZdkggaLgeUq4Gr6nuH$RaL45llVc6$4nKtWQOxV3zv6G0I&xTJQVIM1oTUvPFhj6CDrmrEr8Bu2l2CE93FO54ohJAZrLOTj7kFkzIPiMXWCKjZuradh7nmmYztUq8Bi&XhQ2LQyKk$QcbJeIJbfNW$C3mtLxZCpbJ46r2Mx8vR2oh1q8oPXR8VBONYM71K5&yZHDtekVg4vJDQPAIZFRkFOee1cg$VnhZPEk2IFhAcYmjMdjChEZlQhOzowleqsAjzCXwluZaPfNb4fwcgZMnvyRUIxzS12ffZ2m2THCF4Ea1FwnclYuoR2QvwKGmEyHj2rL7RGEZ41pR9kQPMboZSqAavfsne$AVCYyHqlTN&b8FhYWWthek&6EtVat&1ejCbDaP2e4IDhHv45z&vZwPNNpZIhJ43aZ0Q5NrPrNNUt5uamCtbUWzK6bxMONkJNpzPALoUrVhDaa&ZISQ0f5Xr4dNrrxrEr9ebSK4ivM5OmmUcfiYxmt67SGF0udNPOASK&nIMvjBMhCqSmy4rrohUJNYLRTDffPGpZWRG&hrcyPgsE9vDk19D&3DwrZz6Ll6l5HkIvJzpkEEEDwsQa7N8UWRLwbu1l8WVrEaz$J1tJdteJsM9hiPs6gYhPeNOMBMgWB5GlJcoSPZ8bO8EWa0iOpWsU7oNF1xdga9OqTnpWtdqwoMHnkvnUq857nmR0XIKj4HorhWAJlsBzC&$GDr7YRSTtoJeydY2ZuzZYVPgIkAQNplsY6lYK2plW1$pjV0RTW1$nqE53yKqB0uhO958NnUEGJymGeRNEHV&2h9WO2i4DukhUjpqIrzrSxwCUp&Vu8DeHCtDarC4ONoPFLnazXqza4AY$5aHiAvcyAfU8BmM0$GSQ8IrasZcOZU6TFpTW9SWtJAc= _returnUrl_true
+28/09/2022 10:21:19 a. m. - LoginSAML_Inicia_True
+28/09/2022 10:21:27 a. m. -  _Inicia_True
+28/09/2022 10:21:27 a. m. - maflores951@legvit.com emailSAML_JsonSerializer1
+28/09/2022 10:21:27 a. m. - http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier emailSAML_JsonSerializer2
+28/09/2022 10:21:27 a. m. - urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport emailSAML_JsonSerializer1
+28/09/2022 10:21:27 a. m. - http://schemas.microsoft.com/ws/2008/06/identity/claims/authenticationmethod emailSAML_JsonSerializer2
+28/09/2022 10:21:27 a. m. - 2022-09-28T15:21:22.080Z emailSAML_JsonSerializer1
+28/09/2022 10:21:27 a. m. - http://schemas.microsoft.com/ws/2008/06/identity/claims/authenticationinstant emailSAML_JsonSerializer2
+28/09/2022 10:21:27 a. m. - maflores951@legvit.com emailSAML_JsonSerializer1
+28/09/2022 10:21:27 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2nameid emailSAML_JsonSerializer2
+28/09/2022 10:21:27 a. m. - urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified emailSAML_JsonSerializer1
+28/09/2022 10:21:27 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2nameidformat emailSAML_JsonSerializer2
+28/09/2022 10:21:27 a. m. - _884f25b6-a6d4-409e-a0e0-4c0c370ce925 emailSAML_JsonSerializer1
+28/09/2022 10:21:27 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2sessionindex emailSAML_JsonSerializer2
+28/09/2022 10:21:28 a. m. - maflores951@legvit.com _emailSAML_Name
+28/09/2022 10:21:28 a. m. - _usuarioLogin_True
+28/09/2022 10:21:28 a. m. - _usuarioToken_True
+28/09/2022 10:21:28 a. m. - http://localhost:4200//user/InicioSaml/66qmrnCgSHRuBph8CFdpj0bMSzo78bRXhtmIwnPoypC7qaLRFgbLDhUQAxYTBBNrWiHb8mRfYLt4Dd5al$IyrKm6Ih$SoJbHbP75sU$C7wU&CvkYsildDAvKyQ5RbsWJmiY04NIcyZCHnxJVoZxSmVvFCpvxrQqir&QkysEz&VzFtmVhtrwGVIt&ZspajLO8hnZoOSlzxyq6wP1EXO9VdZR$0YySeB8ONMmaoJNI40F6gMDgkP7kpKooaOpmNccrR$aYxt1ZDXcHbDfjFqcqH73IZ8Ur255IkimzVvZkETCye8HXJD018zZoRAQ0tKgTo$wnq&V3b9L9tGB4JjMEpoH9iL1PeNtQbJrRXlZfR3gSkN4WUlAY9KGwGdmLtnYSpXh5HT33dqdu5tRPw6D7NyeA3HlFVguNDEOoMJ70l&zSMsPjTxV9or07aSZWQmU3BJ0lzd7P1DiqLnH20wA75&4aErSG6&xChO8s65kpEKgg5aXLMKJ8ZfZ9KBpiHN5OU1q8wPZ8YekdB2o3pXGvP5s5x4nnXhyi0EV1rHUXU2CsJkRAVOLG9VtmcczPWPeraHlcIV5YUfXj6RMthufGlj2Zq9d1ezzO4v2en$W0mCBFc5jsL35mGRXS3g8AkCXr5wICLBXnn1Sv8xa&jsjeVkG7JU6ZbIz&UBgc4BNpQMUxso51gGq0M43AbksjE&gnimfpruHqEFtlFpQTXZBG&pu7$MJ5y2TcQbeU7TbSbgXzGoWQRvqW1CvLQ8f9Wqiq4hU5GSfuI95$1$Jfm2rZWrEt8QWXqjyDYO8SIjSQgUtCehFjKDmRPZXUTD7CbyVowRAPhqvDe3bcUZpEtBBKjt8sQF3AWuqXetaKr8dwo52n70i4lBog3bMIsnGiH4A3IgaVp57vGjSpPcwGX6hU0&WY4jK0sjf4&&QbteZ6m2zYr&1i3MLHzMI$ExhpbtIOSFrdWhjQorZwS0PdF7FBNJdHqP3lryDUqsmqAD9atfXPMYBAy0&KKPmtxkthGPBj0dox8EAWjux$&kOokJZtLTj27sXrroehZ6lF9iMIHF3MRAa9T9lZRpezq&mhFYdbBNt3i3t$61v1gdRamCv75Dxq7MlJFCsOXJaol7lum6HpKGRTFt94yK4tQ6oKSt&0XLKjPVeWAwwYQ61C4yh3Gw== _returnUrl_true
+28/09/2022 11:28:12 a. m. - LoginSAML_Inicia_True
+28/09/2022 11:28:13 a. m. -  _Inicia_True
+28/09/2022 11:28:13 a. m. - maflores951@legvit.com emailSAML_JsonSerializer1
+28/09/2022 11:28:13 a. m. - http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier emailSAML_JsonSerializer2
+28/09/2022 11:28:13 a. m. - urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport emailSAML_JsonSerializer1
+28/09/2022 11:28:13 a. m. - http://schemas.microsoft.com/ws/2008/06/identity/claims/authenticationmethod emailSAML_JsonSerializer2
+28/09/2022 11:28:13 a. m. - 2022-09-28T16:28:08.449Z emailSAML_JsonSerializer1
+28/09/2022 11:28:13 a. m. - http://schemas.microsoft.com/ws/2008/06/identity/claims/authenticationinstant emailSAML_JsonSerializer2
+28/09/2022 11:28:13 a. m. - maflores951@legvit.com emailSAML_JsonSerializer1
+28/09/2022 11:28:13 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2nameid emailSAML_JsonSerializer2
+28/09/2022 11:28:13 a. m. - urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified emailSAML_JsonSerializer1
+28/09/2022 11:28:13 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2nameidformat emailSAML_JsonSerializer2
+28/09/2022 11:28:13 a. m. - _548aa5f5-2d06-4c60-89e3-469246053cd4 emailSAML_JsonSerializer1
+28/09/2022 11:28:13 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2sessionindex emailSAML_JsonSerializer2
+28/09/2022 11:28:15 a. m. - maflores951@legvit.com _emailSAML_Name
+28/09/2022 11:28:15 a. m. - _usuarioLogin_True
+28/09/2022 11:28:15 a. m. - _usuarioToken_True
+28/09/2022 11:28:15 a. m. - http://localhost:4200//user/InicioSaml/66qmrnCgSHRuBph8CFdpj&jfXyYVHOu1TJ36eB57y37jeEjrcvxGuBF$NE3UfN3q&fbpZuO$AvMxSJ2xfLUeUevSY3aCei7II2M6vuTMqtcVgNRpUKXtY6TvE&sKxFqV1vNwOzy2aJE2Zx5rtAywgcXr5LAHFZBIXxGYHsjn7Y2eUrRO0J7NusCLvvisFdgtxO6lgv81Kv&wDx64&JjuDEn&q3wwDnK6opgcS&iMDzDNpNyHCkeRqqSbhWZUFGxU&r&kcPTbl2n2ooVDB2zQxTUtGOCZSI6yn7adHlUGri23jD$gaHk9qNb&No2Z9qWO37g3OF&7tqY5Y4uLBmHT8yz66smjv2R4HMDNa7h6E2fKgKel0ZOCqFdqaw8sHi3c30nGgMoBrI5inbYGIOHtriF9IivAblTqFmDO5GdXevr3ngNaZAKBvpWZpKXJp03VQANb2w5vmwTvMsabpEf2HMUegf1fpSWpRujcQRaZSGNu4wUFCa0adWlXwwC1G2ZfzUmB2QtFsTY1azMoh22AAhgxEgpyc8KTJaKM5IHRX3M1VR&a5s23zM7IlniUdwzMpXlqTm8JNxgY1iiiVeNtRgfatzKPih07GTIuEM4lDYvSZ0i9b$Rdv&NwZCjL7xJGEPCvr6N1jfpYDNZDMLlAYHk0CYAMLmzEeA$0OW1&$Sq2lV3E7o1TIIv$jHaUbQXX&0xaDAn7crPypchyvKhWYnEAoB88SQZHuTfDCNn7WWCigpqZCiLvn5dZ0ByT&js$qGVnhg0Z9BXFE79O9dZ5iNcZ4B3RJO0CXN4Ciewa5U&MOBAVoKp8lzyRZDZvdClNAzHxqi8SNg4uMl61nZHn3fPQxw9Bcg0j7W4OdKaMH6pLh8EGHwOnDqrlbFBEtUv8R9PO5mKtw2XWbi7GCyHvaz3J15GOs&ne72klkhqVqI$lc5MmqErObHnNHbZMQlsNOGW0meUJ&09fnf$FrBcGNKoZ9Z2qiOs1INIld0sM67aD24Nd$fZT7UT8mQoNqurLDa07Hw5Eo&L9TAGomsJGoOtyjNtT&QC$ZDtj&bGFUXf8O5zkWMo&fatmqs2eiJoOyhdYB2L4B$XxcG6O2tTbXB6S9JAFXpdvB8lfDpMitmuqydp$GxRXJJTl&3x43g8GsElkCP&2vuZpnoLVe&K4fKAUMiC5vHaebXseXF88UMZq57Yj$rDe1OdMi$p6&LaFCvPVEvF9mOHmxCDlkwfxJ5$DOBYAgnREctlwMXu5uvQu75ZjW6aVOuFVkEc3iWK$lga4itFRQO88kMwah49aROdw9jSypQAjxk5tdJaDbEJYY&LjO5KRd$OYZdo91sn8PS1l&6dhlr7sFcHvfpPxou5kE&bNP8BPCRzIeKpLz0DRGPmWm944SSYDmGcDmVCPx6Lz12&X7h8KEqkC$1KTHIQ4IXciPCBFOfPEakTZxF$GM0NB7JaEcQywZ1mn0v2ygRuX7pMZybZFshMc$4EXHINe79x7mZza0YgWZQrsVDw7VhJKI3Adps5MaaRkdthY08VVaGmuRZXGPKTEwfAYgJku8TbKRo48kUX1LZPqSZ2kfpkfjiJ$Sw4Ij&bCI$A5ACLL39BYlLMa9jFXjgSEOCob6QFxTRst2e4HKPla3DBdKKLA$gkj5T9yACw3pqyfO7zLLNNYIASisGEWFuQvbdxNV1qYTHmElRVA2e6TkFW2x7D063D28L9fGStXku$y8BV2JPLPRcMMsT8bIKFxqnVjecAEF9QCS$oYNSXWR1ENUp9LLe8BhWJlZN$dl&91cZmvulAaaecFCD1UsUqn$3Atz42pYqssGJiBZMddchb&FHn4LBaNL&9ZO4UOF9S81iNM0UZlsAhn0sCReO4Nmw== _returnUrl_true
+28/09/2022 11:31:54 a. m. - LoginSAML_Inicia_True
+28/09/2022 11:31:55 a. m. -  _Inicia_True
+28/09/2022 11:31:55 a. m. - maflores951@legvit.com emailSAML_JsonSerializer1
+28/09/2022 11:31:55 a. m. - http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier emailSAML_JsonSerializer2
+28/09/2022 11:31:55 a. m. - urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport emailSAML_JsonSerializer1
+28/09/2022 11:31:55 a. m. - http://schemas.microsoft.com/ws/2008/06/identity/claims/authenticationmethod emailSAML_JsonSerializer2
+28/09/2022 11:31:55 a. m. - 2022-09-28T16:31:49.673Z emailSAML_JsonSerializer1
+28/09/2022 11:31:55 a. m. - http://schemas.microsoft.com/ws/2008/06/identity/claims/authenticationinstant emailSAML_JsonSerializer2
+28/09/2022 11:31:55 a. m. - maflores951@legvit.com emailSAML_JsonSerializer1
+28/09/2022 11:31:55 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2nameid emailSAML_JsonSerializer2
+28/09/2022 11:31:55 a. m. - urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified emailSAML_JsonSerializer1
+28/09/2022 11:31:55 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2nameidformat emailSAML_JsonSerializer2
+28/09/2022 11:31:55 a. m. - _d5b184c6-1d7b-48fa-b690-722edfbae535 emailSAML_JsonSerializer1
+28/09/2022 11:31:55 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2sessionindex emailSAML_JsonSerializer2
+28/09/2022 11:31:55 a. m. - maflores951@legvit.com _emailSAML_Name
+28/09/2022 11:31:55 a. m. - _usuarioLogin_True
+28/09/2022 11:31:55 a. m. - _usuarioToken_True
+28/09/2022 11:31:55 a. m. - http://localhost:4200//user/InicioSaml/66qmrnCgSHRuBph8CFdpj&jfXyYVHOu1TJ36eB57y37jeEjrcvxGuBF$NE3UfN3q&fbpZuO$AvMxSJ2xfLUeUevSY3aCei7II2M6vuTMqtcVgNRpUKXtY6TvE&sKxFqV1vNwOzy2aJE2Zx5rtAywgcXr5LAHFZBIXxGYHsjn7Y2eUrRO0J7NusCLvvisFdgtxO6lgv81Kv&wDx64&JjuDEn&q3wwDnK6opgcS&iMDzDNpNyHCkeRqqSbhWZUFGxU&r&kcPTbl2n2ooVDB2zQxTUtGOCZSI6yn7adHlUGri23jD$gaHk9qNb&No2Z9qWO37g3OF&7tqY5Y4uLBmHT8yz66smjv2R4HMDNa7h6E2fKgKel0ZOCqFdqaw8sHi3c30nGgMoBrI5inbYGIOHtrm5fqqFhpotUkvyTKn0ehEjlVE1TsTxc1o$1114oCLD&O0FDcv5dtLzJP$ZD4J6Hp8Ry25lsF0znK0lG2D9ZvEU4oZmn$Tp9To5bSNYLBbiixrmlKC5D$9m033&qSif&FxjP2TRfJT9Rd6Avb8ABRAhWpvjIsJArVJMjaZuerzfbhIoi$NvQIcmb3kCx09iUiZSwrMi3zMk0Iqhfxur$HJlFVvwbZf7kn4FFk3xIPhojTc5QGU8WSBapqaUTQWFYPHtGitM9kBz839V1XGN0Y9W5ds$&2rLEnR43VmpYx91ehNqPe&f7TbI3EZmzD094GbOvV9t9Uw&m8bWx3IWE9QRw$ukqlFSDbZ4YwWD9Bgr8BfKd9k&4$EruRQYqDk4qvgNttAUBBDZzGkYfcVRX3DCHOx397lFGvwD0UM810kMmrzqRHvu&dplb50JbFjBjFeesBa1U8dfeL47uncf2SF2rBcyvYiq7W2$gNwGUAlBagdzmSih7BPLyW3IvZ3r&al7JesSOVOmtJE0rCz1cMfKfI8qTcpcHWAn4a60bITruuWCVFOg9mC3u04pkWBwuQBiiqgCAbraX0D1B27U&3FqUtkCjd8tYGBEZqb2mLCvNV&0xLoRQG&B&qSmeA$RHegfqJacPf17z$wBMhaN$dP2qTRygvA4Bl35OJSxsKD$Fx$9JVGjn8eIknbCF49PMfQbAYOCUkMiE1AM&R$8eQhxBQDrX6LBzbCFVJZibUhAZ2oBFqau4K4Jh0NqrMzE9Y3Ju3N9eLzyEZChQ365KOiOZbonTjTtvxul8tsamE7zeAaOpJHgpVqDTs$6lUBU8NEYZhREIgYbpqZr25wlyPezZb1BepjMQEQXjLoZ3semhK&vinPi733J0bN7oJE3h&hR5y4egdy92vzCDxYxMorEdEovE6zd6ZfSfDO5$phnJar88gCcbmEG2skrk201yp7OhPGRiKcWwBYi6SZryo3XpGP8C2NNxYDqVTjHy0EqktXaJpgl$HnX8JhHsINkA6XglUtDpCyYGLqT&TNooM3XFMZ7wGOcxqO8$fCjo6YH7WcJPqElJfG0Z9yQLdi84NE7j16mst2gMy$bq5Pg7ewJ6ZW9I2845x0FCbq8Vs3H$BhTegYoOLb8dzScnnOuiURIL&FlfS&a6GX$jq$P7IwVvUIeCAbGM$8V31U7wpsPV5FKFl&LaRjfM2oQy9JE5$2dh7tipeVYeLLCRo7eD&B9vMYa5AGL6JZFb172K2&BXnYfXzY&CFgOtQDUlK8$hk7BSZupwqckj6AdTzC&EuWyuiNCXeeO8bv7Tts1NvkUgroj8aIuDeOsc24kExuzKzgptXEUwRsB1Fqz&fnfbQ73EyQlT8GfQXJ5JRVCg8Cx6hpQ8g2o3I6rHJSP62g0gmBOshZ8c7RORirWmwpf1ryjMVVmBPnbxvbl8O7aH0e3sZWc6s11HC9D$19Oz0kyr1g== _returnUrl_true
+28/09/2022 11:35:08 a. m. - LoginSAML_Inicia_True
+28/09/2022 11:35:09 a. m. -  _Inicia_True
+28/09/2022 11:35:09 a. m. - maflores951@legvit.com emailSAML_JsonSerializer1
+28/09/2022 11:35:09 a. m. - http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier emailSAML_JsonSerializer2
+28/09/2022 11:35:09 a. m. - urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport emailSAML_JsonSerializer1
+28/09/2022 11:35:09 a. m. - http://schemas.microsoft.com/ws/2008/06/identity/claims/authenticationmethod emailSAML_JsonSerializer2
+28/09/2022 11:35:09 a. m. - 2022-09-28T16:35:04.160Z emailSAML_JsonSerializer1
+28/09/2022 11:35:09 a. m. - http://schemas.microsoft.com/ws/2008/06/identity/claims/authenticationinstant emailSAML_JsonSerializer2
+28/09/2022 11:35:09 a. m. - maflores951@legvit.com emailSAML_JsonSerializer1
+28/09/2022 11:35:09 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2nameid emailSAML_JsonSerializer2
+28/09/2022 11:35:09 a. m. - urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified emailSAML_JsonSerializer1
+28/09/2022 11:35:09 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2nameidformat emailSAML_JsonSerializer2
+28/09/2022 11:35:09 a. m. - _9fba3bbe-227e-462e-9460-c6d4dd8c5a7c emailSAML_JsonSerializer1
+28/09/2022 11:35:09 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2sessionindex emailSAML_JsonSerializer2
+28/09/2022 11:35:10 a. m. - maflores951@legvit.com _emailSAML_Name
+28/09/2022 11:35:10 a. m. - _usuarioLogin_True
+28/09/2022 11:35:10 a. m. - _usuarioToken_True
+28/09/2022 11:35:10 a. m. - http://localhost:4200//user/InicioSaml/66qmrnCgSHRuBph8CFdpj&jfXyYVHOu1TJ36eB57y37jeEjrcvxGuBF$NE3UfN3q&fbpZuO$AvMxSJ2xfLUeUevSY3aCei7II2M6vuTMqtcVgNRpUKXtY6TvE&sKxFqV1vNwOzy2aJE2Zx5rtAywgcXr5LAHFZBIXxGYHsjn7Y2eUrRO0J7NusCLvvisFdgtxO6lgv81Kv&wDx64&JjuDEn&q3wwDnK6opgcS&iMDzDNpNyHCkeRqqSbhWZUFGxU&r&kcPTbl2n2ooVDB2zQxTUtGOCZSI6yn7adHlUGri23jD$gaHk9qNb&No2Z9qWO37g3OF&7tqY5Y4uLBmHT8yz66smjv2R4HMDNa7h6E2fKgKel0ZOCqFdqaw8sHi3c30nGgMoBrI5inbYGIOHtrgevpRPk1BEVr&D&nNfISvAQ&rkLe$WgoxOQYbFozKkyndIs85buORi92c2iTwjcKwex0YOh12Dd6yNDCgYRd22JQ6IIK6YqVNLK&tfH23R307QhWO$h6TS9dJBVF7DKCh$rEgUr6FrRfCoOfQjyxCrUa8iIGOUkeUP$YjY2dBfmg29T3yIedd5csZumO5fvUQEXANqxria6093iqlFzPYM3MtjMMzkyzQbCrLG8koDAKqy$uA4ZkSlN1lAapxUKIpjePGzP5MiwwAgP4pnqDfhK0apcClhvadNvLXVhfk3J3Q8Fra84IXNcv7DkhNo5QlgP7lb24uA$zb$juFsknQVe84n&fAVwlnm2VHc1JhGVJdxbPR6g0$boDXYvAJ3rAjGVr1rtYgdoD2nwrEhNqDpO6nr5lPmoXm5RnYrZQ5S5Nj5hY2pe4U6j3q3Ak2n9fg099a99yD9AHdxl1lWhDpCpyMymVrqUHkhQwXmTborvkGU9&B3owO&0$SH40rDmcJaMlG0mTXWabqppHskinu6NonuEilqfjbGuz1L&tzLGbgc1xr76MhWx85JIvQtoyeGAY$3yM0HU4RPlM2k8IgAml8dKzU6NdiLdFXwwgA5zxP2k6ki71Ch7bE3097vCA8WqvbdPeY&EmDG1Txd&A8fHgMfCybxDZWGDLRWNJBukrQ4ASUoC489G0bKKTVTanb4SfpRPR8s0CDshxdPF1cpjcIxu4VvajOCQrCbHWyNEEDv7aeEYBv8Yr2$Rf3qlmIuWrD&YEhFU8t0R9gWAyXmIrGOUVGpR&9bWnmilS7Rd2bdyD8DNZamtEy$oxDYNKwGrCU8ETc6YS&gaxBEGzwkZygsRL2r0OUkzp76q31ZLUsnX1O8jWvAf$gM1bsyHFUETIBnV54TW7gu1IOJXvVPTJIfRW51BOMnaqYWoouDt4LNkKPL2Aog9ScqMRxQmfZgrYAwW0MuocQL$g&BvhhVMzOD75fg4vX2mAT4HoYASLJ&vQztFqJ15GPX&POoLu&XhxZQi2pcu9lmfusqw0a$KNcKX8$iwaMsm9wfYqgZy$RV3aGbJ2lXo6PVyL4HPM0TKVw28PkUlTkZELCSUsLUvnl5C8cFJMh3rr14IXNsEK8qk83BscqiSMCUmH4m7mu6jdlqieD3UZE7u&TCPnzeBhbWO4ydD1dbABVgtT$ryKMkFKSNK&9a8dPuBG49GylvKzqrJ6YrcZ$1lypEMoxaY1CgVwVTng4e1pwXqoAlyl4zFblsbKyTM$nZB$uPULcHWFplYTJLJ48VgHnGyvvVW$C2L9ilWUVzprtNdFI0Ig6MdTFiLes93HEe7E&rNAVdLGe8kNttNR7n2Xze5uVLrfIcMWb2Z$G5thzonpDzZQXsoV1Rh2H1s0vpCeavmkzNjcJktF92oz1abLytqkUPj&zTTzi9LGUwIguDsJlU7 _returnUrl_true
+28/09/2022 11:37:02 a. m. - LoginSAML_Inicia_True
+28/09/2022 11:37:02 a. m. -  _Inicia_True
+28/09/2022 11:37:03 a. m. - maflores951@legvit.com emailSAML_JsonSerializer1
+28/09/2022 11:37:03 a. m. - http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier emailSAML_JsonSerializer2
+28/09/2022 11:37:03 a. m. - urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport emailSAML_JsonSerializer1
+28/09/2022 11:37:03 a. m. - http://schemas.microsoft.com/ws/2008/06/identity/claims/authenticationmethod emailSAML_JsonSerializer2
+28/09/2022 11:37:03 a. m. - 2022-09-28T16:36:57.689Z emailSAML_JsonSerializer1
+28/09/2022 11:37:03 a. m. - http://schemas.microsoft.com/ws/2008/06/identity/claims/authenticationinstant emailSAML_JsonSerializer2
+28/09/2022 11:37:03 a. m. - maflores951@legvit.com emailSAML_JsonSerializer1
+28/09/2022 11:37:03 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2nameid emailSAML_JsonSerializer2
+28/09/2022 11:37:03 a. m. - urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified emailSAML_JsonSerializer1
+28/09/2022 11:37:03 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2nameidformat emailSAML_JsonSerializer2
+28/09/2022 11:37:03 a. m. - _ba5edf20-02bc-48ac-beb4-85a3f24722ad emailSAML_JsonSerializer1
+28/09/2022 11:37:03 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2sessionindex emailSAML_JsonSerializer2
+28/09/2022 11:37:03 a. m. - maflores951@legvit.com _emailSAML_Name
+28/09/2022 11:37:03 a. m. - _usuarioLogin_True
+28/09/2022 11:37:03 a. m. - _usuarioToken_True
+28/09/2022 11:37:03 a. m. - http://localhost:4200//user/InicioSaml/66qmrnCgSHRuBph8CFdpj&jfXyYVHOu1TJ36eB57y37jeEjrcvxGuBF$NE3UfN3q&fbpZuO$AvMxSJ2xfLUeUevSY3aCei7II2M6vuTMqtcVgNRpUKXtY6TvE&sKxFqV1vNwOzy2aJE2Zx5rtAywgcXr5LAHFZBIXxGYHsjn7Y2eUrRO0J7NusCLvvisFdgtxO6lgv81Kv&wDx64&JjuDEn&q3wwDnK6opgcS&iMDzDNpNyHCkeRqqSbhWZUFGxU&r&kcPTbl2n2ooVDB2zQxTUtGOCZSI6yn7adHlUGri23jD$gaHk9qNb&No2Z9qWO37g3OF&7tqY5Y4uLBmHT8yz66smjv2R4HMDNa7h6E2fKgKel0ZOCqFdqaw8sHi3c30nGgMoBrI5inbYGIOHtrmRLuTdnRoqWj2Ub1$xa1lForaf4l2GxKryPSfB5hQDvfcODueSv$wd2GtVm3&e2hiCc$kfVXGL9FkBy3w7L7xOqkxsVKXlE$rgGXYKHmjDNnh8HVoeFORoSXVQa6oQI0nSskZEaUml9nt2YznHPAuc2DhU7aQO7WO$9w0a4D288ixVl201bEhhsyBrLCs2XnE16XXQLpINY4yA7q2Z03Zp09My1spWVzz4NdLxAcyqhOzRoJH1XOL9Cn$gulZU&Sift52Ykr0muGkKMg7n$1MDNjkuEPmRxIsnf44GsLO&1xOFjU1VW9858&&KhW$3O0RuFkDXM&5&iTyTYKzJz9TxM8kRiybF8DkMsUfFLw6CckSFSm1bxx38OAuZp3L4RTBGe$QjRofuoDwIiaNYtAI3BNRtot0v6dbY3famHIyNHR26&qaJTj17aC8GVDEDwANNRFG6tZuQLMHkjTd0ekSDPPN8I$TqAvF1uu63qX3LpFWl0U&8yfhczf5MtX4ZRZkNb4N$KiKhQerQKIqNNO1I28Evq2Ylt10zIG$UUmrK1ctmZYRG$sbUpBBX1SDbs6PTrcyvBDyh8pAyxKXyooQqeRMhUSquJ4AIZpv8US9ypXts1q5tO7E7rw67DHeiOLqsMIZlCw9h48efzGkiQ3IU$CZgT7BQJTSPf&eiwtOhXg0z&pusyXTgw&A9xAwIS09WP7lcG0OVBrdS9AYF15ecrRWD3EQXE76q5PcT2qNRpEVXvnbiy0wnFYtJiloN9ZdXf2SZfPbf4gF46cmsuM&qbcVXg&LFKEO9rkb9jVouNsIzy3lNMwHMI62JC6yT8ZBzZqBvnba$aD8E68gZEEZEsZIimMb11UPHNJ6GDN03QKj8b58I7yLzCqn3bNxQyf9akSXJRE3PXvjf9nel6CPJtkrgOfZr519$LOnrOFG4Cu&JhlM$enZD9Lg&8Qa4v7jJswEKfIrKUPYSpRcbFdr1k6DQf$ITUY8DrAMgnjEal9dzK$JBT9DCAkzfK$cC9CCZsgqYMJ3LkSFOqg&gYENkSeH$7ogCBC6XIhDiBNLL8cWEtjsNOZ$OkPD9eesIxlY&&qlblYfmdl73gyCGBvsMJVKeb4y&c17BYuXB&BPvR8X06YngaIfGGu5aThmVpJL0j&rsZe88mC7axpUXLtPS8XHj9nOwniU2Fz5nrxU23SPhc4Y&isHUIIqz8HJ9p9pL7xLbFha9&DrNi4kWhYkvTMKNVo1XyJTk0bjj62faJ3t3JJvD8WnTmDOZQzc1vjirn7Y7HMOI5DyslBFuaXT&HjyNpggrascesWAkBYYaG5ZStYxZKzNOKwHZWM3$4X2neJOZ15SpB1IcPWlGVHfk71kjuzcV1GJBSZGFMAY91kPK5yCoRw$Ro43MzLR6SBeuZ93T4jJDa4fiPuoKfv40Z5loBdjmnSOh3QA8UO9V8 _returnUrl_true
+28/09/2022 11:38:15 a. m. - LoginSAML_Inicia_True
+28/09/2022 11:38:16 a. m. -  _Inicia_True
+28/09/2022 11:38:16 a. m. - maflores951@legvit.com emailSAML_JsonSerializer1
+28/09/2022 11:38:16 a. m. - http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier emailSAML_JsonSerializer2
+28/09/2022 11:38:16 a. m. - urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport emailSAML_JsonSerializer1
+28/09/2022 11:38:16 a. m. - http://schemas.microsoft.com/ws/2008/06/identity/claims/authenticationmethod emailSAML_JsonSerializer2
+28/09/2022 11:38:16 a. m. - 2022-09-28T16:38:10.979Z emailSAML_JsonSerializer1
+28/09/2022 11:38:16 a. m. - http://schemas.microsoft.com/ws/2008/06/identity/claims/authenticationinstant emailSAML_JsonSerializer2
+28/09/2022 11:38:16 a. m. - maflores951@legvit.com emailSAML_JsonSerializer1
+28/09/2022 11:38:16 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2nameid emailSAML_JsonSerializer2
+28/09/2022 11:38:16 a. m. - urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified emailSAML_JsonSerializer1
+28/09/2022 11:38:16 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2nameidformat emailSAML_JsonSerializer2
+28/09/2022 11:38:16 a. m. - _bdfe41e0-a64b-499a-ae9f-71753751bbca emailSAML_JsonSerializer1
+28/09/2022 11:38:16 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2sessionindex emailSAML_JsonSerializer2
+28/09/2022 11:38:17 a. m. - maflores951@legvit.com _emailSAML_Name
+28/09/2022 11:38:17 a. m. - _usuarioLogin_True
+28/09/2022 11:38:17 a. m. - _usuarioToken_True
+28/09/2022 11:38:17 a. m. - http://localhost:4200//user/InicioSaml/66qmrnCgSHRuBph8CFdpj&jfXyYVHOu1TJ36eB57y37jeEjrcvxGuBF$NE3UfN3q&fbpZuO$AvMxSJ2xfLUeUevSY3aCei7II2M6vuTMqtcVgNRpUKXtY6TvE&sKxFqV1vNwOzy2aJE2Zx5rtAywgcXr5LAHFZBIXxGYHsjn7Y2eUrRO0J7NusCLvvisFdgtxO6lgv81Kv&wDx64&JjuDEn&q3wwDnK6opgcS&iMDzDNpNyHCkeRqqSbhWZUFGxU&r&kcPTbl2n2ooVDB2zQxTUtGOCZSI6yn7adHlUGri23jD$gaHk9qNb&No2Z9qWO37g3OF&7tqY5Y4uLBmHT8yz66smjv2R4HMDNa7h6E2fKgKel0ZOCqFdqaw8sHi3c30nGgMoBrI5inbYGIOHtrmBMlutEHGLVQ9k0ylI0BtztbZFauct57hQFBjN8t30fBWoWSOGPVq6L1Z1KcHup9gqY1&352XjJrxXxHnx&81h3o8TlUx6$bHeDN6c$0Alou1ku8emZbBpXja2XI62TaBlPLdy8LedgY9q8Tz5fr3axZ4vLH&9wi2MkzZ&c2mXnNVNCsYgfh0FhPS0cTSVvbVhqsc&i49iAGbwEkPuQBgzJGyCzQgmTNxHsTEZywqKYrki4$awA0&RnlMHcTAGXW$lx2P57bFGYCIke2pQx8&Q974GXQmd8d$Sx$27M8j2n28XPe9rpVwQb0LKsmKhpk4SIxdw5t5e&lBulyt7pmGFMu2oqz9OZgfyibwgI4v2lzIkxkur2zzBqaTxix$m8iiok$CQ5kcGmHFEPvA2kUju0NP4a7EDLHSfoOz4HIlYMJoqAfdzaFT2WvLILx9BnDxnjHp4u8SCHtRvk&6bq5z&GZlvWWEvFw8FMq4q4nCjViPdDnVlPB7sZwr6un3ETVJURJUZn2gBdyU1H1pbFEXq7OzoYPW9nHn2kZq2jsR4MSgwGVG2vHgQ8TfcW$JB7B9s85CsXXKcRJGzUfgX51fRfJrSgho0FoyVvjnUgImtNgW0edgSC8OFj$9lpFW7yG7vliI7aufFgKGWRMUMfHPVG1VvJz2kfNh3SMsHaP6cP8KDW3APUl1$fBuv69RhQIwdZ5jdF3OGd$SrtGEhyRVDU1hcXOfsFDb5Tc4QlyfqL9gKgm0zKOysmcWPQxU4T0e$H3OIw2xb83LiBiZrhzrX9ZzRE$ttb4&5ZL&7JownMg7augOKXepRSIhMkXDp6ymOqHtt3My1yPh08y8D&D8jQ$bpd9x$QgG3vBXb&HG1y6U7EyWLkYEKmRxLuwn9VjRVVCVmdY9vM0CbC&Fa&7IpZ7Tal8gWkKFzTkw281KG0I1qpF1kfhHe&B5I12FDZkXCQWftx9WL7jkZLf47nYjVzBF6CAp1QGlce06ZaN90UyqqtEVGbyDHSFj04t1VZCWK&oqzMp5lmgk3eWqKO9YPp8q4P9lC5&sGb67ccZgz1qZ&ElpTo2Wj8nd6RGJ70xl5ukpbFbxGdpKyTtVU1oPcfXy3T848bdWKct0ji6BUFBVfqq6iQhRofs8UhhUUt8hYayoEdcw0hJUGYaedJXoEJWwwF&G&28GEl9PRgcI001pEMXuCjONqBpaDb4hM9j7qdv3WtSs3B0FU4HxYrXyKIMVdaTwXJkDigO$Xl4EUTbRnbplJMXwzMfpjQLZ6JtBING$ueh3Eed04XQ$IElbYq1hrzn4RO4jPWi9BHWcPREiwm9OIh&4Jjg1CUexUaBX&mcHMKvhsBndJgCY2eOAb9yYKLy4SkokuJzVufysOsXHlzH75Oez93VlO9o1blabQ8fjXl7x6iU0Uk6KgUv0RzPn8kOdRl5vrzXzfeljXY _returnUrl_true
+28/09/2022 11:40:48 a. m. - LoginSAML_Inicia_True
+28/09/2022 11:40:49 a. m. -  _Inicia_True
+28/09/2022 11:40:49 a. m. - maflores951@legvit.com emailSAML_JsonSerializer1
+28/09/2022 11:40:49 a. m. - http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier emailSAML_JsonSerializer2
+28/09/2022 11:40:49 a. m. - urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport emailSAML_JsonSerializer1
+28/09/2022 11:40:49 a. m. - http://schemas.microsoft.com/ws/2008/06/identity/claims/authenticationmethod emailSAML_JsonSerializer2
+28/09/2022 11:40:49 a. m. - 2022-09-28T16:40:44.019Z emailSAML_JsonSerializer1
+28/09/2022 11:40:49 a. m. - http://schemas.microsoft.com/ws/2008/06/identity/claims/authenticationinstant emailSAML_JsonSerializer2
+28/09/2022 11:40:49 a. m. - maflores951@legvit.com emailSAML_JsonSerializer1
+28/09/2022 11:40:49 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2nameid emailSAML_JsonSerializer2
+28/09/2022 11:40:49 a. m. - urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified emailSAML_JsonSerializer1
+28/09/2022 11:40:49 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2nameidformat emailSAML_JsonSerializer2
+28/09/2022 11:40:49 a. m. - _a2b67338-200a-4fef-8e57-1189eeeb1d43 emailSAML_JsonSerializer1
+28/09/2022 11:40:49 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2sessionindex emailSAML_JsonSerializer2
+28/09/2022 11:40:55 a. m. - maflores951@legvit.com _emailSAML_Name
+28/09/2022 11:40:55 a. m. - _usuarioLogin_True
+28/09/2022 11:40:55 a. m. - _usuarioToken_True
+28/09/2022 11:40:55 a. m. - http://localhost:4200//user/InicioSaml/66qmrnCgSHRuBph8CFdpj&jfXyYVHOu1TJ36eB57y37jeEjrcvxGuBF$NE3UfN3q&fbpZuO$AvMxSJ2xfLUeUevSY3aCei7II2M6vuTMqtcVgNRpUKXtY6TvE&sKxFqV1vNwOzy2aJE2Zx5rtAywgcXr5LAHFZBIXxGYHsjn7Y2eUrRO0J7NusCLvvisFdgtxO6lgv81Kv&wDx64&JjuDEn&q3wwDnK6opgcS&iMDzDNpNyHCkeRqqSbhWZUFGxU&r&kcPTbl2n2ooVDB2zQxTUtGOCZSI6yn7adHlUGri23jD$gaHk9qNb&No2Z9qWO37g3OF&7tqY5Y4uLBmHT8yz66smjv2R4HMDNa7h6E2fKgKel0ZOCqFdqaw8sHi3c30nGgMoBrI5inbYGIOHtrrQphAMqJCFwGnWBqdM5zVXsiIgeDzomuutZ1AAltcdQ$tywyosKoNGtViz8h7DUpq1J8OrwD8BujtItaB1zcprNk$hY59m5shjZxrqi$TwqdXOmIdqqgjV3rp02aUSCAqgNNs5aAmPaHKR$fo7LGR2zNpAMyswNSITk4&Ar4Pw&B979dm2VZJd9gpIg3TY9xduvIsCjCzSFkuHI5K&fZyr7eiTACbMQI4tbMFkdeU7UB61Hghe2y1Ao8laiqBTz&XH$4L9nejQ6LCWUOG91Tbt182FAXTgLYVVdy3vGk5Rumhh5L1LGLtt872zyaBG9Z0g&xwmMvER&n6BcqONdRTPfFby&Ww46Pxj2QO3qDH&ZY60Prktq45S&2wkxiSdc43qqxPlqm6vuuobon8yww&28bQ7FdycyTFelkg0uoMZ3bvf3jR0sACa$E4g78Jl3QQFYbwnogiec2rybw32j8PDiCfFmiQSEBk2bwmzbKzQS0YwU8BjAdhrTN8j2XzoM07BUfBIb03qy3DPmIOJsOHL0LtFwz6nXxPJTFBkQHhBMY64L1r4FLhJfm0tctPtEYz4s8F3ikBVkdKQjbxNPAoL4Jn&UYtBDkOdhhZgJVoTt$zBQa9zk8pJstoFWBc9FsAIGytUE7FWRXN5IcdZbGtX3DFkM2l32$$8E03KHjZH3VUoFWu5Y4t0AyqqWsE68xjPQVmRRbE&Kzl98FNYGvw1fGIN2QoaiEMOfHbMsXl7jCBGBXbOhaFQmZcXZqJayDdmNNaTgYdsCPNge1wmECItdtGJ6LTARbwPLz37V$DHVsmX1b0vsK8EySGiBMdiHrOfgKAiOuO15895QlJld&j93E3BT0EoPyoo7$cWyuR&&37zk0ObswDuMFBNHUmu7mzaNmZoGYrHzk&vrLIw62HHiW5KL2JuY9oLwUaBUUXnwOfz2fMhFKJH9f5JeXAb&JmPodsPBZX1Hw8062PzBWHZK76ibRWzDvEZXtWdZQSN$TmmE2X4SJBQvQH8vSimQTisqGS0FbvzCX8&uAFPjCqymudmLNh5y9E8Rz5&UmCtYvllowsZBwIW9KLU4Rp1ETYSE7X2FlTL2C$B9RYzAzOO$agDIdAORTchvxrs9JXP1r0jq8oLNYP3ctw64k&Wp8cH$XZG01$vbiFM1PxWBrZqqkAegg5&9dBXytcPbII8dDZMZv9yrmaqudXBoKrY3jueWwVPC787Q5WK2O5o8ly8Sg0uRQhD6$YjGzI49i4tiYTCyQKQY1Rw&JSTh0tMup&OBcSs$TFzAo4wODubnnbbWh&VhPw7$KAyTwzU3NM64j3CnN9xpr93Jp3DPDZ5iSZIIuPtOvFm06RuxfemcikIeVrOvi6oZB5SDjGxGbqjmsH5&x4XMrdrcPGOWoVNSXxOoC5d5ACljUD3k&ffWqM$3Uya4Qj0Mpcidr6oN0Rhm _returnUrl_true
+28/09/2022 11:46:11 a. m. - LoginSAML_Inicia_True
+28/09/2022 11:46:12 a. m. -  _Inicia_True
+28/09/2022 11:46:12 a. m. - maflores951@legvit.com emailSAML_JsonSerializer1
+28/09/2022 11:46:12 a. m. - http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier emailSAML_JsonSerializer2
+28/09/2022 11:46:12 a. m. - urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport emailSAML_JsonSerializer1
+28/09/2022 11:46:12 a. m. - http://schemas.microsoft.com/ws/2008/06/identity/claims/authenticationmethod emailSAML_JsonSerializer2
+28/09/2022 11:46:12 a. m. - 2022-09-28T16:46:07.476Z emailSAML_JsonSerializer1
+28/09/2022 11:46:12 a. m. - http://schemas.microsoft.com/ws/2008/06/identity/claims/authenticationinstant emailSAML_JsonSerializer2
+28/09/2022 11:46:12 a. m. - maflores951@legvit.com emailSAML_JsonSerializer1
+28/09/2022 11:46:12 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2nameid emailSAML_JsonSerializer2
+28/09/2022 11:46:12 a. m. - urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified emailSAML_JsonSerializer1
+28/09/2022 11:46:12 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2nameidformat emailSAML_JsonSerializer2
+28/09/2022 11:46:12 a. m. - _b83db82c-6a02-4008-8608-c9dba548b6f5 emailSAML_JsonSerializer1
+28/09/2022 11:46:12 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2sessionindex emailSAML_JsonSerializer2
+28/09/2022 11:46:12 a. m. - maflores951@legvit.com _emailSAML_Name
+28/09/2022 11:46:12 a. m. - _usuarioLogin_True
+28/09/2022 11:46:12 a. m. - _usuarioToken_True
+28/09/2022 11:46:12 a. m. - http://localhost:4200//user/InicioSaml/66qmrnCgSHRuBph8CFdpj&jfXyYVHOu1TJ36eB57y37jeEjrcvxGuBF$NE3UfN3q&fbpZuO$AvMxSJ2xfLUeUevSY3aCei7II2M6vuTMqtcVgNRpUKXtY6TvE&sKxFqV1vNwOzy2aJE2Zx5rtAywgcXr5LAHFZBIXxGYHsjn7Y2eUrRO0J7NusCLvvisFdgtxO6lgv81Kv&wDx64&JjuDEn&q3wwDnK6opgcS&iMDzDNpNyHCkeRqqSbhWZUFGxU&r&kcPTbl2n2ooVDB2zQxTUtGOCZSI6yn7adHlUGri23jD$gaHk9qNb&No2Z9qWO37g3OF&7tqY5Y4uLBmHT8yz66smjv2R4HMDNa7h6E2fKgKel0ZOCqFdqaw8sHi3c30nGgMoBrI5inbYGIOHtrnGrebCi&pefV0zvbYjH3dMqYTLABmw9znhrxtfxM&W1g7xVy3KaQBwSD4uhNKKMV1Jm$C&ksD4JzHE6mWJoJ9gJqJk6ED62LYuu7phzbdQU&QgunnQ3NIjTaxxJSyxFPpcbs7vNMFA7D&ZViQbfnT5tcy8$nf73nn0QirhLzznTM56wkbFM9JLrbgC6vXVB7uPIcXHGfQH5rwzQEc9wfiKQWYg9y7I2qp4dA69dwKsBvZqvKCl&2PcAnskUnjbaJtE&HaSBc94RxXD2oeapUSMC15rlpvhmpKqmBrOX4uezTuAJ93HmMxGt2oeysQzoDdeObqiV9DVnh&vxx4TQzNEBrf$qnOS1ww09d04LSiLaZILWppn0Tp6vktytfRMGa&R$1XCSNJQuFABiXPi8OwsZrf&Kf8ut9$pjVl3CPh7HIWSm82Zu$dEimWYd$j$ucfpto3RpLGpxApBP4z0A7dg2VR2ACCmvNFRAUgTGsVAsW&$v4yGtbN$KWWC&UX&smmZp426oWuBpe4IbMr1yu7FjkOSibW4wbd$Vznb&uSrA641MOhqiOte5u4Ax2DUyJ7z6WT1R$a$2eNvQe$vxKLxxKUMN4HPTi&o&3s0VmHUsq2VIzKNhdXShjegJb$neKNXIAteUF54WPFh5DsSs4kDaZVjn9YKJb80mgdFQXWsef&P7xpQ95NnU5Y8H5Nmxvt$YpDCJlJjusJiErwB6ZQSPsb3DR&t3l0ZNo90ahwTzFo1rn5c913QJUEFjo4bDJ8y5YKgynsy1JeUtcyLjm3G0&1jthXtCknAGhtnYTIPL00KNIzAvDNimqghhaxD66Y7JAXT8Qgtr7Tg3g3$TQ&wsYDf0L07bDkk46$yTOWpVkIw&5qTVI2NkbbcZQlYhCO2yKsBad2UyeHqN57H$WZJJZ5QCATZWlkQ3PpQmVjWp9JhJILGGpbvQtAPePQA6UeoJfiU$V2QSL1DKeoCmJGRACQZUcNz2PT55Jii9Jx3Ph9FXgj0pUCnsxZIfv6L$Vex9bnuBnwPWkWIzv7iT6PN$6Zy3vPYP7hRJSJ98Cl8QC9Yfa3kiI$KBd4Y$9bSqYMk2N8BTExLYhhrn6vVklIYIQzYlGw0Cq8j4qfOJRHTPSeW4ScDL7&ie1B2$ypl8xQIwPWqW8weMgN4S1EiCosiXCWcikjsRzIdGXDAPlzK2io&48a3U2V9C$5PkxIjvoholOBoHda5W8jfUqOt8qNOPcwsYWpN8oKaJdw$yoXh2KbOEd1AaJsqp&MUS2EVpVBM0qLjU$dyVIOa1P8MoCLM9aOTmpv&3ESuS58ZaiPzoqqTZqRp0y91lIhZrls8aQIGz7zZ6a1kj&j5Zr4nASI8Rzv0WXcjRgAGUxhgvQdRDDSh&ej&2vBvuQcE5Ws8jOjBL9VWfnrvE8vASbsYo&S5ldiLJ3HV0&gV7VRfNdSXy _returnUrl_true
+28/09/2022 11:47:32 a. m. - LoginSAML_Inicia_True
+28/09/2022 11:47:33 a. m. -  _Inicia_True
+28/09/2022 11:47:33 a. m. - maflores951@legvit.com emailSAML_JsonSerializer1
+28/09/2022 11:47:33 a. m. - http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier emailSAML_JsonSerializer2
+28/09/2022 11:47:33 a. m. - urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport emailSAML_JsonSerializer1
+28/09/2022 11:47:33 a. m. - http://schemas.microsoft.com/ws/2008/06/identity/claims/authenticationmethod emailSAML_JsonSerializer2
+28/09/2022 11:47:33 a. m. - 2022-09-28T16:47:27.988Z emailSAML_JsonSerializer1
+28/09/2022 11:47:33 a. m. - http://schemas.microsoft.com/ws/2008/06/identity/claims/authenticationinstant emailSAML_JsonSerializer2
+28/09/2022 11:47:33 a. m. - maflores951@legvit.com emailSAML_JsonSerializer1
+28/09/2022 11:47:33 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2nameid emailSAML_JsonSerializer2
+28/09/2022 11:47:33 a. m. - urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified emailSAML_JsonSerializer1
+28/09/2022 11:47:33 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2nameidformat emailSAML_JsonSerializer2
+28/09/2022 11:47:33 a. m. - _aa05211f-edc3-44fc-80cb-fab988317d2f emailSAML_JsonSerializer1
+28/09/2022 11:47:33 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2sessionindex emailSAML_JsonSerializer2
+28/09/2022 11:47:33 a. m. - maflores951@legvit.com _emailSAML_Name
+28/09/2022 11:47:33 a. m. - _usuarioLogin_True
+28/09/2022 11:47:33 a. m. - _usuarioToken_True
+28/09/2022 11:47:33 a. m. - http://localhost:4200//user/InicioSaml/66qmrnCgSHRuBph8CFdpj&jfXyYVHOu1TJ36eB57y37jeEjrcvxGuBF$NE3UfN3q&fbpZuO$AvMxSJ2xfLUeUevSY3aCei7II2M6vuTMqtcVgNRpUKXtY6TvE&sKxFqV1vNwOzy2aJE2Zx5rtAywgcXr5LAHFZBIXxGYHsjn7Y2eUrRO0J7NusCLvvisFdgtxO6lgv81Kv&wDx64&JjuDEn&q3wwDnK6opgcS&iMDzDNpNyHCkeRqqSbhWZUFGxU&r&kcPTbl2n2ooVDB2zQxTUtGOCZSI6yn7adHlUGri23jD$gaHk9qNb&No2Z9qWO37g3OF&7tqY5Y4uLBmHT8yz66smjv2R4HMDNa7h6E2fKgKel0ZOCqFdqaw8sHi3c30nGgMoBrI5inbYGIOHtro9qO6oVJ29rBvLEAvVBnWTnSQ0JA3XJONZ4yKB1259z95VutnnYeNRpWXCTHl3zMdtIGVFj60TBtC7SFGUYrplVpLyJmhj1zskS2WTAmA0XDVtdAuzFXpyIMbxUJ4raBp7yERADPqiSCxBa64VCyvPDH5XBp4yEhHa4Zy6djcuYGA6ykg1Eu$&Gs8hrffzjJLP&xRFBkRCs$yrU8m8qQYNla$zUdWUY4R7cpf2wjzmwdvwCr4nncRc8BJW7uy9O&6U2D9$jK&c0qN19ssE09b1ya&FyTHG3E1M9YRkVflkqdAft34BMY0BPtFs7RoLy5KWgmVxX2GrwmNZfydP0uMCyRGlzg9ptubQj1czquYXNtU2cBBAUmnP$FJYwUTrWfEY0NQv6kUSOFXmQF7w9utUTSzPxNp68OCeo1C9JHuFmtGObZcdfhsI1HWkwkmcaOnL6$94$MfOPKKJz20Avpp$6SuSGoI6YflIGyNQDjH0FQa3HdQdmfNGPzJ&6hcwx29&Xoa$5&R6HKDwRaskVH89Ifpr6i1NJgmdUZUBTQ1ETvQTal$URjY0srVdtnx9cXc1SOk1h2YslhSrqi26UUX7xXDr&UtH8bqH9W1&pCtFWQhCU2ZlwPJ6q&4VnaD4qMZrwfI&Nt8SHk$BvEBqwu7eOup5&CDX7T01jUgXgAGjTEWOFfL8QJW&Q9rCzknfWQuE1VHmGVU5IDZxeoanZfN3ZL9G7$HKcOHgO73ys6r3daZpfKaEzsN5cmXY&zB$F8&KbQ6JTK0Iu1bP407y$Y3c&fnvxqpSN&p0T7qgaUltYJZ7wN2zQ&bJBVsw6tuH4ZhQCsyXysufJFisyzSZhakS7$De32flvsWwtNJZxt3Gb0KRO9DTCsoDW0xutCv2GZWhGFjv7ofimoyCthxL0wxlvHrCzBXT3PF2eF1$kRAourblaCviU7I$vvvMm6oRLf0$knilbhLm3sipHV0Kxzm1c3wuxf8xfo6F$EvsgaoVjJEbHptZvfq&Uvmay5b&dGjesY7eIcztfRzamAyZGiQyv5ceZatBbBks3SXyCxNrtFVVRyMacTZ&ZyGJUyhXX36raop0uVAa4fYWktCYbzxTK8Y9Mw0hXpke$un9l1v9pG4Mk$YQO80PNnjPmjjsk0vBo3TgWdoh7RBmr60jDL5WbJbD&J14ogv2KqYoyAc7DESAEn&NOx7eTKkBysfXKUSVj1X2DghFKem&Qnulo$oTM60BUoDAqqteo6kaOa6fj6BIMfmMyy4mZN2eVBSFtjAUDCNb0tU4xc0jJhtI4GHQd1N8SkIiTXwr7qtPXdHVMy2BVK1VmjxKssm1qkoTNLQ249Qu$zeBawaGlUeeHj4IZ3K126nl9sHEfLJW00ukFbsJlKQVLRzfqV14tdhbD&LXjjRJ4sReHY7Kyu5slm1p4ulFrHmXZUwcoiGjRry&5 _returnUrl_true
+28/09/2022 11:49:09 a. m. - LoginSAML_Inicia_True
+28/09/2022 11:49:10 a. m. -  _Inicia_True
+28/09/2022 11:49:10 a. m. - maflores951@legvit.com emailSAML_JsonSerializer1
+28/09/2022 11:49:10 a. m. - http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier emailSAML_JsonSerializer2
+28/09/2022 11:49:10 a. m. - urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport emailSAML_JsonSerializer1
+28/09/2022 11:49:10 a. m. - http://schemas.microsoft.com/ws/2008/06/identity/claims/authenticationmethod emailSAML_JsonSerializer2
+28/09/2022 11:49:10 a. m. - 2022-09-28T16:49:05.087Z emailSAML_JsonSerializer1
+28/09/2022 11:49:10 a. m. - http://schemas.microsoft.com/ws/2008/06/identity/claims/authenticationinstant emailSAML_JsonSerializer2
+28/09/2022 11:49:10 a. m. - maflores951@legvit.com emailSAML_JsonSerializer1
+28/09/2022 11:49:10 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2nameid emailSAML_JsonSerializer2
+28/09/2022 11:49:10 a. m. - urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified emailSAML_JsonSerializer1
+28/09/2022 11:49:10 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2nameidformat emailSAML_JsonSerializer2
+28/09/2022 11:49:10 a. m. - _f2d2a6ca-b358-406b-b452-57a8c7811573 emailSAML_JsonSerializer1
+28/09/2022 11:49:10 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2sessionindex emailSAML_JsonSerializer2
+28/09/2022 11:49:10 a. m. - maflores951@legvit.com _emailSAML_Name
+28/09/2022 11:49:10 a. m. - _usuarioLogin_True
+28/09/2022 11:49:10 a. m. - _usuarioToken_True
+28/09/2022 11:49:10 a. m. - http://localhost:4200//user/InicioSaml/66qmrnCgSHRuBph8CFdpj&jfXyYVHOu1TJ36eB57y37jeEjrcvxGuBF$NE3UfN3q&fbpZuO$AvMxSJ2xfLUeUevSY3aCei7II2M6vuTMqtcVgNRpUKXtY6TvE&sKxFqV1vNwOzy2aJE2Zx5rtAywgcXr5LAHFZBIXxGYHsjn7Y2eUrRO0J7NusCLvvisFdgtxO6lgv81Kv&wDx64&JjuDEn&q3wwDnK6opgcS&iMDzDNpNyHCkeRqqSbhWZUFGxU&r&kcPTbl2n2ooVDB2zQxTUtGOCZSI6yn7adHlUGri23jD$gaHk9qNb&No2Z9qWO37g3OF&7tqY5Y4uLBmHT8yz66smjv2R4HMDNa7h6E2fKgKel0ZOCqFdqaw8sHi3c30nGgMoBrI5inbYGIOHtriOwhw&pnpnLg3huaw&ABtiZSy9bfoByXJ$QaBjV0iOCoZSWsgCZ$R980O4UfHWEEF9GcHZD$0yk4CgTn5nbGc2t68AxVrHkfbJY2HpkkEB82JnDingHps8ZZb5V49NZZfkX$$4qVrrlzAmK8JxxDfu6dlXWZVcB22m59VXDQcCzDUBGfkpx3k0biTC1TrkW5Vus5Cn3m3Kv9vTDNV2svHzwWaPuLd2ZwurpSF9iGJzcrjN820ilJIW122Obti&K43bRhkcD$BA0pS&QhOECqw8$K2Wg9rC0DjkCGeSc0f7t9JeiQKcZduSRqtvaZ5Z0xBLeLmAALK1UUVPrgWHr3IV9XC4bOvOtzGDsjt6OOg4XxMmFTXT6inSJfg3nVgrkLzY$zZ0qB9knlyA4Eb5xYI5EB3D&Yu1O&$YL5R$VCm6nDp0dPAPtMPbgSejQNzJEU$20F0TOd69m2wNlq1qxVQDYeq0oBaZO&qZC$kzY$mBs1toL&SIt4lH0xPoGOn0YGgRchEfe&Xa0s74JTZMVvzI85KbHJi7HGrsOFQom$M$tCpsTvsSayp9NcBFAU1LMG4U2zTIxkrMvagcoxuiManbcnqppEOZjZYu5GCMDNX1OWTEl0RVKgppEjJdfcp0Ckkqbgkj3vgJt9kXRIC7SltU5bv&Whc7LIQxUxaBtr69tzS56RqAOqbtNKP5RkuvLhMsHafK2whEg6QdPpmkQEfLh9UKemsX57SkMXcxauxm$fEzyEx2KQEiRi7Z7e8jjh$dNowJZWbcRx216VrFq8t6$fwDuh1Ek$ptAgvEELBpZUHiUmtkA7UTcMM3hIv$l2qJy2k9b&WfJfccEbkZ0KMh3E4SEcxYVCZ2hlxxmcjdy2h2FlJRo4QuSPvzjHPHTB7W74xjRQWSc6dSC$0RUKAt&ff6xrO08xxVQnXAkViFrfJytqh6oU&wFPbdRk00YumRgcD8GmTrmsQ9U0$U&RQvcGxS&BsxiPywsOeXnd47MS6r59SPhulhuT$ODx9feU&qqxJbOJG$Z9ZTkdvMM9ieGFY09aE2KrhCchE7$ojUY9UCU8GgkWpcFbnQZzqm8OoTkUsiUEtJu8xMeA5Eg2khV7aAkrOlSJM7B5VU46qV79pPTxepYGNAAJ7abPuG$TD7Ffr4tYiLq5FAOljcDweiRePD7FI8PHaJENAvgy2pVPAySkXAH4uRobbYmGLhPnl52VcVDR0Q$HfZv&Snim7vSRiBcGo7wbBieX5W8UzTktzS63FC$AZTvvCS3TQ$8h1sPl3q3m90TeGnDVpLn$f1x9UPpdPWlGRniQ6GBgVAK&HyXq$dimxmz43l$WDmDbedQhnp0vB0IGgjh1vu06xEJvqKK0Q&Dzh8WkuBDFz92zcVa0NMBH9cfwywuImf5eGquvxQYNb6FM1Ym9VS9n6Lp4C6owMg2u8&VqhtFAGVg _returnUrl_true
+28/09/2022 11:49:20 a. m. - LoginSAML_Inicia_True
+28/09/2022 11:49:21 a. m. -  _Inicia_True
+28/09/2022 11:49:21 a. m. - maflores951@legvit.com emailSAML_JsonSerializer1
+28/09/2022 11:49:21 a. m. - http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier emailSAML_JsonSerializer2
+28/09/2022 11:49:21 a. m. - urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport emailSAML_JsonSerializer1
+28/09/2022 11:49:21 a. m. - http://schemas.microsoft.com/ws/2008/06/identity/claims/authenticationmethod emailSAML_JsonSerializer2
+28/09/2022 11:49:21 a. m. - 2022-09-28T16:49:16.103Z emailSAML_JsonSerializer1
+28/09/2022 11:49:21 a. m. - http://schemas.microsoft.com/ws/2008/06/identity/claims/authenticationinstant emailSAML_JsonSerializer2
+28/09/2022 11:49:21 a. m. - maflores951@legvit.com emailSAML_JsonSerializer1
+28/09/2022 11:49:21 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2nameid emailSAML_JsonSerializer2
+28/09/2022 11:49:21 a. m. - urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified emailSAML_JsonSerializer1
+28/09/2022 11:49:21 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2nameidformat emailSAML_JsonSerializer2
+28/09/2022 11:49:21 a. m. - _302b9ef4-31aa-423c-a0b0-4b1dd12c1af1 emailSAML_JsonSerializer1
+28/09/2022 11:49:21 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2sessionindex emailSAML_JsonSerializer2
+28/09/2022 11:49:21 a. m. - maflores951@legvit.com _emailSAML_Name
+28/09/2022 11:49:21 a. m. - _usuarioLogin_True
+28/09/2022 11:49:21 a. m. - _usuarioToken_True
+28/09/2022 11:49:21 a. m. - http://localhost:4200//user/InicioSaml/66qmrnCgSHRuBph8CFdpj&jfXyYVHOu1TJ36eB57y37jeEjrcvxGuBF$NE3UfN3q&fbpZuO$AvMxSJ2xfLUeUevSY3aCei7II2M6vuTMqtcVgNRpUKXtY6TvE&sKxFqV1vNwOzy2aJE2Zx5rtAywgcXr5LAHFZBIXxGYHsjn7Y2eUrRO0J7NusCLvvisFdgtxO6lgv81Kv&wDx64&JjuDEn&q3wwDnK6opgcS&iMDzDNpNyHCkeRqqSbhWZUFGxU&r&kcPTbl2n2ooVDB2zQxTUtGOCZSI6yn7adHlUGri23jD$gaHk9qNb&No2Z9qWO37g3OF&7tqY5Y4uLBmHT8yz66smjv2R4HMDNa7h6E2fKgKel0ZOCqFdqaw8sHi3c30nGgMoBrI5inbYGIOHtrqO9w5nriiLHORy3z2eoZPII0BvFs5jXC3xUYlTZJEnFn&wUQU2Rn2OqCeU988NTr3fV3xWypNkm5ZmCc07yhJWLz7vEuIojHRBAUuWWsfigsQfOOuI$rgpIzHXWb1ZGd5JCCADOz85Oy1IoVaTW0Q&jrL4CzI53J8wvnxXT0E2s67nZbfESOkgQ6vNLA0jReT5eJmKBFGuaKplz5$lB$KvPDwJdCVo6cQnEs2SLTQmOaDPN0uDj2W0ZuZUjmW3K7zt3mxvCVwBiup$ji90dQGgkeDZE7Dva31cozt&3D&IQ9h&gq48iPnBlUVvJjSH&fCjUOV$TpvUjWzU420HGqRcaL4Nahj9vYWj3vc8QpWRvrN&sws3svjJUouWOHbnAkoJZaN6sGrqHel1VMhTwBRZpOUiy&Iccqw&kbB0RX4UaCwhfsOrGhF2fUyXA5fyOaBokj63LB$wS&c3ujzYElM9uLmeo0NrK&TZZ1VUta1ZQOcp3Nwojgshj5IziR1M6fpFuPel0LOJ4ex8drJOFOe1zAPuSuSQyu1wyK74KmAXfKxIszr2cDs2tR$QH7Ue5ps3&XH0jTU6KFO0prjm8Z4RLLAmySskBDx9sL3kRJX6V8OsNdtNsogvhTXCWXa6V5djkPkEDJYm791RCe3Gc$UgZVdyMfxDkG0FFpqrrcLJm9oFCJF$oi7JpBKBOiqHbs$XUFba4thOLIo7X5tQgyvMPsrQdAlBycAQrYuZhHibAL6ZdpQCL3PBQXyCZp128Cqwn&ZM&AkCIWF01LRwj00LMwi$WGaI&BYvwVuCNzKdmUiXV1yKRKEwtCo9m&K98PLGiVnmaxs$DIkdRIY$FdgARrHcq0fhHo2q0SYc&AhHLel6EYpKwTcl7lV37fvPuZno&KkxyxYCO6J1bDe3Wz74OG8s7qSFfhJkTfND5UtLOQ6MAbxZCMZeklp48f147GciiBc8ZHWw8p4Xj7F7xCOU3Dr0cxY&AldC9YzAUXBPfE2rfWHj0AkhezjImfU6yAZXQPVpM1ffiW1He98oajnuFSSFI4Rt9giMztRmM42jWXhIrrrULr718jApPJwq7D7N&tFRMk6MF8n6rHxK7VEEmVqBnIwnupfVy&NnEaIs8uVVPL2AciSVxXWbo245GpTQpylF3X7&Zi93pRDvxE7QoNy9UdmAMKXdoU5A2pRac3u2VePaRKvO5G0rc4XmoaTPo3VfdIG02IgPlfyFa2hRkys3JnyjpO2o&MLhq5hF6DLZw&7BD3RnOf22MRhG3ASUjJqoq5WIz&koMfzT&laA8xgVbkFKboGom1ANLnQ$kfaCS$MGAkyWfm3$M0zF41aS4vblfclUHfyRwS4Oh8kchNitwTlHigpKUVodGmg5FLpL03Gd0dVIZzp2ShdvXYRB4bx7EJ3WKMSgBvgcS0hzNT6PTSN$YdMdBOmaL&urT _returnUrl_true
+28/09/2022 11:52:07 a. m. - LoginSAML_Inicia_True
+28/09/2022 11:52:08 a. m. - LoginSAML_Inicia_True
+28/09/2022 11:52:08 a. m. -  _Inicia_True
+28/09/2022 11:52:09 a. m. - maflores951@legvit.com emailSAML_JsonSerializer1
+28/09/2022 11:52:09 a. m. - http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier emailSAML_JsonSerializer2
+28/09/2022 11:52:09 a. m. - urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport emailSAML_JsonSerializer1
+28/09/2022 11:52:09 a. m. - http://schemas.microsoft.com/ws/2008/06/identity/claims/authenticationmethod emailSAML_JsonSerializer2
+28/09/2022 11:52:09 a. m. - 2022-09-28T16:52:03.622Z emailSAML_JsonSerializer1
+28/09/2022 11:52:09 a. m. - http://schemas.microsoft.com/ws/2008/06/identity/claims/authenticationinstant emailSAML_JsonSerializer2
+28/09/2022 11:52:09 a. m. - maflores951@legvit.com emailSAML_JsonSerializer1
+28/09/2022 11:52:09 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2nameid emailSAML_JsonSerializer2
+28/09/2022 11:52:09 a. m. - urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified emailSAML_JsonSerializer1
+28/09/2022 11:52:09 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2nameidformat emailSAML_JsonSerializer2
+28/09/2022 11:52:09 a. m. - _fa3865c5-eebe-4415-9626-66c95943aff2 emailSAML_JsonSerializer1
+28/09/2022 11:52:09 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2sessionindex emailSAML_JsonSerializer2
+28/09/2022 11:52:10 a. m. - maflores951@legvit.com _emailSAML_Name
+28/09/2022 11:52:10 a. m. - _usuarioLogin_True
+28/09/2022 11:52:10 a. m. - _usuarioToken_True
+28/09/2022 11:52:10 a. m. - http://localhost:4200//user/InicioSaml/66qmrnCgSHRuBph8CFdpj&jfXyYVHOu1TJ36eB57y37jeEjrcvxGuBF$NE3UfN3q&fbpZuO$AvMxSJ2xfLUeUevSY3aCei7II2M6vuTMqtcVgNRpUKXtY6TvE&sKxFqV1vNwOzy2aJE2Zx5rtAywgcXr5LAHFZBIXxGYHsjn7Y2eUrRO0J7NusCLvvisFdgtxO6lgv81Kv&wDx64&JjuDEn&q3wwDnK6opgcS&iMDzDNpNyHCkeRqqSbhWZUFGxU&r&kcPTbl2n2ooVDB2zQxTUtGOCZSI6yn7adHlUGri23jD$gaHk9qNb&No2Z9qWO37g3OF&7tqY5Y4uLBmHT8yz66smjv2R4HMDNa7h6E2fKgKel0ZOCqFdqaw8sHi3c30nGgMoBrI5inbYGIOHtrl5qciSP$CqpMSdlmPrS4SIwlGkPbY9PHFcEVF1IL9ZYsHKW5$EsjALpJPUHbehf1mQYD2lyGP$QS07slpqrrXCuUQbAZT9qfvk3R4AJQIf0ksgdHDZRXQlWvSPYrNV8eCgVi6187cV5PP3B8BMTC5mszEiE4l2p8IevIfykHBEW4eOVbe1G2QkYte1vyuW06GY1R6BQ7uHdqxmvQ2eFTJtCJJkDczY0U$Yyn3XvLWkbiJwgB1Yhw5A9J3xLQd3e0VZlcj7szud$YLZ1DIwacXfjb&FbMMeCvrqHzkmW9rwYOqqP$2Su7j2Y3MHqoNN6uhOVG96qWq138uimo70KLbkIDWGS2FUgy7p8OPRRiKBNS$jdRYjxbvGlXqFzf5fxLtgwEHsAJkIs&xy&DwJPcAqGjp6FWUsKf3K0EQYXjnysm6$kbz$4wVC14Ga7dmHW$$fVJ&uHtx&&eDqPzY8WH7WRrsbHzipr3gdm2xBlf5ovkEXKVQAx5buBMLuU7nRleLEjf$T3kSO&btNlhoGtdT&tJahurDni&qgQWGEsv2kwFKQgtOLqyLz9vbF1O28LotGGfHt2J8iAHs7uDtflU$rFvNmatI0LeZcOErRHIm8lBGyfnGl4m6OqAFBD$8DBso8nvCFFDpJX&N$sJd1v0YDTxSEL5X1n9BqUPbH4zgZZYTE2nMvqJ4Cqi8arHprFrVvtPVrTipG2Q2sJjy$BBwaDVTX$vPZJ1mFdbcF9PgrCskONUnZZLzmQ8ui8hC2S9$dAs5Zi1IXNNzA7MUvGNyBHX78mX0Yi8wbuBEeK&rQ8iM0gKDE3qmmmt$aVpWGidtT&TC2qXlVTUYThvRDemsbt12zv9GIgFMWXCQ71bgNPFVej&MkxBJLmc4mKOu0uEH3HWPlQncHoTOTrVe5n5QOTjGEtIAAznaGD34QmqfB0UCydqrITw3yaiMlTiPWecJB9aSs1zUm9LRVLM0LQSPwj$JARKHanVy4&mmnV6qwr&F36MuOSbWioaVy&XsFBw3L7b5P0BMMIimSrqBkgORJ15jCh&&31U4NAofsGYCoEMJ1eJ&1mtK7k4tswXO4SjE$ak4RJgU7Jl$NbBAG7GrwGNgSnvavIbpl&BUw7Fw$Bgk6IOx9d5YyJeHlX4WawkpzBXdBtTe&bEcWVI3EoijJmbIm7hlruL1yDkI8ejZr0zlUum8cgRVnS5yBsSrJAzIqr8$NpLwzw9GSp7bEyFQRJ12FFKM8MJGgG2JJ6LOX8aOZ4N&ScrGH38SuU9T$RR4shZ4kohNHDK3HwRR9Qe&YgsSQ8FjhntC7zDzqSzfp4n0IX0AlTE4MuQTFmkxI$QzDexRF9nAmoyF7nMO0EK6cReEM$fSzR1aaSz4gsM4bylV9wuSiXFEGKq4OdZrGF8pdVyYDi8rcM4e68mUzD&cNhP&aMF0AA&vffC9sUsSB7 _returnUrl_true
+28/09/2022 11:54:33 a. m. - LoginSAML_Inicia_True
+28/09/2022 11:54:34 a. m. -  _Inicia_True
+28/09/2022 11:54:34 a. m. - maflores951@legvit.com emailSAML_JsonSerializer1
+28/09/2022 11:54:34 a. m. - http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier emailSAML_JsonSerializer2
+28/09/2022 11:54:34 a. m. - urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport emailSAML_JsonSerializer1
+28/09/2022 11:54:34 a. m. - http://schemas.microsoft.com/ws/2008/06/identity/claims/authenticationmethod emailSAML_JsonSerializer2
+28/09/2022 11:54:34 a. m. - 2022-09-28T16:54:29.472Z emailSAML_JsonSerializer1
+28/09/2022 11:54:34 a. m. - http://schemas.microsoft.com/ws/2008/06/identity/claims/authenticationinstant emailSAML_JsonSerializer2
+28/09/2022 11:54:34 a. m. - maflores951@legvit.com emailSAML_JsonSerializer1
+28/09/2022 11:54:34 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2nameid emailSAML_JsonSerializer2
+28/09/2022 11:54:34 a. m. - urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified emailSAML_JsonSerializer1
+28/09/2022 11:54:34 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2nameidformat emailSAML_JsonSerializer2
+28/09/2022 11:54:34 a. m. - _7ab4379f-658b-42bb-9b4f-f38c3d942050 emailSAML_JsonSerializer1
+28/09/2022 11:54:34 a. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2sessionindex emailSAML_JsonSerializer2
+28/09/2022 11:54:36 a. m. - maflores951@legvit.com _emailSAML_Name
+28/09/2022 11:54:36 a. m. - _usuarioLogin_True
+28/09/2022 11:54:36 a. m. - _usuarioToken_True
+28/09/2022 11:54:36 a. m. - http://localhost:4200//user/InicioSaml/66qmrnCgSHRuBph8CFdpj&jfXyYVHOu1TJ36eB57y37jeEjrcvxGuBF$NE3UfN3q&fbpZuO$AvMxSJ2xfLUeUevSY3aCei7II2M6vuTMqtcVgNRpUKXtY6TvE&sKxFqV1vNwOzy2aJE2Zx5rtAywgcXr5LAHFZBIXxGYHsjn7Y2eUrRO0J7NusCLvvisFdgtxO6lgv81Kv&wDx64&JjuDEn&q3wwDnK6opgcS&iMDzDNpNyHCkeRqqSbhWZUFGxU&r&kcPTbl2n2ooVDB2zQxTUtGOCZSI6yn7adHlUGri23jD$gaHk9qNb&No2Z9qWO37g3OF&7tqY5Y4uLBmHT8yz66smjv2R4HMDNa7h6E2fKgKel0ZOCqFdqaw8sHi3c30nGgMoBrI5inbYGIOHtrqPZEjrTYXiZSh2&s$CW2huywCucgS$ki415AJgrgpEgRoPft8jw2GZQeR&DSAlQwgh&&1EOAT5lyVgCZzb2wxIlKjXvSB7IcEaTX1xZ4eu23OE$eU$iuW65KCCC$J4TsAMkUKrYLj4D7ndpAvIQ7BVCdFiswCi8wNVOOLJpY2nxEec6W25C48kWW8I7PtGCZJf6ZfuCPu9VGwcQtDe3DqnY5sadnMx20XXBCbb$0jV4OH5PB6ZhFUMZ&EKmtMlawiroQlI4TmIFLeth16Kg3q3s63ARhb7Ab&riXGlXe2o&TW7uoqSxSLP0QE8pp$aonHW23BWLPL&7DxI9px1DgIeoBApv9Pb&yxY7K$h7GTSi4TV&iRDwZU1LFxqLzsOAOTtA1uANepCb6jNu8LZz43$WYvIuZlyOaCS4doePgLuoBpjuElq$$P89CGxxrKygPBEpcjRY0qLCZP1qqa&rcZ0G8PT&XZK1nK7ligrkpUgzJQJdUMPT18ugWnaeRn96QfOKEtW7I8KDvLceTrdf6$qLD&yTmxVuyWZ7mobKRbuaLo0G7HuYJ6hnsVoWbXnp73YboD7l8sFENrUwuuR0BMxdA6zFfvdwKNe9tnGl9inm4IVk3BgQ3zXo0xsPOR&LM&U5dqbTZxtuorpZ7o4QfMRwwEDfVtEuQ$6S4KViFwGb$vWGtfJ8fH57ySw7mTg4C4YYsLnxH5$$RTzKnBMlBN7RwvM3F5Qdk&h5sdhy2XddMgGz0pyiykXCQU2wKF9UdCiWvl5&cQzmsLzB2w4poeeSxma8mcqkZxmDmfocTHKCTOMBpkahhqUg2VoYX4TMaoH0R3lzKVi9rD3cLHNXIE5LAcXVszWN1V8XXGeOhvYwohKmT5aBKkBZUaicXQhRNZ4YWqxlpgpJMHyn&Y5y81dwMv1JFhHPvGZWkn9abNc10SlW5I920KJNWPE6CUY3Y17y0LpEHKAHZ00XFWyhDxTg9A387HaLFWy1aZngsdaDxcC4hw6TB84Q5Pydcu&GjLgijBa4&tetntCioDrFbdcG&QCMXspP0LashteqW5HsrdFidK&VvoDppR7UzstqBlY9id1jCKv7mCFqA7Td3rh7lD25a4dORakLWlEsdZajEI30LRKYsNMVtWIA5QQ23fLQFI9DqwVqlxZu86mAvFw$L7i4LaWJc3J1OHEkKcYI7oCHCKcY380CC8MBhxGugrk8U3BIIHX&QgKxnf&Ti&4gZkEL$MkOqbzrnqJCKxPAW3GRshwbb$5FsvsrIlMEethSO4d52uqMe8QwVMNxsi7BTsSgc5Q6XXnH&m&9Kk9z2Q8TnPSjWTQaS1uqf4TY9UvDT09VKzR6vR597j6h11tMHNDA2BTGSlsDPtghtjI3jLH3C8MW8B9Xth0c3EBRye543YKWq6fyl4NYBIKPHNTnC$3&831gNzi$jV6hqclM _returnUrl_true
+28/09/2022 12:05:43 p. m. - LoginSAML_Inicia_True
+28/09/2022 12:05:44 p. m. -  _Inicia_True
+28/09/2022 12:05:44 p. m. - maflores951@legvit.com emailSAML_JsonSerializer1
+28/09/2022 12:05:44 p. m. - http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier emailSAML_JsonSerializer2
+28/09/2022 12:05:44 p. m. - urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport emailSAML_JsonSerializer1
+28/09/2022 12:05:44 p. m. - http://schemas.microsoft.com/ws/2008/06/identity/claims/authenticationmethod emailSAML_JsonSerializer2
+28/09/2022 12:05:44 p. m. - 2022-09-28T17:05:39.278Z emailSAML_JsonSerializer1
+28/09/2022 12:05:44 p. m. - http://schemas.microsoft.com/ws/2008/06/identity/claims/authenticationinstant emailSAML_JsonSerializer2
+28/09/2022 12:05:44 p. m. - maflores951@legvit.com emailSAML_JsonSerializer1
+28/09/2022 12:05:44 p. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2nameid emailSAML_JsonSerializer2
+28/09/2022 12:05:44 p. m. - urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified emailSAML_JsonSerializer1
+28/09/2022 12:05:44 p. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2nameidformat emailSAML_JsonSerializer2
+28/09/2022 12:05:44 p. m. - _c07e2bd2-8ba5-41da-8104-e4dc5ebbb340 emailSAML_JsonSerializer1
+28/09/2022 12:05:44 p. m. - http://schemas.itfoxtec.com/ws/2014/02/identity/claims/saml2sessionindex emailSAML_JsonSerializer2
+28/09/2022 12:05:46 p. m. - maflores951@legvit.com _emailSAML_Name
+28/09/2022 12:05:46 p. m. - _usuarioLogin_True
+28/09/2022 12:05:46 p. m. - _usuarioToken_True
+28/09/2022 12:05:46 p. m. - http://localhost:4200/user/InicioSaml/66qmrnCgSHRuBph8CFdpj&jfXyYVHOu1TJ36eB57y37jeEjrcvxGuBF$NE3UfN3q&fbpZuO$AvMxSJ2xfLUeUevSY3aCei7II2M6vuTMqtcVgNRpUKXtY6TvE&sKxFqV1vNwOzy2aJE2Zx5rtAywgcXr5LAHFZBIXxGYHsjn7Y2eUrRO0J7NusCLvvisFdgtxO6lgv81Kv&wDx64&JjuDEn&q3wwDnK6opgcS&iMDzDNpNyHCkeRqqSbhWZUFGxU&r&kcPTbl2n2ooVDB2zQxTUtGOCZSI6yn7adHlUGri23jD$gaHk9qNb&No2Z9qWO37g3OF&7tqY5Y4uLBmHT8yz66smjv2R4HMDNa7h6E2fKgKel0ZOCqFdqaw8sHi3c30nGgMoBrI5inbYGIOHtrvOFhREv&dOfXlnhMbOuW3uWsjnAuAEkmsWsQZDyrFy4tsVei5bmD&BVp3w7jsqO9$x&hFT2uKwA4oA$TNHMqg$umLmqa4IU3DFLrg1eI$dyekMWTPPvk5QFDdBRPAzccNKeO5zckDFB01XWyeq3p4q66tHBHiqHg4pt$OxUKXGBFnflUmGVf2A4zZGAvOaRDKCcxbOmvsBDAivD8VjUVTbaZtfrLlPIaqdGy$ARxXu94LnKzR4Av&CEI1SStW2aK4Iwg&ZaZ8sRVxudaKYIaJNRKa4j3b3HKDqmJxg47mhqb2wRcPFFqiKctN&5gNlJU3CbuVRzbxbU5oYOfqd0p605OIcm893I7vW7LmvqJoinAVhPIlUF&P1IV8mLj4NSVySZAVt8rWCJZ0WsJ3YFAHkB9lwL5zyy9RaeWKpcaekraJRJQmHPbLmUEPx&SktcBrCtvzSdY2CsKx8hwNQb5H5IucUw2pC7GyCKtIE7p48jr11J$ehjGwtXhJ2jeNN$Rg&VKRLFCNkrgLsGrVg8XAkZ6zSv6QIPqRlD5vVcRDu7Kd6wOBPeWURq9KaMcHr28j94l2FTXC3gy8K4XUB62&iyg78GF$2tc7qUOMgE1SfYgv3FA3j8d9PnnC7SImPZr6Cq&iojTBdj0o6wvYwBp5zrfE5nuX2j&g0kLR0WrPsMI3MH4w&AMMK5Dk5YHxPO8Ba0nt0o$gbj$tzs3Z3XOTIalI0h$CT6G9WB8y0rQiKlnohZFQ3kecDH6AUaRp3ERbQvH$mYFu8N8adVtYNHjMNOSjsdmKHP$js0JKhhrw$ODSWCM8i5J&VmPCB5EDgAblOvo4QCHfHV2TZZUADDFihrWXO8OCgi$CF7RFR9NzaYF217ozToUhPK6SlewNaTEDlZAkCrZKdWo1jTfsMkgX6NNvlA2gEKLr5fu6ECh32qG0zogogDCQcX9wwe&EbjA0q9XKTFGUdsX0Xo533Xskng5mqhSloXQXmbRHH$LyS$armgyE$qbeVsISwXXBIPMXsgxKLzIxWnyJhbJlNuNPvAevSD10ToP4gVV5Z3YHJsz0eijXqjAC5mVBTvgBbO&ymBm$unuS5menGjnHy&zaESnh3Unxl25fOitZmoVdWt0nyS$NVp&i3qFruGax3AMlZd5knkLuYR0jdS7DBuGq0tzoaAx&zVtDiuZ7ZHLdcfN8WCVxK4WO&ehKEuxsCE2cFmxFf2Wb7HA7wVlMZdsxCdqOCB6K81HYqiBpz1B6gjCkgW85V&IEAjmIHYPDLYjIV&jy4qTUZo0bmQ&f0e$DAsdxNODTV94fwsEyZRl&HmmEw8PbcKBaevSJajWu9NXocBe1ecHvPkOWMJbfCKnsLMFpCH4ksTtdPzSbNVEw2Ge0F0Gt&$eXWqxFolH5S3DaAj8q7GELwc3lPrkT8ib8VwdedP&F2V5YW8WxaRmgQI _returnUrl_true

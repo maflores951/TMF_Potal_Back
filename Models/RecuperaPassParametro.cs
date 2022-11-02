@@ -12,5 +12,7 @@ namespace LoginBase.Models
         public string Email { get; set; }
 
         public int UsuarioId { get; set; }
+
+        public string UsuarioClave { get; set; }
     }
 }

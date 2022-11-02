@@ -4,7 +4,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 -->
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <_PublishTargetUrl>C:\Users\maflores\Documents\Publicar_Back_TMF</_PublishTargetUrl>
-    <History>True|2021-08-07T02:42:34.5409023Z;True|2021-08-05T21:05:20.4908366-05:00;True|2021-08-03T11:03:50.7692934-05:00;True|2021-08-03T10:57:11.0893319-05:00;True|2021-08-03T10:54:04.6270034-05:00;True|2021-08-03T10:50:05.3327993-05:00;True|2021-08-03T10:46:13.0082468-05:00;True|2021-08-03T10:43:20.9287841-05:00;True|2021-08-03T10:39:22.5929339-05:00;True|2021-08-03T10:24:46.5872191-05:00;True|2021-08-02T16:20:50.8413186-05:00;True|2021-07-15T21:30:15.4567907-05:00;True|2021-07-15T13:37:42.9505905-05:00;</History>
+    <_PublishTargetUrl>C:\models\VisualStudio-Angular\TMF\Deploy_back</_PublishTargetUrl>
+    <History>True|2022-03-15T00:41:31.8413376Z;True|2022-03-14T18:29:33.2611012-06:00;True|2022-03-14T15:42:49.4566113-06:00;True|2021-12-15T00:37:18.5930734-06:00;True|2021-12-15T00:20:11.6876468-06:00;</History>
   </PropertyGroup>
 </Project>
