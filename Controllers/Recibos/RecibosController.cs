@@ -522,7 +522,7 @@ namespace tmf_group.Controllers.Recibos
 
                         //Se valida que el número de empleado exista 
                         //var usuario = await _context.Usuarios.Where(u => u.EmpleadoNoEmp.ToLower() == empleadoNoFinal).FirstOrDefaultAsync();
-                        var usuario = usuariosTotales.Find(u => u.EmpleadoNoEmp == empleadoNoFinal && u.EmpresaId == model.EmpresaId);
+                        var usuario = usuariosTotales.Find(u => u.EmpleadoNoEmp == empleadoNoFinal && u.EmpresaId == model.EmpresaId && u.UsuarioEstatusSesion == false);
 
                         if (usuario == null)
                         {
@@ -751,7 +751,7 @@ namespace tmf_group.Controllers.Recibos
             return Ok(respuesta);
         }
 
-        //Se valida si existen archivos existentes
+        //Se valida si existen archivos
         [HttpPost("ValidarArchivo")]
         public async Task<IActionResult> ValidarArchivoAsync(Recibo model)
         {
@@ -763,12 +763,12 @@ namespace tmf_group.Controllers.Recibos
 
             if (recibo == null)
             {
-                respuesta.Mensaje = "No existen registros para este periodo y empresa";
+                respuesta.Mensaje = "No existen registros para este periodo y entidad";
                 respuesta.Exito = 0;
             }
             else
             {
-                respuesta.Mensaje = "Ya existen registros para este periodo y empresa";
+                respuesta.Mensaje = "Ya existen registros para este periodo y entidad";
                 respuesta.Exito = 1;
             }
 
@@ -776,73 +776,73 @@ namespace tmf_group.Controllers.Recibos
         }
 
         //Envio de recibo individual
-        [HttpPost("EnviarIndividual")]
-        public async Task<IActionResult> EnviarIndividualAsync(Recibo model)
-        {
-            //Se crea la respuesta para el front
-            Respuesta respuesta = new Respuesta();
-            //Variable para enviar el email
-            var email = string.Empty;
-            EnviarRecibo usuarioEmail;
+        //[HttpPost("EnviarIndividual")]
+        //public async Task<IActionResult> EnviarIndividualAsync(Recibo model)
+        //{
+        //    //Se crea la respuesta para el front
+        //    Respuesta respuesta = new Respuesta();
+        //    //Variable para enviar el email
+        //    var email = string.Empty;
+        //    EnviarRecibo usuarioEmail;
 
-            var folder = "uploads\\Nomina";
+        //    var folder = "uploads\\Nomina";
 
 
-            //Se valida que el número de empleado exista 
-            var recibo = await _context.Recibos.Where(u =>
-            u.EmpresaId == model.EmpresaId &&
-            u.PeriodoTipoId == model.PeriodoTipoId &&
-            u.ReciboPeriodoA == model.ReciboPeriodoA &&
-            u.ReciboPeriodoM == model.ReciboPeriodoM &&
-            u.ReciboPeriodoNumero == model.ReciboPeriodoNumero &&
-            u.UsuarioNoEmp == model.UsuarioNoEmp).FirstOrDefaultAsync();
+        //    //Se valida que el número de empleado exista 
+        //    var recibo = await _context.Recibos.Where(u =>
+        //    u.EmpresaId == model.EmpresaId &&
+        //    u.PeriodoTipoId == model.PeriodoTipoId &&
+        //    u.ReciboPeriodoA == model.ReciboPeriodoA &&
+        //    u.ReciboPeriodoM == model.ReciboPeriodoM &&
+        //    u.ReciboPeriodoNumero == model.ReciboPeriodoNumero &&
+        //    u.UsuarioNoEmp == model.UsuarioNoEmp).FirstOrDefaultAsync();
 
-            if (recibo == null)
-            {
-                respuesta.Mensaje = "No existen registros para este periodo y empresa";
-                respuesta.Exito = 0;
-                return Ok(respuesta);
-            }
+        //    if (recibo == null)
+        //    {
+        //        respuesta.Mensaje = "No existen registros para este periodo y entidad";
+        //        respuesta.Exito = 0;
+        //        return Ok(respuesta);
+        //    }
 
-            //Se busca la información del usuario en la tabla Users por medio del email
-            var usuario = await _context.Usuarios.
-               Where(u => u.EmpleadoNoEmp.ToLower() == model.UsuarioNoEmp.ToLower()).
-               FirstOrDefaultAsync();
+        //    //Se busca la información del usuario en la tabla Users por medio del email
+        //    var usuario = await _context.Usuarios.
+        //       Where(u => u.EmpleadoNoEmp.ToLower() == model.UsuarioNoEmp.ToLower()).
+        //       FirstOrDefaultAsync();
 
-            if (usuario == null)
-            {
-                respuesta.Mensaje = "No existen registros para este usuario, contacte al administrador";
-                respuesta.Exito = 0;
-                return Ok(respuesta);
-            }
+        //    if (usuario == null)
+        //    {
+        //        respuesta.Mensaje = "No existen registros para este usuario, contacte al administrador";
+        //        respuesta.Exito = 0;
+        //        return Ok(respuesta);
+        //    }
 
-            usuarioEmail = new EnviarRecibo
-            {
-                Email = usuario.Email,
-                PathRecibo = Path.Combine(_enviroment.ContentRootPath, folder, recibo.ReciboPathPDF)
-            };
+        //    usuarioEmail = new EnviarRecibo
+        //    {
+        //        Email = usuario.Email,
+        //        PathRecibo = Path.Combine(_enviroment.ContentRootPath, folder, recibo.ReciboPathPDF)
+        //    };
 
-            //Se envia el email si todo es correcto
-            EnvioEmailService enviarEmail = new EnvioEmailService(_context,_enviroment);
-            var emailResponse = await enviarEmail.EnivarRecibo(usuarioEmail);
+        //    //Se envia el email si todo es correcto
+        //    EnvioEmailService enviarEmail = new EnvioEmailService(_context,_enviroment);
+        //    var emailResponse = await enviarEmail.EnivarRecibo(usuarioEmail);
 
-            if (emailResponse.Exito == 1)
-            {
-                respuesta.Exito = 1;
-                respuesta.Data = emailResponse;
-                respuesta.Mensaje = "El recibo se envió con éxito.";
-            }
-            else
-            {
-                respuesta.Exito = 0;
-                respuesta.Data = emailResponse;
-                respuesta.Mensaje = "Error en el servidor, contacte al administrador del sistema.";
-            }
+        //    if (emailResponse.Exito == 1)
+        //    {
+        //        respuesta.Exito = 1;
+        //        respuesta.Data = emailResponse;
+        //        respuesta.Mensaje = "El recibo se envió con éxito.";
+        //    }
+        //    else
+        //    {
+        //        respuesta.Exito = 0;
+        //        respuesta.Data = emailResponse;
+        //        respuesta.Mensaje = "Error en el servidor, contacte al administrador del sistema.";
+        //    }
 
-            return Ok(respuesta);
-        }
+        //    return Ok(respuesta);
+        //}
 
-        //Envio de recibo individual
+        //Envio de notificacion de forma individual
         [HttpPost("EnviarNotificacion")]
         public async Task<IActionResult> EnviarNotificacionAsync(Recibo model)
         {
@@ -867,7 +867,7 @@ namespace tmf_group.Controllers.Recibos
 
             if (recibo == null)
             {
-                respuesta.Mensaje = "No existen registros para este periodo y empresa";
+                respuesta.Mensaje = "No existen registros para este periodo y entidad";
                 respuesta.Exito = 0;
                 return Ok(respuesta);
             }
@@ -931,95 +931,95 @@ namespace tmf_group.Controllers.Recibos
         }
 
 
-        //Envio de recibo individual
-        [HttpPost("EnviarMasivo")]
-        public async Task<IActionResult> EnviarMasivoAsync(Recibo model)
-        {
-            //Se crea la respuesta para el front
-            Respuesta respuesta = new Respuesta();
-            //Variable para enviar el email
-            var email = string.Empty;
-            EnviarRecibo usuarioEmail;
+        ////Envio de recibo individual
+        //[HttpPost("EnviarMasivo")]
+        //public async Task<IActionResult> EnviarMasivoAsync(Recibo model)
+        //{
+        //    //Se crea la respuesta para el front
+        //    Respuesta respuesta = new Respuesta();
+        //    //Variable para enviar el email
+        //    var email = string.Empty;
+        //    EnviarRecibo usuarioEmail;
 
-            var folder = "uploads\\Nomina";
+        //    var folder = "uploads\\Nomina";
 
-            var contador = 0;
-            var contadorEmpNo = "";
-
-
-            //Se valida que el número de empleado exista 
-            var recibos = await _context.Recibos.Where(u =>
-            u.EmpresaId == model.EmpresaId &&
-            u.PeriodoTipoId == model.PeriodoTipoId &&
-            u.ReciboPeriodoA == model.ReciboPeriodoA &&
-            u.ReciboPeriodoM == model.ReciboPeriodoM &&
-            u.ReciboPeriodoNumero == model.ReciboPeriodoNumero).ToListAsync();
-
-            if (recibos == null)
-            {
-                respuesta.Mensaje = "No existen registros para este periodo y empresa";
-                respuesta.Exito = 0;
-                return Ok(respuesta);
-            }
+        //    var contador = 0;
+        //    var contadorEmpNo = "";
 
 
-            foreach (var recibo in recibos)
-            {
-                //Se busca la información del usuario en la tabla Users por medio del email
-                var usuario = await _context.Usuarios.
-                   Where(u => u.EmpleadoNoEmp.ToLower() == recibo.UsuarioNoEmp.ToLower()).
-                   FirstOrDefaultAsync();
+        //    //Se valida que el número de empleado exista 
+        //    var recibos = await _context.Recibos.Where(u =>
+        //    u.EmpresaId == model.EmpresaId &&
+        //    u.PeriodoTipoId == model.PeriodoTipoId &&
+        //    u.ReciboPeriodoA == model.ReciboPeriodoA &&
+        //    u.ReciboPeriodoM == model.ReciboPeriodoM &&
+        //    u.ReciboPeriodoNumero == model.ReciboPeriodoNumero).ToListAsync();
 
-                if (usuario == null)
-                {
-                    respuesta.Mensaje = "Error #1, contacte al administrador del sistema.";
-                    respuesta.Exito = 0;
-                    return Ok(respuesta);
-                }
-
-
-                usuarioEmail = new EnviarRecibo
-                {
-                    Email = usuario.Email,
-                    PathRecibo = Path.Combine(_enviroment.ContentRootPath, folder, recibo.ReciboPathPDF)
-                };
-
-                //Se envia el email si todo es correcto
-                EnvioEmailService enviarEmail = new(_context,_enviroment);
-                var emailResponse = await enviarEmail.EnivarRecibo(usuarioEmail);
-
-                if (emailResponse.Exito == 1)
-                {
-                    respuesta.Exito = 1;
-                    //respuesta.Data = emailResponse;
-                }
-                else
-                {
-                    respuesta.Exito = 0;
-                    //respuesta.Data = emailResponse;
-                    contador += 1;
-                    contadorEmpNo += usuario.EmpleadoNoEmp + ", ";
-                    //respuesta.Mensaje = "No se pudo enviar";
-                }
-            }
-
-            if (contador > 0)
-            {
-                var quitarComa = contadorEmpNo.Substring(0, contadorEmpNo.Length - 2);
-                respuesta.Exito = 0;
-                respuesta.Mensaje = "Los siguientes empleados no estan registrados en el sistema : " + quitarComa + ".";
-            }
-            else
-            {
-                respuesta.Exito = 1;
-                respuesta.Mensaje = "Todos los recibos se enviaron con éxito.";
-            }
+        //    if (recibos == null)
+        //    {
+        //        respuesta.Mensaje = "No existen registros para este periodo y entidad";
+        //        respuesta.Exito = 0;
+        //        return Ok(respuesta);
+        //    }
 
 
-            return Ok(respuesta);
-        }
+        //    foreach (var recibo in recibos)
+        //    {
+        //        //Se busca la información del usuario en la tabla Users por medio del email
+        //        var usuario = await _context.Usuarios.
+        //           Where(u => u.EmpleadoNoEmp.ToLower() == recibo.UsuarioNoEmp.ToLower()).
+        //           FirstOrDefaultAsync();
 
-        //Envio de recibo individual
+        //        if (usuario == null)
+        //        {
+        //            respuesta.Mensaje = "Error #1, contacte al administrador del sistema.";
+        //            respuesta.Exito = 0;
+        //            return Ok(respuesta);
+        //        }
+
+
+        //        usuarioEmail = new EnviarRecibo
+        //        {
+        //            Email = usuario.Email,
+        //            PathRecibo = Path.Combine(_enviroment.ContentRootPath, folder, recibo.ReciboPathPDF)
+        //        };
+
+        //        //Se envia el email si todo es correcto
+        //        EnvioEmailService enviarEmail = new(_context,_enviroment);
+        //        var emailResponse = await enviarEmail.EnivarRecibo(usuarioEmail);
+
+        //        if (emailResponse.Exito == 1)
+        //        {
+        //            respuesta.Exito = 1;
+        //            //respuesta.Data = emailResponse;
+        //        }
+        //        else
+        //        {
+        //            respuesta.Exito = 0;
+        //            //respuesta.Data = emailResponse;
+        //            contador += 1;
+        //            contadorEmpNo += usuario.EmpleadoNoEmp + ", ";
+        //            //respuesta.Mensaje = "No se pudo enviar";
+        //        }
+        //    }
+
+        //    if (contador > 0)
+        //    {
+        //        var quitarComa = contadorEmpNo.Substring(0, contadorEmpNo.Length - 2);
+        //        respuesta.Exito = 0;
+        //        respuesta.Mensaje = "Los siguientes empleados no estan registrados en el sistema : " + quitarComa + ".";
+        //    }
+        //    else
+        //    {
+        //        respuesta.Exito = 1;
+        //        respuesta.Mensaje = "Todos los recibos se enviaron con éxito.";
+        //    }
+
+
+        //    return Ok(respuesta);
+        //}
+
+        //Envio de notificacion de forma masiva 
         [HttpPost("NotificarMasivo")]
         public async Task<IActionResult> NotificarMasivoAsync(Recibo model)
         {
@@ -1108,7 +1108,7 @@ namespace tmf_group.Controllers.Recibos
             return Ok(emailResponse);
         }
 
-        //Envio de recibo individual
+        //Borrado individual de recibo
         [HttpPost("BorrarIndividual")]
         public async Task<IActionResult> BorrarIndividualAsync(Recibo model)
         {
@@ -1129,7 +1129,7 @@ namespace tmf_group.Controllers.Recibos
 
             if (recibo == null)
             {
-                respuesta.Mensaje = "No existen registros para este periodo y empresa";
+                respuesta.Mensaje = "No existen registros para este periodo y entidad";
                 respuesta.Exito = 0;
                 return Ok(respuesta);
             }
@@ -1202,7 +1202,7 @@ namespace tmf_group.Controllers.Recibos
             return Ok(respuesta);
         }
 
-        //Envio de recibo individual
+        //Borrado masivo de recibos
         [HttpPost("BorrarMasivo")]
         public async Task<IActionResult> BorrarMasivoAsync(Recibo model)
         {
@@ -1226,7 +1226,7 @@ namespace tmf_group.Controllers.Recibos
 
             if (recibos == null)
             {
-                respuesta.Mensaje = "No existen registros para este periodo y empresa";
+                respuesta.Mensaje = "No existen registros para este periodo y entidad";
                 respuesta.Exito = 0;
                 return Ok(respuesta);
             }
@@ -1340,50 +1340,51 @@ namespace tmf_group.Controllers.Recibos
             //return await _context.Recibos.ToListAsync();
         }
 
-        // Recuperar recibos por usuario
-        [HttpPost("CargaMasivaArchivos")]
-        public async Task<IActionResult> CargaMasivaArchivosAsync(Recibo model)
-        {
-            //return await _context.Usuarios.ToListAsync();
-            var responses = new Respuesta();
+        //Api para poder crear docuemntos de forma masiva para poder probarlos
+        //// Recuperar recibos por usuario
+        //[HttpPost("CargaMasivaArchivos")]
+        //public async Task<IActionResult> CargaMasivaArchivosAsync(Recibo model)
+        //{
+        //    //return await _context.Usuarios.ToListAsync();
+        //    var responses = new Respuesta();
 
-            var folder = "uploads\\Masivo";
+        //    var folder = "uploads\\Masivo";
 
-            var filePdf = "ANE140618P37_Q10_6_1.pdf";
+        //    var filePdf = "ANE140618P37_Q10_6_1.pdf";
 
-            var fileXml = "ANE140618P37_Q10_6_1.xml";
+        //    var fileXml = "ANE140618P37_Q10_6_1.xml";
 
-            var fileBase = "ANE140618P37_Q10_6_";
+        //    var fileBase = "ANE140618P37_Q10_6_";
 
-            var pathPdf = Path.Combine(_enviroment.ContentRootPath, folder, filePdf);
-            var pathXml = Path.Combine(_enviroment.ContentRootPath, folder, fileXml);
+        //    var pathPdf = Path.Combine(_enviroment.ContentRootPath, folder, filePdf);
+        //    var pathXml = Path.Combine(_enviroment.ContentRootPath, folder, fileXml);
 
-            try
-            {
-                for (int i = 2; i < model.ReciboPeriodoNumero; i++)
-                {
-                    //var fileDestinoPdf = fileBase + i.ToString() + ".pdf";
-                    //var fileDestinoXml = fileBase + i.ToString() + ".xml";
+        //    try
+        //    {
+        //        for (int i = 2; i < model.ReciboPeriodoNumero; i++)
+        //        {
+        //            //var fileDestinoPdf = fileBase + i.ToString() + ".pdf";
+        //            //var fileDestinoXml = fileBase + i.ToString() + ".xml";
 
-                    var fileDestinoPdf = Path.Combine(_enviroment.ContentRootPath, folder, fileBase +i+".pdf");
-                    var fileDestinoXml = Path.Combine(_enviroment.ContentRootPath, folder, fileBase + i + ".xml");
+        //            var fileDestinoPdf = Path.Combine(_enviroment.ContentRootPath, folder, fileBase +i+".pdf");
+        //            var fileDestinoXml = Path.Combine(_enviroment.ContentRootPath, folder, fileBase + i + ".xml");
 
-                    System.IO.File.Copy(pathPdf, fileDestinoPdf);
-                    System.IO.File.Copy(pathXml, fileDestinoXml);
-                }
-                responses.Exito = 1;
-            }
-            catch (Exception es)
-            {
+        //            System.IO.File.Copy(pathPdf, fileDestinoPdf);
+        //            System.IO.File.Copy(pathXml, fileDestinoXml);
+        //        }
+        //        responses.Exito = 1;
+        //    }
+        //    catch (Exception es)
+        //    {
 
-                responses.Mensaje = es.Message;
-                responses.Exito = 0;
-            }
+        //        responses.Mensaje = es.Message;
+        //        responses.Exito = 0;
+        //    }
             
 
-            return Ok(responses);
-            //return await _context.Recibos.ToListAsync();
-        }
+        //    return Ok(responses);
+        //    //return await _context.Recibos.ToListAsync();
+        //}
 
         private bool ReciboExists(string id)
         {

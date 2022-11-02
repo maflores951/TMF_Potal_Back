@@ -49,7 +49,7 @@ namespace tmf_group.Services.Empleados
                     if (usuarioUpdate == null)
                     {
                         respuesta.Exito = 0;
-                        empleadosNoExisten += $"{usuario.EmpleadoNoEmp} de la empresa {usuario.EmpresaId} , ";
+                        empleadosNoExisten += $"{usuario.EmpleadoNoEmp} de la entidad {usuario.EmpresaId} , ";
                         contarNoExiste++;
                     }
                         
@@ -59,7 +59,7 @@ namespace tmf_group.Services.Empleados
                     if (existeEmail != null)
                     {
                         respuesta.Exito = 0;
-                        empleadosEmailExiste += $"{usuario.EmpleadoNoEmp} de la empresa {usuario.EmpresaId} , ";
+                        empleadosEmailExiste += $"{usuario.EmpleadoNoEmp} de la entidad {usuario.EmpresaId} , ";
                         contarEmailExiste++;
                     }
 

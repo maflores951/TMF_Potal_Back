@@ -534,7 +534,7 @@ namespace LoginBase.Services
 
                 if (recibos == null)
                 {
-                    respuesta.Mensaje = "No existen registros para este periodo y empresa";
+                    respuesta.Mensaje = "No existen registros para este periodo y entidad";
                     respuesta.Exito = 0;
                     return respuesta;
                 }

@@ -504,54 +504,54 @@ namespace LoginBase.Controllers
                
             }
 
-            if (usuario.UsuarioEstatusSesion == true)
-            {
-                //Eliminar recibos
-                var folderRecibos = "uploads\\Nomina";
+            //if (usuario.UsuarioEstatusSesion == true)
+            //{
+            //    //Eliminar recibos
+            //    var folderRecibos = "uploads\\Nomina";
 
-                //Se valida que el número de empleado exista 
-                var recibos = await _context.Recibos.Where(u =>
-                u.EmpresaId == usuario.EmpresaId &&
-                u.UsuarioNoEmp == usuario.EmpleadoNoEmp).ToListAsync();
+            //    //Se valida que el número de empleado exista 
+            //    var recibos = await _context.Recibos.Where(u =>
+            //    u.EmpresaId == usuario.EmpresaId &&
+            //    u.UsuarioNoEmp == usuario.EmpleadoNoEmp).ToListAsync();
 
-                foreach (var recibo in recibos)
-                {
-                    var pathReciboPDF = Path.Combine(_enviroment.ContentRootPath, folderRecibos, recibo.ReciboPathPDF);
+            //    foreach (var recibo in recibos)
+            //    {
+            //        var pathReciboPDF = Path.Combine(_enviroment.ContentRootPath, folderRecibos, recibo.ReciboPathPDF);
 
-                    var pathReciboXML = Path.Combine(_enviroment.ContentRootPath, folderRecibos, recibo.ReciboPathXML);
+            //        var pathReciboXML = Path.Combine(_enviroment.ContentRootPath, folderRecibos, recibo.ReciboPathXML);
 
-                    if (System.IO.File.Exists(pathReciboPDF))
-                    {
-                        //Se elimina el archivo
-                        try
-                        {
-                            System.IO.File.Delete(pathReciboPDF);
-                        }
-                        catch (Exception)
-                        {
-                            respuesta.Mensaje = "Error al eliminar el archivo, intente de nuevo o contacte al administrador del sistema.";
-                            respuesta.Exito = 0;
-                            //return Ok(respuesta);
-                        }
-                    }
+            //        if (System.IO.File.Exists(pathReciboPDF))
+            //        {
+            //            //Se elimina el archivo
+            //            try
+            //            {
+            //                System.IO.File.Delete(pathReciboPDF);
+            //            }
+            //            catch (Exception)
+            //            {
+            //                respuesta.Mensaje = "Error al eliminar el archivo, intente de nuevo o contacte al administrador del sistema.";
+            //                respuesta.Exito = 0;
+            //                //return Ok(respuesta);
+            //            }
+            //        }
 
-                    if (System.IO.File.Exists(pathReciboXML))
-                    {
-                        //Se elimina el archivo
-                        try
-                        {
-                            System.IO.File.Delete(pathReciboXML);
-                        }
-                        catch (Exception)
-                        {
-                            respuesta.Mensaje = "Error al eliminar el archivo, intente de nuevo o contacte al administrador del sistema.";
-                            respuesta.Exito = 0;
-                            //return Ok(respuesta);
-                        }
-                    }
-                    _context.Recibos.Remove(recibo);
-                }
-            }
+            //        if (System.IO.File.Exists(pathReciboXML))
+            //        {
+            //            //Se elimina el archivo
+            //            try
+            //            {
+            //                System.IO.File.Delete(pathReciboXML);
+            //            }
+            //            catch (Exception)
+            //            {
+            //                respuesta.Mensaje = "Error al eliminar el archivo, intente de nuevo o contacte al administrador del sistema.";
+            //                respuesta.Exito = 0;
+            //                //return Ok(respuesta);
+            //            }
+            //        }
+            //        _context.Recibos.Remove(recibo);
+            //    }
+            //}
             
             try
             {

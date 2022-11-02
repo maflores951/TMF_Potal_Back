@@ -40,7 +40,7 @@ namespace tmf_group.Services.Empleados
                     if (usuarioUpdate == null)
                     {
                         respuesta.Exito = 0;
-                        empleadosNoExisten += $"{usuario.EmpleadoNoEmp} de la empresa {usuario.EmpresaId} , ";
+                        empleadosNoExisten += $"{usuario.EmpleadoNoEmp} de la entidad {usuario.EmpresaId} , ";
                         contarNoExiste++;
                     }
 
@@ -50,51 +50,51 @@ namespace tmf_group.Services.Empleados
 
                         db.Entry(usuarioUpdate).State = EntityState.Modified;
 
-                        //Eliminar recibos
-                        var folder = "uploads\\Nomina";
+                        ////Eliminar recibos
+                        //var folder = "uploads\\Nomina";
 
-                        //Se valida que el número de empleado exista 
-                        var recibos = await context.Recibos.Where(u =>
-                        u.EmpresaId == usuarioUpdate.EmpresaId &&
-                        u.UsuarioNoEmp == usuarioUpdate.EmpleadoNoEmp).ToListAsync();
+                        ////Se valida que el número de empleado exista 
+                        //var recibos = await context.Recibos.Where(u =>
+                        //u.EmpresaId == usuarioUpdate.EmpresaId &&
+                        //u.UsuarioNoEmp == usuarioUpdate.EmpleadoNoEmp).ToListAsync();
 
-                        foreach (var recibo in recibos)
-                        {
-                            var pathReciboPDF = Path.Combine(enviroment.ContentRootPath, folder, recibo.ReciboPathPDF);
+                        //foreach (var recibo in recibos)
+                        //{
+                        //    var pathReciboPDF = Path.Combine(enviroment.ContentRootPath, folder, recibo.ReciboPathPDF);
 
-                            var pathReciboXML = Path.Combine(enviroment.ContentRootPath, folder, recibo.ReciboPathXML);
+                        //    var pathReciboXML = Path.Combine(enviroment.ContentRootPath, folder, recibo.ReciboPathXML);
 
-                            if (System.IO.File.Exists(pathReciboPDF))
-                            {
-                                //Se elimina el archivo
-                                try
-                                {
-                                    System.IO.File.Delete(pathReciboPDF);
-                                }
-                                catch (Exception)
-                                {
-                                    respuesta.Mensaje = "Error al eliminar el archivo, intente de nuevo o contacte al administrador del sistema.";
-                                    respuesta.Exito = 0;
-                                    //return Ok(respuesta);
-                                }
-                            }
+                        //    if (System.IO.File.Exists(pathReciboPDF))
+                        //    {
+                        //        //Se elimina el archivo
+                        //        try
+                        //        {
+                        //            System.IO.File.Delete(pathReciboPDF);
+                        //        }
+                        //        catch (Exception)
+                        //        {
+                        //            respuesta.Mensaje = "Error al eliminar el archivo, intente de nuevo o contacte al administrador del sistema.";
+                        //            respuesta.Exito = 0;
+                        //            //return Ok(respuesta);
+                        //        }
+                        //    }
 
-                            if (System.IO.File.Exists(pathReciboXML))
-                            {
-                                //Se elimina el archivo
-                                try
-                                {
-                                    System.IO.File.Delete(pathReciboXML);
-                                }
-                                catch (Exception)
-                                {
-                                    respuesta.Mensaje = "Error al eliminar el archivo, intente de nuevo o contacte al administrador del sistema.";
-                                    respuesta.Exito = 0;
-                                    //return Ok(respuesta);
-                                }
-                            }
-                            context.Recibos.Remove(recibo);
-                        }
+                        //    if (System.IO.File.Exists(pathReciboXML))
+                        //    {
+                        //        //Se elimina el archivo
+                        //        try
+                        //        {
+                        //            System.IO.File.Delete(pathReciboXML);
+                        //        }
+                        //        catch (Exception)
+                        //        {
+                        //            respuesta.Mensaje = "Error al eliminar el archivo, intente de nuevo o contacte al administrador del sistema.";
+                        //            respuesta.Exito = 0;
+                        //            //return Ok(respuesta);
+                        //        }
+                        //    }
+                        //    context.Recibos.Remove(recibo);
+                        //}
                     }
                     try
                     {

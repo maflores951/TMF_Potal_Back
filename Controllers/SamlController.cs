@@ -107,7 +107,6 @@ namespace tmf_group.Controllers
                     oLog.Add(item.Type + " emailSAML_JsonSerializer2");
                     if (item.Type == "EMAIL") emailClaim = item.Value; //Amazon
                     //if (item.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier") emailClaim = item.Value; // OKTA
-                    
                 }
 
                 if (emailClaim == "")

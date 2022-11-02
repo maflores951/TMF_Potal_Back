@@ -10,6 +10,6 @@
     <WebStackScaffolding_LayoutPageFile />
     <WebStackScaffolding_DbContextTypeFullName>LoginBase.Models.DataContext</WebStackScaffolding_DbContextTypeFullName>
     <WebStackScaffolding_IsAsyncSelected>False</WebStackScaffolding_IsAsyncSelected>
-    <NameOfLastUsedPublishProfile>FolderProfile5</NameOfLastUsedPublishProfile>
+    <NameOfLastUsedPublishProfile>FolderProfile6</NameOfLastUsedPublishProfile>
   </PropertyGroup>
 </Project>

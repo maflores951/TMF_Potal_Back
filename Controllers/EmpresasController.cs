@@ -150,7 +150,7 @@ namespace tmf_group.Controllers
 
             if (empresaNombre != null)
             {
-                respuesta.Mensaje = "El nombre de usuario que ingreso ya está registrado.";
+                respuesta.Mensaje = "El nombre de la entidad que ingreso ya está registrado.";
                 respuesta.Exito = 0;
                 return Ok(respuesta);
             }

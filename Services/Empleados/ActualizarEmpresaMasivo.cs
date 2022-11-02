@@ -21,8 +21,8 @@ namespace tmf_group.Services.Empleados
             };
 
             string empleadosNoExisten = "Los siguientes empleados no están registrados en la base de datos: ";
-            string empleadosEmpresaExiste = "El número de empleado ya existe para esta empresa: ";
-            string empresaExiste = "La empresa no esta registrada en el sistema: ";
+            string empleadosEmpresaExiste = "El número de empleado ya existe para esta entidad: ";
+            string empresaExiste = "La entidad no esta registrada en el sistema: ";
             int contarNoExiste = 0;
             int contarEmpresaExiste = 0;
             int contarEmpresaNoExiste = 0;
@@ -48,7 +48,7 @@ namespace tmf_group.Services.Empleados
                     if (usuarioUpdate == null)
                     {
                         respuesta.Exito = 0;
-                        empleadosNoExisten += $"{usuario.EmpleadoNoEmp} de la empresa {usuario.EmpresaIdOld} , ";
+                        empleadosNoExisten += $"{usuario.EmpleadoNoEmp} de la entidad {usuario.EmpresaIdOld} , ";
                         contarNoExiste++;
                     }
 
@@ -68,7 +68,7 @@ namespace tmf_group.Services.Empleados
                     if (existeUsuarioEmpresa != null)
                     {
                         respuesta.Exito = 0;
-                        empleadosEmpresaExiste += $"{usuario.EmpleadoNoEmp} de la empresa {usuario.EmpresaIdNew} , ";
+                        empleadosEmpresaExiste += $"{usuario.EmpleadoNoEmp} de la entidad {usuario.EmpresaIdNew} , ";
                         contarEmpresaExiste++;
                     }
 

@@ -5,6 +5,6 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <_PublishTargetUrl>C:\inetpub\wwwroot\TMF_Portal_QA_Back</_PublishTargetUrl>
-    <History>True|2022-07-22T01:59:09.0198192Z;True|2022-07-21T20:24:12.8884334-05:00;True|2022-07-21T13:05:17.2239577-05:00;True|2022-07-21T12:06:33.4282319-05:00;</History>
+    <History>True|2022-10-12T18:07:08.6986776Z;True|2022-10-11T11:59:03.4881148-05:00;True|2022-07-21T20:59:09.0198192-05:00;True|2022-07-21T20:24:12.8884334-05:00;True|2022-07-21T13:05:17.2239577-05:00;True|2022-07-21T12:06:33.4282319-05:00;</History>
   </PropertyGroup>
 </Project>
